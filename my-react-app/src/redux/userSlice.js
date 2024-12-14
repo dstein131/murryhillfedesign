@@ -37,7 +37,7 @@ export const { setAuthenticated, setLoading, setUser, setError, logout } = userS
 export const login = (credentials) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await api.post('api/auth/login', credentials); // Replace with your login endpoint
+    const response = await api.post('api/users/login', credentials); // Replace with your login endpoint
     const { token, user } = response.data;
 
     // Save token to localStorage
