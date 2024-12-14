@@ -1,6 +1,7 @@
 import React from 'react';
 
-const musicList = [
+const Music = () => {
+  const musicList = [
     {
       title: 'Sleep Token - Hypnosis An offering from II',
       description: 'One of my favorite drummers. This song helps me focus when I work.',
@@ -17,7 +18,6 @@ const musicList = [
       videoUrl: 'https://www.youtube.com/embed/pQsF3pzOc54', // Embed URL
     },
   ];
-  
 
   return (
     <div className="music-page">
