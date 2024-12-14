@@ -61,31 +61,27 @@ export const login = (credentials) => async (dispatch) => {
 
 // Async thunk for verifying token
 export const verifyToken = () => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Send token to verify user
-      const response = await api.get('api/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-      });
-
-      // Set user state if token is valid
-      dispatch(setUser(response.data.user));
-      dispatch(setError(null)); // Clear any previous errors
-    } else {
-      dispatch(setUser(null)); // Clear user state if no token
+    dispatch(setLoading(true));
+    try {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const response = await api.get('/api/users/me', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            dispatch(setUser(response.data.user));
+        } else {
+            dispatch(setUser(null));
+        }
+    } catch (err) {
+        console.error('Error verifying token:', err);
+        dispatch(setUser(null));
+    } finally {
+        dispatch(setLoading(false));
     }
-  } catch (err) {
-    console.error('Error verifying token:', err);
-    dispatch(setUser(null));
-    dispatch(setError('Session expired. Please log in again.'));
-  } finally {
-    dispatch(setLoading(false));
-  }
 };
+
 
 // Async thunk for logging out
 export const logoutUser = () => async (dispatch) => {
