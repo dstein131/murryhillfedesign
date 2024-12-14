@@ -10,9 +10,6 @@ const Contact = () => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Initialize EmailJS with the Public Key
-  emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,19 +21,19 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
-  
-    // Log the public key for debugging
+
+    // Debug: Log environment variables
+    console.log("Service ID:", import.meta.env.VITE_EMAILJS_SERVICE_ID);
+    console.log("Template ID:", import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
     console.log("Public Key:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-  
-    // Initialize EmailJS with the Public Key
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-  
+
     // Send data using EmailJS
     emailjs
       .send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
-        formData // The data from the form
+        formData, // Form data
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Public Key
       )
       .then(
         (result) => {
@@ -53,7 +50,6 @@ const Contact = () => {
         setLoading(false);
       });
   };
-  
 
   return (
     <div className="contact-page">
