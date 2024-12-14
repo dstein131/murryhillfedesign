@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { verifyToken, logout } from '../redux/userSlice';
+import { verifyToken, logoutUser } from '../redux/userSlice';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 
@@ -22,7 +22,7 @@ const NavBar = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser()); // Logout user
     navigate('/'); // Navigate to the homepage after logout
   };
 

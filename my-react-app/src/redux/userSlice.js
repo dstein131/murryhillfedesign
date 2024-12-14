@@ -6,13 +6,10 @@ const userSlice = createSlice({
   initialState: {
     user: null, // Stores user details
     isAuthenticated: false,
-    loading: true,
-    error: null, // Optional: Track authentication-related errors
+    loading: false, // Updated default state
+    error: null, // Track authentication-related errors
   },
   reducers: {
-    setAuthenticated: (state, action) => {
-      state.isAuthenticated = action.payload;
-    },
     setUser: (state, action) => {
       state.user = action.payload;
       state.isAuthenticated = !!action.payload; // Determine authentication state
@@ -31,28 +28,36 @@ const userSlice = createSlice({
   },
 });
 
-export const { setAuthenticated, setLoading, setUser, setError, logout } = userSlice.actions;
+export const { setUser, setLoading, setError, logout } = userSlice.actions;
 
 // Async thunk for login
 export const login = (credentials) => async (dispatch) => {
-    dispatch(setLoading(true));
-    try {
-      const response = await api.post('api/users/login', credentials); // Correct endpoint
-      const { token, user } = response.data;
-  
-      // Save token to localStorage
-      localStorage.setItem('token', token);
-  
-      // Set user and authentication state
-      dispatch(setUser(user));
-    } catch (err) {
-      console.error('Error logging in:', err);
-      dispatch(setError(err.response?.data?.message || 'Login failed'));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-  
+  dispatch(setLoading(true));
+  try {
+    // Send login credentials to the API
+    const response = await api.post('api/users/login', credentials);
+    const { token } = response.data;
+
+    // Save the token to localStorage
+    localStorage.setItem('token', token);
+
+    // Fetch and set user data using the token
+    const userResponse = await api.get('api/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include token in Authorization header
+      },
+    });
+
+    // Set user state with the response
+    dispatch(setUser(userResponse.data.user));
+    dispatch(setError(null)); // Clear any previous errors
+  } catch (err) {
+    console.error('Error logging in:', err);
+    dispatch(setError(err.response?.data?.message || 'Login failed'));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
 
 // Async thunk for verifying token
 export const verifyToken = () => async (dispatch) => {
@@ -60,16 +65,36 @@ export const verifyToken = () => async (dispatch) => {
   try {
     const token = localStorage.getItem('token');
     if (token) {
-      const response = await api.get('api/users/me'); // Replace with your verification endpoint
+      // Send token to verify user
+      const response = await api.get('api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+      });
+
+      // Set user state if token is valid
       dispatch(setUser(response.data.user));
+      dispatch(setError(null)); // Clear any previous errors
     } else {
-      dispatch(setUser(null));
+      dispatch(setUser(null)); // Clear user state if no token
     }
   } catch (err) {
     console.error('Error verifying token:', err);
     dispatch(setUser(null));
+    dispatch(setError('Session expired. Please log in again.'));
   } finally {
     dispatch(setLoading(false));
+  }
+};
+
+// Async thunk for logging out
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await api.post('api/users/logout'); // Optional API call to invalidate the session on the server
+    dispatch(logout()); // Clear local state
+  } catch (err) {
+    console.error('Error logging out:', err);
+    dispatch(logout()); // Ensure local state is cleared regardless of API response
   }
 };
 

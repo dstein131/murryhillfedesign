@@ -13,16 +13,24 @@ const Login = ({ show, handleClose, onSuccess }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     try {
-      await dispatch(login({ email, password })); // Dispatch login thunk without unwrap
+      // Log the credentials (remove in production)
+      console.log('Submitting login:', { email, password });
+
+      // Dispatch the login action
+      await dispatch(login({ email, password }));
+
+      // Log success and execute success callback
+      console.log('Login successful');
       onSuccess(); // Close the modal on successful login
     } catch (err) {
-      setError('Login failed. Please try again.'); // Set error message
+      console.error('Login error:', err); // Log error
+      setError(err.response?.data?.message || 'Login failed. Please try again.'); // Display error message
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className={`modal ${show ? 'modal--visible' : ''}`}>
