@@ -22,13 +22,19 @@ const Contact = () => {
     setLoading(true);
     setStatus("");
 
+    // Include sender's email in the message body
+    const emailData = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: `Message from ${formData.name} (${formData.email}): ${formData.message}`,
+    };
 
     // Send data using EmailJS
     emailjs
       .send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
-        formData, // Form data
+        emailData, // Form data with sender's email
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Public Key
       )
       .then(
