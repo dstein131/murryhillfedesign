@@ -94,18 +94,20 @@ const uxProjects = [
       difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
       solutions: ['Interviewed users to understand their needs and pain points.', 'Designed a simple and intuitive dashboard with XD.'],
       screenshots: [
-        'https://i.imgur.com/xhPaBxw.png',
+        'https://i.imgur.com/HMCKuec.png',
         'https://i.imgur.com/sDM9SAf.png',
       ],
     },
     {
-      title: 'Mobile App UI Revamp',
-      description: 'Revamped the UI for a mobile productivity app to improve user engagement.',
-      difficulties: ['Designing a dark mode theme.', 'Ensuring consistent usability across different screen sizes.'],
-      solutions: ['Created a design system for reusable components.', 'Tested responsiveness using prototyping tools.'],
+      title: 'Masterfile Portal',
+      description: 'A mobile friendly slimmed down county management system for user to use while in the field.',
+      difficulties: ['Organizing the many tables and forms into a mobile friendly format that also allowed for easy data entry and review.'],
+      solutions: ['Create a tabbed based system that allowed for easy navigation and data entry.', 'Utilized programtic review of data to ensure data was entered correctly.'],
       screenshots: [
-        'https://via.placeholder.com/400x200',
-        'https://via.placeholder.com/400x200',
+        'https://i.imgur.com/ixWNQ0K.png',
+        'https://i.imgur.com/0yhnmSb.png',
+        'https://i.imgur.com/z8cicK0.png',
+
       ],
     },
     // Add more UX/UI projects...
