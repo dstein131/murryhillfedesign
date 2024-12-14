@@ -8,11 +8,29 @@ const Resume = () => {
       email: 'Dstein131@gmail.com',
     },
     education: [
+    {
+        institution: 'University of North Florida - Full Stack Academy',
+        degree: 'Full Stack Web Development',
+        
+   
+        details: [
+            'Relevant Coursework: HTML, CSS, JavaScript, React, Node.js, Express, MySQL.',
+        ],
+        },
+        {
+        institution: 'University of Denver',
+        degree: 'UX/UI BOOT CAMP',
+        
+      
+        details: [
+            'Relevant Coursework: Responsive Design, Color Theory, User Experience, User Interface Design.',
+        ],
+        },     
       {
         institution: 'Colorado State University – Global',
         degree: 'Masters in Finance (Business Intelligence Specialization)',
-        graduationYear: 'In Progress',
-        gpa: 3.52,
+        
+
         details: [
           'Relevant Coursework: Foundations of 21st Century Finance, Corporate Finance, Financial Markets, Investments.',
         ],
@@ -20,18 +38,29 @@ const Resume = () => {
       {
         institution: 'Florida International University',
         degree: 'Bachelor of Business Administration',
-        graduationYear: 2016,
-        gpa: 2.8,
+     
+    
         details: [
           'Relevant Coursework: Financial Management, Operations Management, Accounting, Marketing, Quantitative Methods.',
         ],
       },
     ],
     workExperience: [
+    {
+        company: 'SRI, Inc',
+        position: 'Full Stack Developer and UX/UI Designer',
+        years: '2021 – Present',
+        responsibilities: [
+        'Developed and maintained a React frontend for the SRI, Inc. web properties.',
+        'Performed user testing and feedback sessions to refine the interface.',
+        'DevOps: Created a CI/CD pipeline with GitHub Actions to Azure App Service.',
+        'MySql creation and management.',
+        ],
+    },
       {
         company: 'University of Colorado – Anschutz',
         position: 'Grant PreAward Specialist',
-        years: '2019 – Present',
+        years: '2019 – 2021',
         responsibilities: [
           'Review and prepare research grants for submission to funding agencies.',
           'Experienced with National Institute of Health grant submission rules.',
