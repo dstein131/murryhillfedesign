@@ -72,10 +72,17 @@ const NavBar = () => {
       </Navbar>
 
       {/* Login Modal */}
-      <Login show={showLogin} handleClose={() => setShowLogin(false)} />
+      <Login
+        show={showLogin}
+        handleClose={() => setShowLogin(false)}
+        onSuccess={() => setShowLogin(false)} // Close modal on successful login
+      />
 
       {/* Register Modal */}
-      <Register show={showRegister} handleClose={() => setShowRegister(false)} />
+      <Register
+        show={showRegister}
+        handleClose={() => setShowRegister(false)}
+      />
     </>
   );
 };

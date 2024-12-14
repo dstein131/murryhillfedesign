@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
 import api from '../api/api';
-import { useNavigate } from 'react-router-dom';
 
-const Login = ({ show, handleClose }) => {
+const Login = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('api/users/login', { email, password });
       localStorage.setItem('token', response.data.token);
-      alert('Login successful!');
-      handleClose();
-      navigate('/');
+      dispatch(login(response.data.user)); // Update Redux store with user data
+      onSuccess(); // Call onSuccess to close the modal
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed.');
     }

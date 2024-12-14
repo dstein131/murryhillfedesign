@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import api from '../api/api';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice'; // Import login action
 import { useNavigate } from 'react-router-dom';
 
 const Register = ({ show, handleClose }) => {
@@ -7,15 +9,18 @@ const Register = ({ show, handleClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('api/users/register', { username, email, password });
-      alert('Registration successful! Please log in.');
-      handleClose();
-      navigate('/login');
+      localStorage.setItem('token', response.data.token); // Save the token
+      dispatch(login(response.data.user)); // Automatically log in the user
+      alert('Registration successful!');
+      handleClose(); // Close the modal
+      navigate('/'); // Redirect to the home page or dashboard
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed.');
     }
