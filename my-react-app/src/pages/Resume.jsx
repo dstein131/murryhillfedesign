@@ -113,9 +113,10 @@ const Resume = () => {
 
   return (
     <div>
+        <center>
       <button onClick={generatePDF} className="btn-download-pdf">
         Download PDF
-      </button>
+      </button></center>
       <div className="resume-page" ref={resumeRef}>
         <header className="resume-page__header">
           <h1>{resumeData.contact.name}</h1>
@@ -123,6 +124,7 @@ const Resume = () => {
             Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
           </p>
         </header>
+        <center>
         <main>
           <section className="resume-section">
             <h2 className="resume-section__title">Education</h2>
@@ -177,6 +179,7 @@ const Resume = () => {
             </ul>
           </section>
         </main>
+        </center>
       </div>
     </div>
   );
