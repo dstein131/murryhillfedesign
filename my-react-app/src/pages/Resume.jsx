@@ -100,12 +100,22 @@ const Resume = () => {
       ],
     },
     skills: [
-      'Grant management and submission processes',
-      'Financial analysis and budget development',
-      'Data analytics and project management',
-      'Leadership and team coordination',
-      'Software: React, Node.js, MySQL, and Azure',
-    ],
+        'Full-stack development: React, Node.js, Express',
+        'Database management: MySQL, FusionAuth, PostgreSQL',
+        'Cloud services: Azure Blob Storage, Azure Hosting, SendGrid',
+        'Frontend libraries and tools: Material-UI, Bootstrap, TailwindCSS',
+        'Backend APIs and middleware development',
+        'Authentication and token management: FusionAuth, JWT',
+        'Version control: Git, GitHub, Replit CI/CD',
+        'Project management: Agile development workflows',
+        'Debugging and optimization: React hooks (useCallback), API integrations',
+        'Toolchain management: Vite, Webpack, Babel',
+        'UI/UX design: Adobe XD, responsive design principles',
+        'Deployment: Netlify, Replit, Docker basics',
+        'Video editing: YouTube content creation workflows',
+        'Event-driven programming: Discord bot development',
+      ],
+      
   };
 
   const obfuscateEmail = (email) => {
