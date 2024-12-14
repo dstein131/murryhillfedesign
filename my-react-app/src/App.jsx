@@ -10,6 +10,7 @@ const App = () => {
   const [user, setUser] = useState(null); // Global user state
   const [loadingUser, setLoadingUser] = useState(true);
 
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
