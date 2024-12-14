@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
 
-const projects = [
+const devProjects = [
   {
     title: 'Murray Hill Web Design - Frontend',
     description: 'A personal portfolio site to showcase my skills and projects.',
@@ -109,7 +109,7 @@ const uxProjects = [
       const Projects = () => {
         const [currentSection, setCurrentSection] = useState('development');
       
-        const projectsToDisplay = currentSection === 'development' ? projects : uxProjects;
+        const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
       
         return (
           <div className="projects-page">
