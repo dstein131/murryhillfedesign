@@ -405,12 +405,14 @@ input:focus {
   color: #fff;
 }
 
-
-
+/* General Styling for the Resume Page */
 .resume-page {
   padding: 2rem;
   color: var(--text-color);
   background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers all sections horizontally */
 }
 
 .resume-page__header {
@@ -420,12 +422,17 @@ input:focus {
 
 .resume-section {
   margin-bottom: 2rem;
+  width: 60%; /* Set a fixed width for consistent centering */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the content inside each section */
 }
 
 .resume-section__title {
   font-size: 1.8rem;
   color: var(--primary-color);
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .resume-item {
@@ -434,6 +441,8 @@ input:focus {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensures items fit within the section */
+  text-align: center; /* Centers the text inside items */
 }
 
 .resume-item h3 {
@@ -445,7 +454,9 @@ input:focus {
 .resume-skills {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Centers skill items */
   gap: 1rem;
+  width: 100%;
 }
 
 .resume-skills li {
@@ -454,6 +465,7 @@ input:focus {
   color: #fff;
   border-radius: 4px;
 }
+
 
 .contact-page {
   padding: 2rem;
