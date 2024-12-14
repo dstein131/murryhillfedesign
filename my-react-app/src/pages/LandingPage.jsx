@@ -15,9 +15,9 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <header className="landing-page__header">
-        <h1 className="landing-page__title">Welcome to My Portfolio</h1>
+        <h1 className="landing-page__title">Murray Hill Web Development</h1>
         <p className="landing-page__subtitle">
-          A showcase of my work, skills, and journey as a developer.
+          A showcase of my work, skills, and journey as a developer and a person.
         </p>
       </header>
       <main className="landing-page__main">
