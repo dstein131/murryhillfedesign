@@ -94,8 +94,8 @@ const uxProjects = [
       difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
       solutions: ['Interviewed users to understand their needs and pain points.', 'Designed a simple and intuitive dashboard with XD.'],
       screenshots: [
-        'https://via.placeholder.com/400x200',
-        'https://via.placeholder.com/400x200',
+        'https://i.imgur.com/xhPaBxw.png',
+        'https://i.imgur.com/sDM9SAf.png',
       ],
     },
     {
