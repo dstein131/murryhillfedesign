@@ -9,7 +9,7 @@ const LandingPage = () => {
     { title: 'About Me', description: 'Learn more about who I am and what I do.', route: '/about' },
     { title: 'Resume', description: 'View my professional experience and skills.', route: '/resume' },
     { title: 'Projects', description: 'Explore the apps and projects I’ve worked on.', route: '/projects' },
-    { title: 'Music', description: 'Music I love', route: '/music' },
+    { title: 'Music', description: 'Some of the music I listen to while I work.', route: '/music' },
     // { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
   ];
 
