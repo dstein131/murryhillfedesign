@@ -12,7 +12,7 @@ const projects = [
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
     ],
-    github: 'https://github.com/dstein131/Main', // GitHub repo link
+    github: 'https://github.com/dstein131/murryhillfedesign', // GitHub repo link
     demo: 'https://murrayhillwebdesign.netlify.app/', // Live demo URL
   },
   {
@@ -30,8 +30,8 @@ const projects = [
       'Implemented JWT authentication middleware to protect routes.',
       'Created a MySQL database schema and connected it to the app.',
     ],
-    github: 'https://github.com/yourusername/e-commerce-platform', // GitHub repo link
-    demo: 'https://ecommerce-platform-demo.netlify.app/', // Live demo URL
+    github: 'https://github.com/dstein131/Main', // GitHub repo link
+    demo: 'maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net', // Live demo URL
   },
   // Add more projects here
 ];
