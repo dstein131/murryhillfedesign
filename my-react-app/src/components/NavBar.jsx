@@ -16,13 +16,14 @@ const NavBar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
+  // Verify token on initial mount
   useEffect(() => {
-    dispatch(verifyToken()); // Verify token on component mount
+    dispatch(verifyToken());
   }, [dispatch]);
 
   const handleLogout = () => {
-    dispatch(logout()); // Dispatch logout action
-    navigate('/'); // Navigate to the homepage on logout
+    dispatch(logout());
+    navigate('/'); // Navigate to the homepage after logout
   };
 
   return (
@@ -77,7 +78,10 @@ const NavBar = () => {
       <Login
         show={showLogin}
         handleClose={() => setShowLogin(false)}
-        onSuccess={() => setShowLogin(false)} // Close modal on successful login
+        onSuccess={() => {
+          setShowLogin(false);
+          dispatch(verifyToken()); // Verify token immediately after successful login
+        }}
       />
 
       {/* Register Modal */}
