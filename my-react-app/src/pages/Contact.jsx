@@ -26,7 +26,7 @@ const Contact = () => {
     }
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/email/send', {
         method: 'POST',
         body: data, // Send FormData
       });
