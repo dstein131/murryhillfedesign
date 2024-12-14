@@ -1,47 +1,60 @@
-import React, { useState } from 'react';
-import api from '../api/api'; // Import the Axios instance
+import React, { useState } from "react";
+import api from "../api/api"; // Axios instance for API calls
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '', file: null });
-  const [status, setStatus] = useState('');
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    file: null,
+  });
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // Handle file input changes
   const handleFileChange = (e) => {
-    setFormData({ ...formData, file: e.target.files[0] }); // Capture the uploaded file
+    setFormData((prevState) => ({ ...prevState, file: e.target.files[0] }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setStatus("");
 
-    // Create FormData to handle file upload
+    // Create FormData for file upload
     const data = new FormData();
-    data.append('name', formData.name);
-    data.append('email', formData.email);
-    data.append('message', formData.message);
+    data.append("name", formData.name);
+    data.append("email", formData.email);
+    data.append("message", formData.message);
     if (formData.file) {
-      data.append('file', formData.file);
+      data.append("file", formData.file);
     }
 
     try {
-      const response = await api.post('/api/email/send', data, {
+      const response = await api.post("/api/email/send", data, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Ensure the correct content type
+          "Content-Type": "multipart/form-data",
         },
       });
 
       if (response.status === 200) {
-        setFormData({ name: '', email: '', message: '', file: null });
-        setStatus('Message sent successfully!');
+        setFormData({ name: "", email: "", message: "", file: null });
+        setStatus("Message sent successfully!");
       } else {
-        setStatus('Failed to send message. Please try again later.');
+        setStatus("Failed to send message. Please try again.");
       }
     } catch (error) {
-      console.error('Error:', error.response?.data || error.message);
-      setStatus('Failed to send message. Please try again later.');
+      console.error("Error sending message:", error.response?.data || error.message);
+      setStatus("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +65,11 @@ const Contact = () => {
         <p>Feel free to reach out by filling the form below!</p>
       </header>
       <main className="contact-page__main">
-        <form className="contact-form" onSubmit={handleSubmit} encType="multipart/form-data">
+        <form
+          className="contact-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <div className="contact-form__field">
             <label htmlFor="name">Name</label>
             <input
@@ -62,6 +79,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder="Your Name"
             />
           </div>
           <div className="contact-form__field">
@@ -73,6 +91,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder="Your Email Address"
             />
           </div>
           <div className="contact-form__field">
@@ -83,6 +102,7 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               required
+              placeholder="Your Message"
             ></textarea>
           </div>
           <div className="contact-form__field">
@@ -92,14 +112,14 @@ const Contact = () => {
               id="file"
               name="file"
               onChange={handleFileChange}
-              accept=".jpg,.png,.pdf,.docx" // Limit file types for security
+              accept=".jpg,.png,.pdf,.docx" // Allow specific file types
             />
           </div>
-          <button type="submit" className="contact-form__submit">
-            Send
+          <button type="submit" className="contact-form__submit" disabled={loading}>
+            {loading ? "Sending..." : "Send"}
           </button>
         </form>
-        {status && <p className="contact-form__status">{status}</p>}
+        {status && <p className={`contact-form__status ${status.includes("success") ? "success" : "error"}`}>{status}</p>}
       </main>
     </div>
   );
