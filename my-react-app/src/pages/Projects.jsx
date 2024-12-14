@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import html2canvas from 'html2canvas';
 
 const projects = [
   {
@@ -12,8 +13,8 @@ const projects = [
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
     ],
-    github: 'https://github.com/dstein131/murryhillfedesign', // GitHub repo link
-    demo: 'https://murrayhillwebdesign.netlify.app/', // Live demo URL
+    github: 'https://github.com/dstein131/murryhillfedesign',
+    demo: 'https://murrayhillwebdesign.netlify.app/',
   },
   {
     title: 'Main Website - Backend',
@@ -30,52 +31,40 @@ const projects = [
       'Implemented JWT authentication middleware to protect routes.',
       'Created a MySQL database schema and connected it to the app.',
     ],
-    github: 'https://github.com/dstein131/Main', // GitHub repo link
-    demo: 'maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net', // Live demo URL
+    github: 'https://github.com/dstein131/Main',
+    demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net/',
   },
-  {
-    title: 'SRI, Inc - Frontend',
-    description: 'A React frontend to unify the SRI, Inc. web presence.',
-    difficulties: [
-      'Creating a SSO solution for the various SRI, Inc. web properties.',
-      'Implementing a responsive design that works across devices.',
-      'Designing a user-friendly interface for non-technical users.',
-      'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
-    ],
-    solutions: [
-        'Implemented FusoinAuth to handle SSO for the various SRI, Inc. web properties.',
-        'Utilized Bootstrap and custom CSS to create a responsive design.',
-        'Conducted user testing and feedback sessions to refine the interface.',
-        'Designed a dashboard with React and Redux for state management.',
-    ],
-    github: 'https://github.com/dstein131/sri_services_web_node', // GitHub repo link
-    demo: 'https://sriserviceswebsiteimpl.azurewebsites.net/', // Live demo URL
-    },
-    {
-    title: 'SRI, Inc - Backend',
-    description: 'A Node.js backend for the SRI, Inc. web properties.',
-    difficulties: [
-      'Integrating FusionAuth with the backend for SSO.',
-      'Creating a RESTful API to interact with the frontend.',
-      'Creating a MySQL database to store user and site data.',
-      'Connecting to three different databases to retireive, sort, normalize, and store data to be used by the frontend.',
-    ],
-    solutions: [
-        'Configured FusionAuth to handle SSO and user authentication.',
-        'Designed a RESTful API with Express to interact with the frontend.',
-        'Created a MySQL database schema and connected it to the app.',
-        'Utilized multiple database connections to retrieve, sort, normalize, and store data.',
-        ],
-    github: 'https://github.com/dstein131/UserMgmt', // GitHub repo link
-    demo: 'https://usermgmtwebappimpl.azurewebsites.net/', // Live demo URL
-    },
-    
-
-
   // Add more projects here
 ];
 
 const Projects = () => {
+  const [screenshots, setScreenshots] = useState({});
+  const iframeRefs = useRef({}); // Ref to dynamically access iframes
+
+  const captureScreenshot = async (project, index) => {
+    const iframe = iframeRefs.current[index];
+    if (!iframe) return;
+
+    try {
+      const canvas = await html2canvas(iframe.contentDocument.body, {
+        useCORS: true, // Allow cross-origin requests
+      });
+      const imageURL = canvas.toDataURL();
+      setScreenshots((prev) => ({ ...prev, [index]: imageURL }));
+    } catch (error) {
+      console.error(`Failed to capture screenshot for ${project.title}:`, error);
+    }
+  };
+
+  useEffect(() => {
+    projects.forEach((project, index) => {
+      const iframe = iframeRefs.current[index];
+      if (iframe) {
+        iframe.onload = () => captureScreenshot(project, index);
+      }
+    });
+  }, []);
+
   return (
     <div className="projects-page">
       <header className="projects-page__header">
@@ -86,6 +75,21 @@ const Projects = () => {
         {projects.map((project, index) => (
           <div key={index} className="project-card">
             <h2 className="project-card__title">{project.title}</h2>
+            {screenshots[index] ? (
+              <img
+                src={screenshots[index]}
+                alt={`${project.title} Screenshot`}
+                className="project-card__screenshot"
+              />
+            ) : (
+              <div className="project-card__loading">Loading Screenshot...</div>
+            )}
+            <iframe
+              ref={(el) => (iframeRefs.current[index] = el)}
+              src={project.demo}
+              className="hidden-iframe"
+              title={`${project.title} Demo`}
+            />
             <p className="project-card__description">{project.description}</p>
             <h3 className="project-card__subtitle">Challenges:</h3>
             <ul className="project-card__list">
@@ -100,10 +104,20 @@ const Projects = () => {
               ))}
             </ul>
             <div className="project-card__links">
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card__link"
+              >
                 View on GitHub
               </a>
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card__link"
+              >
                 Live Demo
               </a>
             </div>
