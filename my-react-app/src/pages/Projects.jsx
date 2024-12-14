@@ -126,6 +126,7 @@ const uxProjects = [
                 <button
                   onClick={() => setCurrentSection('ux')}
                   className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
+                  style={{ marginLeft: '2rem' }}
                 >
                   UX/UI Projects
                 </button>
