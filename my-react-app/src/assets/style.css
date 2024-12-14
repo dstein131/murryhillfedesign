@@ -17,8 +17,6 @@
   --input-bg: #242424;
   --input-border: #646cff;
 }
-
-/* Base Typography */
 body {
   font-family: var(--font-family);
   margin: 0;
@@ -29,7 +27,38 @@ body {
   flex-direction: column;
   color: var(--text-color);
   background-color: var(--background-color);
+  position: relative;
+  overflow: hidden; /* Prevent scrollbars from appearing due to animation */
 }
+
+body::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0) 70%
+  );
+  animation: subtleMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes subtleMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, 20px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
 
 /* App Layout */
 #app {
