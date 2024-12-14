@@ -1,6 +1,4 @@
 import React, { useRef } from 'react';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 const Resume = () => {
   const resumeRef = useRef();
@@ -106,26 +104,16 @@ const Resume = () => {
     return `${localPart.replace(/./g, '*')}@${domain}`;
   };
 
-  const generatePDF = () => {
-    const input = resumeRef.current;
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('David_Stein_Resume.pdf');
-    });
-  };
-
   return (
     <div>
       <center>
-        <button onClick={generatePDF} className="btn-download-pdf">
+        <a
+          href="../resume/David_Stein_resume.pdf"
+          download="David_Stein_Resume.pdf"
+          className="btn-download-pdf"
+        >
           Download PDF
-        </button>
+        </a>
       </center>
       <div className="resume-page" ref={resumeRef}>
         <header className="resume-page__header">
@@ -149,7 +137,6 @@ const Resume = () => {
                 </div>
               ))}
             </section>
-
             <section className="resume-section">
               <h2 className="resume-section__title">Work Experience</h2>
               {resumeData.workExperience.map((job, index) => (
@@ -164,7 +151,6 @@ const Resume = () => {
                 </div>
               ))}
             </section>
-
             <section className="resume-section">
               <h2 className="resume-section__title">Military Service</h2>
               <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
@@ -179,7 +165,6 @@ const Resume = () => {
                 </div>
               ))}
             </section>
-
             <section className="resume-section">
               <h2 className="resume-section__title">Skills</h2>
               <ul className="resume-skills">
