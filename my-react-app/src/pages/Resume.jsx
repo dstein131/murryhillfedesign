@@ -8,94 +8,65 @@ const Resume = () => {
       phone: '305-984-7004',
       email: 'Dstein131@gmail.com',
     },
-    availability: {
-      jobType: 'Permanent',
-      workSchedule: 'Full-Time',
-      desiredLocation: 'United States – CO – Denver',
-    },
     education: [
       {
         institution: 'Colorado State University – Global',
-        program: 'Masters in Finance (MSF)',
-        specialization: 'Business Intelligence',
+        degree: 'Masters in Finance (Business Intelligence Specialization)',
+        graduationYear: 'In Progress',
         gpa: 3.52,
-        coursework: [
-          'Foundations of 21st Century Finance – Certificate',
-          'Fundamentals of Quantitative Analysis',
-          'Corporate Finance',
-          'Financial Markets and Institutions',
+        details: [
+          'Relevant Coursework: Foundations of 21st Century Finance, Corporate Finance, Financial Markets, Investments.',
         ],
       },
       {
         institution: 'Florida International University',
-        program: 'Bachelors in Business Administration',
+        degree: 'Bachelor of Business Administration',
+        graduationYear: 2016,
         gpa: 2.8,
-        coursework: [
-          'Introduction to Information Systems',
-          'Financial Management',
-          'Operations Management',
-          'Accounting',
+        details: [
+          'Relevant Coursework: Financial Management, Operations Management, Accounting, Marketing, Quantitative Methods.',
         ],
       },
     ],
     workExperience: [
       {
-        position: 'Grant PreAward Specialist',
         company: 'University of Colorado – Anschutz',
-        location: 'Aurora, CO',
-        years: '02/2019 – Present',
+        position: 'Grant PreAward Specialist',
+        years: '2019 – Present',
         responsibilities: [
-          'Reviewed research grants prior to submission to funding agencies.',
-          'Experienced with National Institute of Health rules and regulations for grant submissions.',
+          'Review and prepare research grants for submission to funding agencies.',
+          'Experienced with National Institute of Health grant submission rules.',
           'Developed budgets and managed timelines for funding cycles.',
         ],
       },
       {
-        position: 'CORE Business Operations Coordinator',
         company: 'University of Colorado – Anschutz',
-        location: 'Aurora, CO',
-        years: '02/2017 – 02/2019',
+        position: 'CORE Business Operations Coordinator',
+        years: '2017 – 2019',
         responsibilities: [
-          'Managed business operations for a Mass Spectrometry CORE.',
-          'Developed pricing structures for analytical chemistry assays.',
-          'Implemented project management systems for researchers.',
-        ],
-      },
-      {
-        position: 'INTAKE MANAGER',
-        company: 'University of Colorado – Addiction Resource & Treatment Services',
-        location: 'Denver, CO',
-        years: '07/2016 – 01/2017',
-        responsibilities: [
-          'Managed intake for four clinics serving over 1200 clients.',
-          'Coordinated with state and county agencies for billing and new client programs.',
+          'Managed business operations for the Mass Spectrometry CORE.',
+          'Developed pricing structures and invoicing for analytical services.',
+          'Organized national metabolomics courses for researchers.',
         ],
       },
     ],
     militaryService: {
       branch: 'United States Army',
-      years: '2009 – 2016',
+      serviceYears: '2009 – 2016',
       roles: [
         {
           position: 'Signals Intelligence Analyst',
           responsibilities: [
-            'Managed geosynchronous satellite resources for global early warning systems.',
-            'Deployed to Afghanistan as a Signals Intelligence Geospatial Analyst.',
-            'Collaborated with Pashtu linguists to disseminate actionable intelligence.',
+            'Managed geosynchronous satellite resources for global defense.',
+            'Deployed to Afghanistan for Operation Enduring Freedom.',
+            'Collaborated with Pashtu linguists for actionable intelligence.',
           ],
         },
         {
           position: 'Operations Non-Commissioned Officer',
           responsibilities: [
-            'Managed training and personnel for 133 service members.',
-            'Ensured compliance with Army regulations, including the Army Body Fat Composition Program.',
-          ],
-        },
-        {
-          position: 'Human Resource Specialist',
-          responsibilities: [
-            'Handled financial concerns for over 300 service members.',
-            'Managed life insurance policies and travel reimbursements.',
+            'Trained and managed personnel for a company of 133 service members.',
+            'Ensured compliance with Army regulations, including fitness standards.',
           ],
         },
       ],
@@ -103,21 +74,15 @@ const Resume = () => {
     skills: [
       'Grant management and submission processes',
       'Financial analysis and budget development',
-      'Project management and business operations',
-      'Data analytics and intelligence processing',
-      'Leadership and team management',
-    ],
-    awards: [
-      'Joint Service Commendation Medal',
-      'Army Commendation Medal',
-      'Army Achievement Medal (3rd Award)',
-      'Afghanistan Campaign Medal (2nd Award)',
+      'Data analytics and project management',
+      'Leadership and team coordination',
+      'Software: React, Node.js, MySQL, and Azure',
     ],
   };
 
   return (
     <div className="resume-page">
-      <header className="resume-header">
+      <header className="resume-page__header">
         <h1>{resumeData.contact.name}</h1>
         <p>{resumeData.contact.address}</p>
         <p>
@@ -126,34 +91,28 @@ const Resume = () => {
       </header>
 
       <main>
-        <section>
-          <h2>Availability</h2>
-          <p>Job Type: {resumeData.availability.jobType}</p>
-          <p>Work Schedule: {resumeData.availability.workSchedule}</p>
-          <p>Desired Location: {resumeData.availability.desiredLocation}</p>
-        </section>
-
-        <section>
-          <h2>Education</h2>
+        <section className="resume-section">
+          <h2 className="resume-section__title">Education</h2>
           {resumeData.education.map((edu, index) => (
-            <div key={index}>
-              <h3>{edu.program} - {edu.institution}</h3>
-              <p>GPA: {edu.gpa}</p>
+            <div key={index} className="resume-item">
+              <h3>{edu.degree} - {edu.institution}</h3>
+              <p><strong>Graduation Year:</strong> {edu.graduationYear}</p>
+              <p><strong>GPA:</strong> {edu.gpa}</p>
               <ul>
-                {edu.coursework.map((course, idx) => (
-                  <li key={idx}>{course}</li>
+                {edu.details.map((detail, idx) => (
+                  <li key={idx}>{detail}</li>
                 ))}
               </ul>
             </div>
           ))}
         </section>
 
-        <section>
-          <h2>Work Experience</h2>
+        <section className="resume-section">
+          <h2 className="resume-section__title">Work Experience</h2>
           {resumeData.workExperience.map((job, index) => (
-            <div key={index}>
+            <div key={index} className="resume-item">
               <h3>{job.position} - {job.company}</h3>
-              <p>{job.location} | {job.years}</p>
+              <p><strong>Years:</strong> {job.years}</p>
               <ul>
                 {job.responsibilities.map((responsibility, idx) => (
                   <li key={idx}>{responsibility}</li>
@@ -163,11 +122,11 @@ const Resume = () => {
           ))}
         </section>
 
-        <section>
-          <h2>Military Service</h2>
-          <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.years})</h3>
+        <section className="resume-section">
+          <h2 className="resume-section__title">Military Service</h2>
+          <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
           {resumeData.militaryService.roles.map((role, index) => (
-            <div key={index}>
+            <div key={index} className="resume-item">
               <h4>{role.position}</h4>
               <ul>
                 {role.responsibilities.map((responsibility, idx) => (
@@ -178,20 +137,11 @@ const Resume = () => {
           ))}
         </section>
 
-        <section>
-          <h2>Skills</h2>
-          <ul>
+        <section className="resume-section">
+          <h2 className="resume-section__title">Skills</h2>
+          <ul className="resume-skills">
             {resumeData.skills.map((skill, index) => (
               <li key={index}>{skill}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section>
-          <h2>Awards</h2>
-          <ul>
-            {resumeData.awards.map((award, index) => (
-              <li key={index}>{award}</li>
             ))}
           </ul>
         </section>
