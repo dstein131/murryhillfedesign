@@ -52,11 +52,11 @@ const Resume = () => {
       },
     ],
     skills: [
-      'Full-stack development (React, Node.js)',
-      'Financial modeling and analysis',
-      'Grant writing and management',
-      'Leadership and team coordination',
-      'Military logistics and operations',
+      'Full-stack development (React, Node.js, Express)',
+      'Azure cloud services | CI/CD pipelines',
+      'Front-end frameworks (Bootstrap, Material-UI)',
+      'UX/UI design principles',
+      'MySQL and PostgreSQL databases',
     ],
   };
 
