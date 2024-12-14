@@ -69,6 +69,23 @@ const projects = [
     github: 'https://github.com/dstein131/UserMgmt', // GitHub repo link
     demo: 'https://usermgmtwebappimpl.azurewebsites.net/', // Live demo URL
     },
+    {
+    title: 'Discord Bot',
+    description: 'A Discord bot to manage and moderate a server.',
+    difficulties: [
+      'First time using python or creating a bot.',
+      'Creating a bot that could be used by multiple servers.',
+      'Creating a method to avoid spam and other unwanted behavior.',
+    ],
+    solutions: [
+        'Utilized the discord.py library to create a bot that could be used by multiple servers.',
+        'Implemented methods to avoid spam and other unwanted behavior.',
+    ],
+    github: 'https://github.com/dstein131/clip_bot', // GitHub repo link
+    demo: 'N/A', // Live demo URL
+    },
+    
+    
     
 
 
