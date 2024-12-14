@@ -8,14 +8,14 @@ const Music = () => {
       videoUrl: 'https://www.youtube.com/watch?v=nNZlxQmpV8g', 
     },
     {
-      title: 'Song Title 2',
-      description: 'A nostalgic track that reminds me of great memories.',
-      videoUrl: 'https://www.youtube.com/embed/videoid2',
+      title: 'The Yussef Dayes Experience - Full Performance (Live on KEXP)',
+      description: 'Another brilliant drummer, great modern jazz fusion.',
+      videoUrl: 'https://www.youtube.com/watch?v=S1BuRprwXNc&t=348s',
     },
     {
-      title: 'Song Title 3',
-      description: 'This song has incredible energy and helps me focus while coding.',
-      videoUrl: 'https://www.youtube.com/embed/videoid3',
+      title: 'Mac DeMarco - Chamber Of Reflection',
+      description: 'Great all round vibes.',
+      videoUrl: 'https://www.youtube.com/watch?v=pQsF3pzOc54',
     },
     // Add more songs as needed
   ];
