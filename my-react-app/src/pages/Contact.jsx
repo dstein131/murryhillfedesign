@@ -10,6 +10,9 @@ const Contact = () => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Initialize EmailJS with the Public Key
+  emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +28,9 @@ const Contact = () => {
     // Send data using EmailJS
     emailjs
       .send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID, // EmailJS Service ID from .env
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // EmailJS Template ID from .env
-        formData, // The data from the form
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY // EmailJS Public Key from .env
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
+        formData // The data from the form
       )
       .then(
         (result) => {
