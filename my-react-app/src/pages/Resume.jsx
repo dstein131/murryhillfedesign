@@ -4,8 +4,8 @@ const Resume = () => {
   const resumeData = {
     contact: {
       name: 'David Stein',
-      phone: '305-984-7004',
-      email: 'Dstein131@gmail.com',
+    //   phone: '305-984-7004',
+    //   email: 'Dstein131@gmail.com',
     },
     education: [
       {
@@ -93,14 +93,14 @@ const Resume = () => {
     ],
   };
 
-  const maskPhone = (phone) => {
-    return phone.replace(/(\d{3})-(\d{3})-(\d{4})/, '$1-***-****');
-  };
+//   const maskPhone = (phone) => {
+//     return phone.replace(/(\d{3})-(\d{3})-(\d{4})/, '$1-***-****');
+//   };
 
-  const obfuscateEmail = (email) => {
-    const [localPart, domain] = email.split('@');
-    return `${localPart.replace(/./g, '*')}@${domain}`;
-  };
+//   const obfuscateEmail = (email) => {
+//     const [localPart, domain] = email.split('@');
+//     return `${localPart.replace(/./g, '*')}@${domain}`;
+//   };
 
   const buttonStyle = {
     backgroundColor: '#6A0DAD', // Purple color
@@ -130,9 +130,9 @@ const Resume = () => {
       <div className="resume-page">
         <header className="resume-page__header">
           <h1>{resumeData.contact.name}</h1>
-          <p>
-            Phone: {maskPhone(resumeData.contact.phone)} | Email: {obfuscateEmail(resumeData.contact.email)}
-          </p>
+          {/* <p>
+            Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
+          </p> */}
         </header>
         <center>
           <main>
