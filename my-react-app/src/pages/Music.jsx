@@ -20,7 +20,7 @@ const Music = () => {
     {
       title: 'TOPS - Petals',
       description: 'Relaxing and chill.',
-      videoUrl: 'https://www.youtube.com/watch?v=lguSVD7piyo',
+      videoUrl: 'https://www.youtube.com/embed/lguSVD7piyo',
     },
     
   ];
