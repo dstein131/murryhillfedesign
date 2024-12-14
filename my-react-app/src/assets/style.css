@@ -628,3 +628,25 @@ input:focus {
     max-height: 90%;
   }
 }
+
+/* Adjust layout for smaller screens */
+@media (max-width: 768px) {
+  .landing-page__title {
+    font-size: 2rem; /* Scale down the title */
+  }
+
+  .landing-page__subtitle {
+    font-size: 1rem; /* Adjust subtitle font size */
+    padding: 0 1rem; /* Add padding for better spacing */
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr; /* Single-column layout */
+    gap: 1rem; /* Reduce gap between cards */
+  }
+
+  .dashboard__card {
+    padding: 1rem; /* Reduce card padding */
+    font-size: 0.9rem; /* Adjust font size for smaller screens */
+  }
+}
