@@ -14,14 +14,15 @@ const Login = ({ show, handleClose, onSuccess }) => {
     setLoading(true);
     setError('');
     try {
-      await dispatch(login({ email, password })).unwrap(); // Dispatch login thunk
-      onSuccess(); // Close the modal and trigger success action
+      await dispatch(login({ email, password })); // Dispatch login thunk without unwrap
+      onSuccess(); // Close the modal on successful login
     } catch (err) {
-      setError(err.message || 'Login failed.'); // Set error message
+      setError('Login failed. Please try again.'); // Set error message
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className={`modal ${show ? 'modal--visible' : ''}`}>
