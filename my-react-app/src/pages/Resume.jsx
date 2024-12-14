@@ -1,8 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 const Resume = () => {
-  const resumeRef = useRef();
-
   const resumeData = {
     contact: {
       name: 'David Stein',
@@ -104,18 +102,32 @@ const Resume = () => {
     return `${localPart.replace(/./g, '*')}@${domain}`;
   };
 
+  const buttonStyle = {
+    backgroundColor: '#6A0DAD', // Purple color
+    color: '#FFF',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    marginTop: '20px',
+  };
+
   return (
     <div>
       <center>
         <a
-          href="../resume/David_Stein_resume.pdf"
+          href="../resume/David_Stein-Resume.pdf"
           download="David_Stein_Resume.pdf"
-          className="btn-download-pdf"
+          style={buttonStyle}
         >
           Download PDF
         </a>
       </center>
-      <div className="resume-page" ref={resumeRef}>
+      <div className="resume-page">
         <header className="resume-page__header">
           <h1>{resumeData.contact.name}</h1>
           <p>
