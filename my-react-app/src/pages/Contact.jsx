@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../api/api'; // Import the Axios instance
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', file: null });
@@ -26,19 +27,20 @@ const Contact = () => {
     }
 
     try {
-      const response = await fetch('/api/email/send', {
-        method: 'POST',
-        body: data, // Send FormData
+      const response = await api.post('/api/email/send', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Ensure the correct content type
+        },
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setFormData({ name: '', email: '', message: '', file: null });
         setStatus('Message sent successfully!');
       } else {
         setStatus('Failed to send message. Please try again later.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error.response?.data || error.message);
       setStatus('Failed to send message. Please try again later.');
     }
   };
