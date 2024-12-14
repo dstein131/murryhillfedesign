@@ -650,3 +650,9 @@ input:focus {
     font-size: 0.9rem; /* Adjust font size for smaller screens */
   }
 }
+
+.resume-page ul {
+  list-style-type: none; /* Remove bullets */
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+}
