@@ -97,7 +97,7 @@ const Projects = () => {
   return (
     <div className="projects-page">
       <header className="projects-page__header">
-        <h1>My Projects</h1>
+        {/* <h1>My Projects</h1> */}
         <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
       </header>
       <main className="projects-page__main">
