@@ -333,77 +333,68 @@ input:focus {
   }
 }
 
-
-.projects-page {
-  padding: 2rem;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-.projects-page__header {
+/* Project Page */
+.projects-page__header h1 {
+  font-size: 2rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
-.project-card {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+.projects-page__header p {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 1rem 2rem;
+}
+
+.projects-page__toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Add space between buttons */
+}
+
+.toggle-button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
-  background-color: var(--card-background-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjust width for better touch targets on small screens */
 }
 
-.project-card__title {
-  font-size: 1.8rem;
-  color: var(--primary-color);
+/* Project Cards */
+.project-card {
+  padding: 1rem;
+  margin: 0 1rem 2rem;
+  width: 100%;
 }
 
-.project-card__description {
-  margin: 0.5rem 0 1rem;
+.project-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
-.project-card__subtitle {
-  font-size: 1.4rem;
-  margin-top: 1rem;
-  color: var(--secondary-color);
+.project-card p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .project-card__list {
-  list-style-type: disc;
-  margin-left: 1.5rem;
-  line-height: 1.6;
-}
-
-.project-card__links {
-  margin-top: 1rem;
-  display: flex;
-  gap: 1rem;
+  margin-left: 1rem;
 }
 
 .project-card__link {
-  text-decoration: none;
-  color: var(--primary-color);
-  font-weight: bold;
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
+  font-size: 0.9rem;
   padding: 0.5rem 1rem;
-  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+  text-align: center;
 }
 
-.project-card__link:hover {
-  background-color: var(--primary-color);
-  color: #fff;
+.project-card__button {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
 
-.toggle-button.active {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-
-.toggle-button:hover {
-  background-color: var(--primary-hover);
-  color: #fff;
-}
 
 
 

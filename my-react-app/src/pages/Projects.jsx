@@ -114,12 +114,12 @@ const uxProjects = [
   ];
     
   const Projects = () => {
-    const [currentSection, setCurrentSection] = useState('development');
+    const [currentSection, setCurrentSection] = useState("development");
     const [modalVisible, setModalVisible] = useState(false);
     const [currentScreenshots, setCurrentScreenshots] = useState([]);
-    const [currentProject, setCurrentProject] = useState('');
+    const [currentProject, setCurrentProject] = useState("");
   
-    const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
+    const projectsToDisplay = currentSection === "development" ? devProjects : uxProjects;
   
     const openModal = (screenshots, title) => {
       setCurrentScreenshots(screenshots);
@@ -130,25 +130,24 @@ const uxProjects = [
     const closeModal = () => {
       setModalVisible(false);
       setCurrentScreenshots([]);
-      setCurrentProject('');
+      setCurrentProject("");
     };
   
     return (
       <div className="projects-page">
         <header className="projects-page__header">
-          <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
+          <h1>{currentSection === "development" ? "Development Projects" : "UX/UI Projects"}</h1>
           <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
           <div className="projects-page__toggle">
             <button
-              onClick={() => setCurrentSection('development')}
-              className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
+              onClick={() => setCurrentSection("development")}
+              className={`toggle-button ${currentSection === "development" ? "active" : ""}`}
             >
               Development Projects
             </button>
             <button
-              onClick={() => setCurrentSection('ux')}
-              className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
-              style={{ marginLeft: '2rem' }}
+              onClick={() => setCurrentSection("ux")}
+              className={`toggle-button ${currentSection === "ux" ? "active" : ""}`}
             >
               UX/UI Projects
             </button>
@@ -171,7 +170,7 @@ const uxProjects = [
                   <li key={idx}>{solution}</li>
                 ))}
               </ul>
-              {currentSection === 'ux' && (
+              {currentSection === "ux" && (
                 <button
                   onClick={() => openModal(project.screenshots, project.title)}
                   className="project-card__button"
@@ -179,7 +178,7 @@ const uxProjects = [
                   View Screenshots
                 </button>
               )}
-              {currentSection === 'development' && (
+              {currentSection === "development" && (
                 <div className="project-card__links">
                   {project.github && (
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
