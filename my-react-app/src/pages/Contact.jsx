@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', file: null });
   const [status, setStatus] = useState('');
 
   const handleChange = (e) => {
@@ -9,18 +9,30 @@ const Contact = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, file: e.target.files[0] }); // Capture the uploaded file
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create FormData to handle file upload
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('email', formData.email);
+    data.append('message', formData.message);
+    if (formData.file) {
+      data.append('file', formData.file);
+    }
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: data, // Send FormData
       });
 
       if (response.ok) {
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', message: '', file: null });
         setStatus('Message sent successfully!');
       } else {
         setStatus('Failed to send message. Please try again later.');
@@ -38,7 +50,7 @@ const Contact = () => {
         <p>Feel free to reach out by filling the form below!</p>
       </header>
       <main className="contact-page__main">
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="contact-form__field">
             <label htmlFor="name">Name</label>
             <input
@@ -70,6 +82,16 @@ const Contact = () => {
               onChange={handleChange}
               required
             ></textarea>
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="file">Attachment</label>
+            <input
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleFileChange}
+              accept=".jpg,.png,.pdf,.docx" // Limit file types for security
+            />
           </div>
           <button type="submit" className="contact-form__submit">
             Send
