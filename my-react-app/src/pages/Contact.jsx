@@ -22,10 +22,6 @@ const Contact = () => {
     setLoading(true);
     setStatus("");
 
-    // Debug: Log environment variables
-    console.log("Service ID:", import.meta.env.VITE_EMAILJS_SERVICE_ID);
-    console.log("Template ID:", import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
-    console.log("Public Key:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
     // Send data using EmailJS
     emailjs
