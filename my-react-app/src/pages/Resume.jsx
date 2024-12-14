@@ -119,8 +119,8 @@ const Resume = () => {
   return (
     <div>
       <center>
-        <a
-          href="../resume/David_Stein-Resume.pdf"
+      <a
+          href="/resume/David_Stein-Resume.pdf"
           download="David_Stein_Resume.pdf"
           style={buttonStyle}
         >
