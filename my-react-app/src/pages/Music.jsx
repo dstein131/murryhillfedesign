@@ -1,24 +1,23 @@
 import React from 'react';
 
-const Music = () => {
-  const musicList = [
+const musicList = [
     {
-      title: 'Sleep Token - ‘Hypnosis’ An offering from II',
+      title: 'Sleep Token - Hypnosis An offering from II',
       description: 'One of my favorite drummers. This song helps me focus when I work.',
-      videoUrl: 'https://www.youtube.com/watch?v=nNZlxQmpV8g', 
+      videoUrl: 'https://www.youtube.com/embed/nNZlxQmpV8g', // Embed URL
     },
     {
       title: 'The Yussef Dayes Experience - Full Performance (Live on KEXP)',
       description: 'Another brilliant drummer, great modern jazz fusion.',
-      videoUrl: 'https://www.youtube.com/watch?v=S1BuRprwXNc&t=348s',
+      videoUrl: 'https://www.youtube.com/embed/S1BuRprwXNc', // Embed URL
     },
     {
       title: 'Mac DeMarco - Chamber Of Reflection',
-      description: 'Great all round vibes.',
-      videoUrl: 'https://www.youtube.com/watch?v=pQsF3pzOc54',
+      description: 'Great all-round vibes.',
+      videoUrl: 'https://www.youtube.com/embed/pQsF3pzOc54', // Embed URL
     },
-    // Add more songs as needed
   ];
+  
 
   return (
     <div className="music-page">
