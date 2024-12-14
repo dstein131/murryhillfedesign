@@ -89,88 +89,134 @@ const devProjects = [
 
 const uxProjects = [
     {
-      title: 'E-commerce Redesign',
-      description: 'Redesigned a legacy e-commerce platform to improve usability and modernize its appearance.',
-      difficulties: ['Conducting user research to identify pain points.', 'Creating wireframes and mockups for iterative feedback.'],
-      solutions: ['Conducted user interviews and A/B testing.', 'Created high-fidelity mockups and collaborated with developers for implementation.'],
-      link: 'https://uxportfolio.example.com/ecommerce-redesign', // Example UX portfolio link
+      title: 'Lien Assist Program',
+      description: 'UX/UI design for a web app designed to assist County employees in managing liens.',
+      difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
+      solutions: ['Interviewed users to understand their needs and pain points.', 'Designed a simple and intuitive dashboard with XD.'],
+      screenshots: [
+        'https://via.placeholder.com/400x200',
+        'https://via.placeholder.com/400x200',
+      ],
     },
     {
       title: 'Mobile App UI Revamp',
       description: 'Revamped the UI for a mobile productivity app to improve user engagement.',
       difficulties: ['Designing a dark mode theme.', 'Ensuring consistent usability across different screen sizes.'],
       solutions: ['Created a design system for reusable components.', 'Tested responsiveness using prototyping tools.'],
-      link: 'https://uxportfolio.example.com/mobile-app-revamp', // Example UX portfolio link
+      screenshots: [
+        'https://via.placeholder.com/400x200',
+        'https://via.placeholder.com/400x200',
+      ],
     },
-    // Add more UX/UI projects here...
-  ];    
+    // Add more UX/UI projects...
+  ];
     
-    
-      const Projects = () => {
-        const [currentSection, setCurrentSection] = useState('development');
-      
-        const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
-      
-        return (
-          <div className="projects-page">
-            <header className="projects-page__header">
-              <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
-              <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
-              <div className="projects-page__toggle">
-                <button
-                  onClick={() => setCurrentSection('development')}
-                  className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
-                >
-                  Development Projects
-                </button>
-                <button
-                  onClick={() => setCurrentSection('ux')}
-                  className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
-                  style={{ marginLeft: '2rem' }}
-                >
-                  UX/UI Projects
-                </button>
-              </div>
-            </header>
-            <main className="projects-page__main">
-              {projectsToDisplay.map((project, index) => (
-                <div key={index} className="project-card">
-                  <h2 className="project-card__title">{project.title}</h2>
-                  <p className="project-card__description">{project.description}</p>
-                  <h3 className="project-card__subtitle">Challenges:</h3>
-                  <ul className="project-card__list">
-                    {project.difficulties.map((difficulty, idx) => (
-                      <li key={idx}>{difficulty}</li>
-                    ))}
-                  </ul>
-                  <h3 className="project-card__subtitle">Solutions:</h3>
-                  <ul className="project-card__list">
-                    {project.solutions.map((solution, idx) => (
-                      <li key={idx}>{solution}</li>
-                    ))}
-                  </ul>
-                  <div className="project-card__links">
-                    {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                        View on GitHub
-                      </a>
-                    )}
-                    {project.demo && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                        Live Demo
-                      </a>
-                    )}
-                    {project.link && (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                        View Case Study
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </main>
+  const Projects = () => {
+    const [currentSection, setCurrentSection] = useState('development');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [currentScreenshots, setCurrentScreenshots] = useState([]);
+    const [currentProject, setCurrentProject] = useState('');
+  
+    const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
+  
+    const openModal = (screenshots, title) => {
+      setCurrentScreenshots(screenshots);
+      setCurrentProject(title);
+      setModalVisible(true);
+    };
+  
+    const closeModal = () => {
+      setModalVisible(false);
+      setCurrentScreenshots([]);
+      setCurrentProject('');
+    };
+  
+    return (
+      <div className="projects-page">
+        <header className="projects-page__header">
+          <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
+          <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
+          <div className="projects-page__toggle">
+            <button
+              onClick={() => setCurrentSection('development')}
+              className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
+            >
+              Development Projects
+            </button>
+            <button
+              onClick={() => setCurrentSection('ux')}
+              className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
+              style={{ marginLeft: '2rem' }}
+            >
+              UX/UI Projects
+            </button>
           </div>
-        );
-      };
-      
-      export default Projects;
+        </header>
+        <main className="projects-page__main">
+          {projectsToDisplay.map((project, index) => (
+            <div key={index} className="project-card">
+              <h2 className="project-card__title">{project.title}</h2>
+              <p className="project-card__description">{project.description}</p>
+              <h3 className="project-card__subtitle">Challenges:</h3>
+              <ul className="project-card__list">
+                {project.difficulties.map((difficulty, idx) => (
+                  <li key={idx}>{difficulty}</li>
+                ))}
+              </ul>
+              <h3 className="project-card__subtitle">Solutions:</h3>
+              <ul className="project-card__list">
+                {project.solutions.map((solution, idx) => (
+                  <li key={idx}>{solution}</li>
+                ))}
+              </ul>
+              {currentSection === 'ux' && (
+                <button
+                  onClick={() => openModal(project.screenshots, project.title)}
+                  className="project-card__button"
+                >
+                  View Screenshots
+                </button>
+              )}
+              {currentSection === 'development' && (
+                <div className="project-card__links">
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
+                      View on GitHub
+                    </a>
+                  )}
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </main>
+        {modalVisible && (
+          <div className="ssmodal">
+            <div className="ssmodal__overlay" onClick={closeModal}></div>
+            <div className="ssmodal__content">
+              <button className="ssmodal__close" onClick={closeModal}>
+                &times;
+              </button>
+              <h2 className="ssmodal__title">Screenshots for {currentProject}</h2>
+              <div className="ssmodal__images">
+                {currentScreenshots.map((screenshot, idx) => (
+                  <img
+                    key={idx}
+                    src={screenshot}
+                    alt={`Screenshot of ${currentProject} - Image ${idx + 1}`}
+                    className="ssmodal__image"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+  
+  export default Projects;
