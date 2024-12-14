@@ -300,15 +300,6 @@ input:focus {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.project-card__screenshot {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
 .project-card__title {
   font-size: 1.8rem;
   color: var(--primary-color);
