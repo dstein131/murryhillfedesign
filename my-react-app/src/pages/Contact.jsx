@@ -21,20 +21,20 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
-
-    // Include sender's email in the message body
+  
+    // Structure the email data to include sender details
     const emailData = {
-      from_name: formData.name,
-      from_email: formData.email,
-      message: `Message from ${formData.name} (${formData.email}): ${formData.message}`,
+      from_name: formData.name, // Sender's name
+      from_email: formData.email, // Sender's email
+      message: formData.message, // The message content
     };
-
-    // Send data using EmailJS
+  
+    // Send the email via EmailJS
     emailjs
       .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
-        emailData, // Form data with sender's email
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, // Service ID
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // Template ID
+        emailData, // Structured data
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Public Key
       )
       .then(
@@ -52,7 +52,7 @@ const Contact = () => {
         setLoading(false);
       });
   };
-
+  
   return (
     <div className="contact-page">
       <header className="contact-page__header">
