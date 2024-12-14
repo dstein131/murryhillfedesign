@@ -97,6 +97,15 @@ const Resume = () => {
     ],
   };
 
+  const maskPhone = (phone) => {
+    return phone.replace(/(\d{3})-(\d{3})-(\d{4})/, '$1-***-****');
+  };
+
+  const obfuscateEmail = (email) => {
+    const [localPart, domain] = email.split('@');
+    return `${localPart.replace(/./g, '*')}@${domain}`;
+  };
+
   const generatePDF = () => {
     const input = resumeRef.current;
     html2canvas(input, { scale: 2 }).then((canvas) => {
@@ -113,72 +122,73 @@ const Resume = () => {
 
   return (
     <div>
-        <center>
-      <button onClick={generatePDF} className="btn-download-pdf">
-        Download PDF
-      </button></center>
+      <center>
+        <button onClick={generatePDF} className="btn-download-pdf">
+          Download PDF
+        </button>
+      </center>
       <div className="resume-page" ref={resumeRef}>
         <header className="resume-page__header">
           <h1>{resumeData.contact.name}</h1>
           <p>
-            Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
+            Phone: {maskPhone(resumeData.contact.phone)} | Email: {obfuscateEmail(resumeData.contact.email)}
           </p>
         </header>
         <center>
-        <main>
-          <section className="resume-section">
-            <h2 className="resume-section__title">Education</h2>
-            {resumeData.education.map((edu, index) => (
-              <div key={index} className="resume-item">
-                <h3>{edu.degree} - {edu.institution}</h3>
-                <ul>
-                  {edu.details.map((detail, idx) => (
-                    <li key={idx}>{detail}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </section>
-
-          <section className="resume-section">
-            <h2 className="resume-section__title">Work Experience</h2>
-            {resumeData.workExperience.map((job, index) => (
-              <div key={index} className="resume-item">
-                <h3>{job.position} - {job.company}</h3>
-                <p><strong>Years:</strong> {job.years}</p>
-                <ul>
-                  {job.responsibilities.map((responsibility, idx) => (
-                    <li key={idx}>{responsibility}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </section>
-
-          <section className="resume-section">
-            <h2 className="resume-section__title">Military Service</h2>
-            <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
-            {resumeData.militaryService.roles.map((role, index) => (
-              <div key={index} className="resume-item">
-                <h4>{role.position}</h4>
-                <ul>
-                  {role.responsibilities.map((responsibility, idx) => (
-                    <li key={idx}>{responsibility}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </section>
-
-          <section className="resume-section">
-            <h2 className="resume-section__title">Skills</h2>
-            <ul className="resume-skills">
-              {resumeData.skills.map((skill, index) => (
-                <li key={index}>{skill}</li>
+          <main>
+            <section className="resume-section">
+              <h2 className="resume-section__title">Education</h2>
+              {resumeData.education.map((edu, index) => (
+                <div key={index} className="resume-item">
+                  <h3>{edu.degree} - {edu.institution}</h3>
+                  <ul>
+                    {edu.details.map((detail, idx) => (
+                      <li key={idx}>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
-          </section>
-        </main>
+            </section>
+
+            <section className="resume-section">
+              <h2 className="resume-section__title">Work Experience</h2>
+              {resumeData.workExperience.map((job, index) => (
+                <div key={index} className="resume-item">
+                  <h3>{job.position} - {job.company}</h3>
+                  <p><strong>Years:</strong> {job.years}</p>
+                  <ul>
+                    {job.responsibilities.map((responsibility, idx) => (
+                      <li key={idx}>{responsibility}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+
+            <section className="resume-section">
+              <h2 className="resume-section__title">Military Service</h2>
+              <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
+              {resumeData.militaryService.roles.map((role, index) => (
+                <div key={index} className="resume-item">
+                  <h4>{role.position}</h4>
+                  <ul>
+                    {role.responsibilities.map((responsibility, idx) => (
+                      <li key={idx}>{responsibility}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+
+            <section className="resume-section">
+              <h2 className="resume-section__title">Skills</h2>
+              <ul className="resume-skills">
+                {resumeData.skills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
+            </section>
+          </main>
         </center>
       </div>
     </div>
