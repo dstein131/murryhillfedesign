@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import About from './pages/About'; // Import the About component
 import Projects from './pages/Projects'; // Import the Projects component
 import Resume from './pages/Resume'; // Import the Resume component
+import Contact from './pages/Contact'; // Import the Contact component
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
