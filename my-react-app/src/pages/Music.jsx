@@ -17,6 +17,12 @@ const Music = () => {
       description: 'Great all-round vibes.',
       videoUrl: 'https://www.youtube.com/embed/pQsF3pzOc54',
     },
+    {
+      title: 'TOPS - Petals',
+      description: 'Relaxing and chill.',
+      videoUrl: 'https://www.youtube.com/watch?v=lguSVD7piyo',
+    },
+    
   ];
 
   return (
