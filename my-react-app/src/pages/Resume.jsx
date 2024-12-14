@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const Resume = () => {
+  const resumeRef = useRef();
+
   const resumeData = {
     contact: {
       name: 'David Stein',
@@ -8,29 +12,23 @@ const Resume = () => {
       email: 'Dstein131@gmail.com',
     },
     education: [
-    {
+      {
         institution: 'University of North Florida - Full Stack Academy',
         degree: 'Full Stack Web Development',
-        
-   
         details: [
-            'Relevant Coursework: HTML, CSS, JavaScript, React, Node.js, Express, MySQL.',
+          'Relevant Coursework: HTML, CSS, JavaScript, React, Node.js, Express, MySQL.',
         ],
-        },
-        {
+      },
+      {
         institution: 'University of Denver',
         degree: 'UX/UI BOOT CAMP',
-        
-      
         details: [
-            'Relevant Coursework: Responsive Design, Color Theory, User Experience, User Interface Design.',
+          'Relevant Coursework: Responsive Design, Color Theory, User Experience, User Interface Design.',
         ],
-        },     
+      },
       {
         institution: 'Colorado State University – Global',
         degree: 'Masters in Finance (Business Intelligence Specialization)',
-        
-
         details: [
           'Relevant Coursework: Foundations of 21st Century Finance, Corporate Finance, Financial Markets, Investments.',
         ],
@@ -38,25 +36,23 @@ const Resume = () => {
       {
         institution: 'Florida International University',
         degree: 'Bachelor of Business Administration',
-     
-    
         details: [
           'Relevant Coursework: Financial Management, Operations Management, Accounting, Marketing, Quantitative Methods.',
         ],
       },
     ],
     workExperience: [
-    {
+      {
         company: 'SRI, Inc',
         position: 'Full Stack Developer and UX/UI Designer',
         years: '2021 – Present',
         responsibilities: [
-        'Developed and maintained a React frontend for the SRI, Inc. web properties.',
-        'Performed user testing and feedback sessions to refine the interface.',
-        'DevOps: Created a CI/CD pipeline with GitHub Actions to Azure App Service.',
-        'MySql creation and management.',
+          'Developed and maintained a React frontend for the SRI, Inc. web properties.',
+          'Performed user testing and feedback sessions to refine the interface.',
+          'DevOps: Created a CI/CD pipeline with GitHub Actions to Azure App Service.',
+          'MySql creation and management.',
         ],
-    },
+      },
       {
         company: 'University of Colorado – Anschutz',
         position: 'Grant PreAward Specialist',
@@ -65,16 +61,6 @@ const Resume = () => {
           'Review and prepare research grants for submission to funding agencies.',
           'Experienced with National Institute of Health grant submission rules.',
           'Developed budgets and managed timelines for funding cycles.',
-        ],
-      },
-      {
-        company: 'University of Colorado – Anschutz',
-        position: 'CORE Business Operations Coordinator',
-        years: '2017 – 2019',
-        responsibilities: [
-          'Managed business operations for the Mass Spectrometry CORE.',
-          'Developed pricing structures and invoicing for analytical services.',
-          'Organized national metabolomics courses for researchers.',
         ],
       },
     ],
@@ -100,98 +86,98 @@ const Resume = () => {
       ],
     },
     skills: [
-        'Full-stack development: React, Node.js, Express',
-        'Database management: MySQL, FusionAuth, PostgreSQL',
-        'Cloud services: Azure Blob Storage, Azure Hosting, SendGrid',
-        'Frontend libraries and tools: Material-UI, Bootstrap, TailwindCSS',
-        'Backend APIs and middleware development',
-        'Authentication and token management: FusionAuth, JWT',
-        'Version control: Git, GitHub, Replit CI/CD',
-        'Project management: Agile development workflows',
-        'Debugging and optimization: React hooks (useCallback), API integrations',
-        'Toolchain management: Vite, Webpack, Babel',
-        'UI/UX design: Adobe XD, responsive design principles',
-        'Deployment: Netlify, Replit, Docker basics',
-        'Video editing: YouTube content creation workflows',
-        'Event-driven programming: Discord bot development',
-      ],
-      
+      'Full-stack development: React, Node.js, Express',
+      'Database management: MySQL, FusionAuth, PostgreSQL',
+      'Cloud services: Azure Blob Storage, Azure Hosting, SendGrid',
+      'Frontend libraries and tools: Material-UI, Bootstrap, TailwindCSS',
+      'Backend APIs and middleware development',
+      'Authentication and token management: FusionAuth, JWT',
+      'Version control: Git, GitHub, Replit CI/CD',
+      'Project management: Agile development workflows',
+    ],
   };
 
-  const obfuscateEmail = (email) => {
-    const [localPart, domain] = email.split('@');
-    return `${localPart.replace(/./g, '*')}@${domain}`;
-  };
+  const generatePDF = () => {
+    const input = resumeRef.current;
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-  const displayPhone = (phone) => {
-    return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-****');
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('David_Stein_Resume.pdf');
+    });
   };
 
   return (
-    <div className="resume-page">
-      <header className="resume-page__header">
-        <h1>{resumeData.contact.name}</h1>
-        <p>
-          Phone: {displayPhone(resumeData.contact.phone)} | Email: <span>{obfuscateEmail(resumeData.contact.email)}</span>
-        </p>
-      </header>
-
-      <main>
-        <section className="resume-section">
-          <h2 className="resume-section__title">Education</h2>
-          {resumeData.education.map((edu, index) => (
-            <div key={index} className="resume-item">
-              <h3>{edu.degree} - {edu.institution}</h3>
-              <p><strong>Graduation Year:</strong> {edu.graduationYear}</p>
-              <p><strong>GPA:</strong> {edu.gpa}</p>
-              <ul>
-                {edu.details.map((detail, idx) => (
-                  <li key={idx}>{detail}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <section className="resume-section">
-          <h2 className="resume-section__title">Work Experience</h2>
-          {resumeData.workExperience.map((job, index) => (
-            <div key={index} className="resume-item">
-              <h3>{job.position} - {job.company}</h3>
-              <p><strong>Years:</strong> {job.years}</p>
-              <ul>
-                {job.responsibilities.map((responsibility, idx) => (
-                  <li key={idx}>{responsibility}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <section className="resume-section">
-          <h2 className="resume-section__title">Military Service</h2>
-          <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
-          {resumeData.militaryService.roles.map((role, index) => (
-            <div key={index} className="resume-item">
-              <h4>{role.position}</h4>
-              <ul>
-                {role.responsibilities.map((responsibility, idx) => (
-                  <li key={idx}>{responsibility}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <section className="resume-section">
-          <h2 className="resume-section__title">Skills</h2>
-          <ul className="resume-skills">
-            {resumeData.skills.map((skill, index) => (
-              <li key={index}>{skill}</li>
+    <div>
+      <button onClick={generatePDF} className="btn-download-pdf">
+        Download PDF
+      </button>
+      <div className="resume-page" ref={resumeRef}>
+        <header className="resume-page__header">
+          <h1>{resumeData.contact.name}</h1>
+          <p>
+            Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
+          </p>
+        </header>
+        <main>
+          <section className="resume-section">
+            <h2 className="resume-section__title">Education</h2>
+            {resumeData.education.map((edu, index) => (
+              <div key={index} className="resume-item">
+                <h3>{edu.degree} - {edu.institution}</h3>
+                <ul>
+                  {edu.details.map((detail, idx) => (
+                    <li key={idx}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-        </section>
-      </main>
+          </section>
+
+          <section className="resume-section">
+            <h2 className="resume-section__title">Work Experience</h2>
+            {resumeData.workExperience.map((job, index) => (
+              <div key={index} className="resume-item">
+                <h3>{job.position} - {job.company}</h3>
+                <p><strong>Years:</strong> {job.years}</p>
+                <ul>
+                  {job.responsibilities.map((responsibility, idx) => (
+                    <li key={idx}>{responsibility}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+
+          <section className="resume-section">
+            <h2 className="resume-section__title">Military Service</h2>
+            <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
+            {resumeData.militaryService.roles.map((role, index) => (
+              <div key={index} className="resume-item">
+                <h4>{role.position}</h4>
+                <ul>
+                  {role.responsibilities.map((responsibility, idx) => (
+                    <li key={idx}>{responsibility}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+
+          <section className="resume-section">
+            <h2 className="resume-section__title">Skills</h2>
+            <ul className="resume-skills">
+              {resumeData.skills.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
