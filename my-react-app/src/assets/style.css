@@ -191,7 +191,7 @@ input:focus {
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1100;
-  max-width: 600px;
+  max-width: 400px;
   width: 90%;
 }
 
@@ -205,6 +205,7 @@ input:focus {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
 
 /* Landing Page */
 .landing-page {
@@ -280,7 +281,6 @@ input:focus {
   color: var(--text-color);
 }
 
-/* Projects Page */
 .projects-page {
   padding: 2rem;
   color: var(--text-color);
@@ -309,6 +309,18 @@ input:focus {
   margin: 0.5rem 0 1rem;
 }
 
+.project-card__subtitle {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  color: var(--secondary-color);
+}
+
+.project-card__list {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  line-height: 1.6;
+}
+
 .project-card__links {
   margin-top: 1rem;
   display: flex;
@@ -330,7 +342,8 @@ input:focus {
   color: #fff;
 }
 
-/* Resume Page */
+
+
 .resume-page {
   padding: 2rem;
   color: var(--text-color);

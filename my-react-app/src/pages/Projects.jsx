@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const projects = [
   {
@@ -33,16 +33,6 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const openModal = (project) => {
-    setSelectedProject(project);
-  };
-
-  const closeModal = () => {
-    setSelectedProject(null);
-  };
-
   return (
     <div className="projects-page">
       <header className="projects-page__header">
@@ -54,9 +44,18 @@ const Projects = () => {
           <div key={index} className="project-card">
             <h2 className="project-card__title">{project.title}</h2>
             <p className="project-card__description">{project.description}</p>
-            <button className="project-card__button" onClick={() => openModal(project)}>
-              View Details
-            </button>
+            <h3 className="project-card__subtitle">Challenges:</h3>
+            <ul className="project-card__list">
+              {project.difficulties.map((difficulty, idx) => (
+                <li key={idx}>{difficulty}</li>
+              ))}
+            </ul>
+            <h3 className="project-card__subtitle">Solutions:</h3>
+            <ul className="project-card__list">
+              {project.solutions.map((solution, idx) => (
+                <li key={idx}>{solution}</li>
+              ))}
+            </ul>
             <div className="project-card__links">
               <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
                 View on GitHub
@@ -68,32 +67,6 @@ const Projects = () => {
           </div>
         ))}
       </main>
-
-      {/* Modal */}
-      {selectedProject && (
-        <div className="modal">
-          <div className="modal__overlay" onClick={closeModal}></div>
-          <div className="modal__content">
-            <button className="modal__close" onClick={closeModal}>
-              &times;
-            </button>
-            <h2>{selectedProject.title}</h2>
-            <p>{selectedProject.description}</p>
-            <h3>Challenges:</h3>
-            <ul>
-              {selectedProject.difficulties.map((difficulty, idx) => (
-                <li key={idx}>{difficulty}</li>
-              ))}
-            </ul>
-            <h3>Solutions:</h3>
-            <ul>
-              {selectedProject.solutions.map((solution, idx) => (
-                <li key={idx}>{solution}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
