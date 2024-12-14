@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice';
-import api from '../api/api';
 
 const Login = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Add a loading state
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     try {
-      const response = await api.post('api/users/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      dispatch(login(response.data.user)); // Update Redux store with user data
-      onSuccess(); // Call onSuccess to close the modal
+      await dispatch(login({ email, password })).unwrap(); // Dispatch login thunk
+      onSuccess(); // Close the modal and trigger success action
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed.');
+      setError(err.message || 'Login failed.'); // Set error message
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,7 +47,9 @@ const Login = ({ show, handleClose, onSuccess }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
       </div>
     </div>

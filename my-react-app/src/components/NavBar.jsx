@@ -11,7 +11,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   // Access user state and authentication state from Redux store
-  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated, loading } = useSelector((state) => state.user);
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -22,7 +22,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(logout()); // Dispatch logout action
-    navigate('/');
+    navigate('/'); // Navigate to the homepage on logout
   };
 
   return (
@@ -35,7 +35,9 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto d-flex align-items-center">
-              {!isAuthenticated ? (
+              {loading ? (
+                <Nav.Link className="fw-bold text-light">Loading...</Nav.Link>
+              ) : !isAuthenticated ? (
                 <>
                   <Button
                     variant="outline-light"
@@ -54,8 +56,8 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link className="fw-bold">
-                    {user ? `Welcome, ${user.username}` : 'Loading...'}
+                  <Nav.Link className="fw-bold text-light">
+                    {user ? `Welcome, ${user.username}` : 'Welcome!'}
                   </Nav.Link>
                   <Button
                     variant="outline-light"
