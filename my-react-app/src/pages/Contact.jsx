@@ -24,7 +24,13 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
-
+  
+    // Log the public key for debugging
+    console.log("Public Key:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  
+    // Initialize EmailJS with the Public Key
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  
     // Send data using EmailJS
     emailjs
       .send(
@@ -47,6 +53,7 @@ const Contact = () => {
         setLoading(false);
       });
   };
+  
 
   return (
     <div className="contact-page">
