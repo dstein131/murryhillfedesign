@@ -8,7 +8,6 @@ const Resume = () => {
   const resumeData = {
     contact: {
       name: 'David Stein',
-      phone: '305-984-7004',
       email: 'Dstein131@gmail.com',
     },
     education: [

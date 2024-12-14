@@ -420,6 +420,13 @@ input:focus {
   width: 50%;
 }
 
+@media (max-width: 768px) {
+  .resume-section {
+    width: 380px; /* Adjust to 380px on smaller screens */
+    max-width: 100%; /* Prevent overflow if the screen is narrower than 380px */
+  }
+}
+
 .resume-section__title {
   font-size: 1.8rem;
   color: var(--primary-color);
