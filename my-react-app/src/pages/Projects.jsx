@@ -109,7 +109,7 @@ const uxProjects = [
       const Projects = () => {
         const [currentSection, setCurrentSection] = useState('development');
       
-        const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
+        const projectsToDisplay = currentSection === 'development' ? projects : uxProjects;
       
         return (
           <div className="projects-page">
