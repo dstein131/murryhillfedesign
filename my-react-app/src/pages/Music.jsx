@@ -3,9 +3,9 @@ import React from 'react';
 const Music = () => {
   const musicList = [
     {
-      title: 'Song Title 1',
-      description: 'This is one of my favorite songs because it inspires me to keep going.',
-      videoUrl: 'https://www.youtube.com/embed/videoid1', // Replace with the actual YouTube video ID
+      title: 'Sleep Token - ‘Hypnosis’ An offering from II',
+      description: 'One of my favorite drummers. This song helps me focus when I work.',
+      videoUrl: 'https://www.youtube.com/watch?v=nNZlxQmpV8g', 
     },
     {
       title: 'Song Title 2',
