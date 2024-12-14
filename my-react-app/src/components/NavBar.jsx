@@ -30,7 +30,7 @@ const NavBar = () => {
       <Navbar bg="dark" variant="dark" expand="lg" className="navbar-full">
         <div className="container-fluid">
           <Navbar.Brand as={Link} to="/" className="fw-bold">
-            Murray Hill Web Development
+            MHWD
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
