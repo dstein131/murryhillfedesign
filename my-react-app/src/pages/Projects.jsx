@@ -80,6 +80,7 @@ const projects = [
     solutions: [
         'Utilized the discord.py library to create a bot that could be used by multiple servers.',
         'Implemented methods to avoid spam and other unwanted behavior.',
+        'Created other fun commands to keep users engaged.',
     ],
     github: 'https://github.com/dstein131/clip_bot', // GitHub repo link
     demo: 'N/A', // Live demo URL
