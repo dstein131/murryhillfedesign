@@ -1,16 +1,19 @@
+// src/main.jsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import LandingPage from './LandingPage';
-import About from './pages/About'; // Import the About component
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux'; // Import Provider from react-redux
+import store from '../src/redux/stores.js'; // Import Redux store
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import './assets/style.css'; // Your custom styles
 
-const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/about" element={<About />} /> {/* Add About route */}
-      {/* Add additional routes here */}
-    </Routes>
-  );
-};
-
-export default App;
+ReactDOM.createRoot(document.getElementById('app')).render(
+  <React.StrictMode>
+    <Provider store={store}> {/* Wrap application with Redux Provider */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
+);
