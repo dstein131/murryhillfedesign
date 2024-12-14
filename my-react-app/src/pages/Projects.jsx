@@ -142,13 +142,14 @@ const uxProjects = [
             <button
               onClick={() => setCurrentSection('development')}
               className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
+              style={{ margin: '2rem' }}
             >
               Development Projects
             </button>
             <button
               onClick={() => setCurrentSection('ux')}
               className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
-              style={{ marginLeft: '2rem' }}
+              style={{ margin: '2rem' }}
             >
               UX/UI Projects
             </button>
