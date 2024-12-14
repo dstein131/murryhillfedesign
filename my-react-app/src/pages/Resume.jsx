@@ -8,6 +8,7 @@ const Resume = () => {
   const resumeData = {
     contact: {
       name: 'David Stein',
+      phone: '305-984-7004',
       email: 'Dstein131@gmail.com',
     },
     education: [
@@ -107,47 +108,17 @@ const Resume = () => {
 
   const generatePDF = () => {
     const input = resumeRef.current;
-  
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-  
-      const contentWidth = canvas.width;
-      const contentHeight = canvas.height;
-  
-      const aspectRatio = contentHeight / contentWidth;
-      const pdfContentHeight = pdfWidth * aspectRatio;
-  
-      // If content height exceeds a single page, handle page breaking
-      if (pdfContentHeight > pdfHeight) {
-        const totalPages = Math.ceil(pdfContentHeight / pdfHeight);
-  
-        for (let page = 0; page < totalPages; page++) {
-          const yOffset = -(page * contentHeight) / totalPages;
-  
-          pdf.addImage(
-            imgData,
-            'PNG',
-            0,
-            yOffset * pdfHeight / contentHeight, // Adjust image position
-            pdfWidth,
-            pdfHeight
-          );
-  
-          if (page < totalPages - 1) {
-            pdf.addPage(); // Add new page if not the last one
-          }
-        }
-      } else {
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfContentHeight);
-      }
-  
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save('David_Stein_Resume.pdf');
     });
   };
-  
 
   return (
     <div>

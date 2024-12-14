@@ -216,7 +216,6 @@ input:focus {
   min-height: 100vh;
   color: var(--text-color);
   background-color: var(--background-color);
-  padding: 1rem; /* Add padding for mobile-friendly spacing */
 }
 
 .landing-page__header {
@@ -225,7 +224,7 @@ input:focus {
 }
 
 .landing-page__title {
-  font-size: 2.5rem; /* Default for larger screens */
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 0;
   color: var(--primary-color);
@@ -236,7 +235,6 @@ input:focus {
   font-weight: 300;
   color: var(--text-color);
   margin: 1rem 0;
-  text-align: center;
 }
 
 .landing-page__main {
@@ -247,12 +245,13 @@ input:focus {
   padding: 2rem;
 }
 
+/* Dashboard Cards */
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   width: 100%;
-  max-width: 1200px; /* Limit max width for larger screens */
+  max-width: 1200px;
 }
 
 .dashboard__card {
@@ -281,58 +280,6 @@ input:focus {
   font-size: 1rem;
   color: var(--text-color);
 }
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .landing-page__title {
-    font-size: 2rem; /* Adjust font size for smaller screens */
-  }
-
-  .landing-page__subtitle {
-    font-size: 1rem; /* Reduce subtitle size for readability */
-    margin: 0.5rem 0;
-  }
-
-  .dashboard {
-    grid-template-columns: 1fr; /* Single column layout for mobile */
-    gap: 1rem; /* Smaller gap for limited space */
-  }
-
-  .dashboard__card {
-    padding: 1rem; /* Adjust padding for smaller screens */
-  }
-
-  .dashboard__card-title {
-    font-size: 1.25rem; /* Smaller title size */
-  }
-
-  .dashboard__card-description {
-    font-size: 0.9rem; /* Smaller description size */
-  }
-}
-
-@media (max-width: 480px) {
-  .landing-page__title {
-    font-size: 1.8rem; /* Further reduce title size for very small screens */
-  }
-
-  .landing-page__subtitle {
-    font-size: 0.9rem; /* Adjust subtitle size */
-  }
-
-  .dashboard__card {
-    padding: 0.8rem; /* Adjust padding further for small screens */
-  }
-
-  .dashboard__card-title {
-    font-size: 1.1rem; /* Adjust card title size */
-  }
-
-  .dashboard__card-description {
-    font-size: 0.8rem; /* Smaller description size */
-  }
-}
-
 
 .projects-page {
   padding: 2rem;
@@ -395,13 +342,6 @@ input:focus {
   color: #fff;
 }
 
-/* Remove bullet points for ULs in the resume */
-.resume-item ul,
-.resume-section ul {
-  list-style-type: none; /* Removes bullet points */
-  padding: 0; /* Removes default padding */
-  margin: 0; /* Removes default margin */
-}
 
 
 .resume-page {
@@ -417,14 +357,6 @@ input:focus {
 
 .resume-section {
   margin-bottom: 2rem;
-  width: 50%;
-}
-
-@media (max-width: 768px) {
-  .resume-section {
-    width: 380px; /* Adjust to 380px on smaller screens */
-    max-width: 100%; /* Prevent overflow if the screen is narrower than 380px */
-  }
 }
 
 .resume-section__title {
@@ -580,6 +512,7 @@ input:focus {
 .about-page__cta-link:hover {
   background-color: var(--primary-hover);
 }
+
 .music-page {
   padding: 2rem;
   color: var(--text-color);
@@ -595,14 +528,9 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  justify-items: center; /* Center-align cards in their grid cells */
 }
 
 .music-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   background-color: var(--card-background-color);
   border: 1px solid var(--primary-color);
   border-radius: 8px;
@@ -615,18 +543,18 @@ input:focus {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary-color);
-  margin: 1rem 0 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .music-card__video {
   width: 100%;
   height: 200px;
-  border-radius: 8px;
   margin-bottom: 1rem;
+  border-radius: 8px;
 }
 
 .music-card__description {
   font-size: 1rem;
   color: var(--text-color);
-  margin-top: auto; /* Push description to the bottom */
 }
+
