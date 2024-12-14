@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import api from "../api/api"; // Axios instance for API calls
+import emailjs from "emailjs-com";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
-    file: null,
   });
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,59 +16,44 @@ const Contact = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  // Handle file input changes
-  const handleFileChange = (e) => {
-    setFormData((prevState) => ({ ...prevState, file: e.target.files[0] }));
-  };
-
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
 
-    // Create FormData for file upload
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("message", formData.message);
-    if (formData.file) {
-      data.append("file", formData.file);
-    }
-
-    try {
-      const response = await api.post("/api/email/send", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+    // Send data using EmailJS
+    emailjs
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID, // EmailJS Service ID from .env
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // EmailJS Template ID from .env
+        formData, // The data from the form
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY // EmailJS Public Key from .env
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          setFormData({ name: "", email: "", message: "" });
+          setStatus("Message sent successfully!");
         },
+        (error) => {
+          console.error("Error sending email:", error.text);
+          setStatus("Failed to send message. Please try again.");
+        }
+      )
+      .finally(() => {
+        setLoading(false);
       });
-
-      if (response.status === 200) {
-        setFormData({ name: "", email: "", message: "", file: null });
-        setStatus("Message sent successfully!");
-      } else {
-        setStatus("Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error sending message:", error.response?.data || error.message);
-      setStatus("Failed to send message. Please try again.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
     <div className="contact-page">
       <header className="contact-page__header">
         <h1>Contact Me</h1>
-        <p>Feel free to reach out by filling the form below!</p>
+        <p>Feel free to reach out by filling out the form below!</p>
       </header>
       <main className="contact-page__main">
-        <form
-          className="contact-form"
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-        >
+        <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-form__field">
             <label htmlFor="name">Name</label>
             <input
@@ -105,21 +89,19 @@ const Contact = () => {
               placeholder="Your Message"
             ></textarea>
           </div>
-          <div className="contact-form__field">
-            <label htmlFor="file">Attachment</label>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
-              accept=".jpg,.png,.pdf,.docx" // Allow specific file types
-            />
-          </div>
           <button type="submit" className="contact-form__submit" disabled={loading}>
             {loading ? "Sending..." : "Send"}
           </button>
         </form>
-        {status && <p className={`contact-form__status ${status.includes("success") ? "success" : "error"}`}>{status}</p>}
+        {status && (
+          <p
+            className={`contact-form__status ${
+              status.includes("success") ? "success" : "error"
+            }`}
+          >
+            {status}
+          </p>
+        )}
       </main>
     </div>
   );
