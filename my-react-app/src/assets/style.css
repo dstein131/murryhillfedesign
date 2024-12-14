@@ -417,6 +417,7 @@ input:focus {
 
 .resume-section {
   margin-bottom: 2rem;
+  width: 50%;
 }
 
 .resume-section__title {
