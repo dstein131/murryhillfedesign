@@ -341,3 +341,51 @@ input:focus {
   background-color: var(--primary-color);
   color: #fff;
 }
+
+.resume-page {
+  padding: 2rem;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.resume-page__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.resume-section {
+  margin-bottom: 2rem;
+}
+
+.resume-section__title {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.resume-item {
+  margin-bottom: 1.5rem;
+  background-color: var(--card-background-color);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resume-item h3 {
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.resume-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.resume-skills li {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 4px;
+}

@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} /> {/* Add About route */}
           <Route path="/projects" element={<Projects />} /> {/* Add Projects route */}
+          <Route path="/resume" element={<Resume />} /> {/* Add Resume route */}
         </Routes>
       </main>
     </div>
