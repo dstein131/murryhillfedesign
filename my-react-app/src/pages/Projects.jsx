@@ -84,52 +84,92 @@ const projects = [
     ],
     github: 'https://github.com/dstein131/clip_bot', // GitHub repo link
     demo: 'N/A', // Live demo URL
-    },
-    
-    
-    
-
-
-  // Add more projects here
+    }
 ];
 
-const Projects = () => {
-  return (
-    <div className="projects-page">
-      <header className="projects-page__header">
-        {/* <h1>My Projects</h1> */}
-        <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
-      </header>
-      <main className="projects-page__main">
-        {projects.map((project, index) => (
-          <div key={index} className="project-card">
-            <h2 className="project-card__title">{project.title}</h2>
-            <p className="project-card__description">{project.description}</p>
-            <h3 className="project-card__subtitle">Challenges:</h3>
-            <ul className="project-card__list">
-              {project.difficulties.map((difficulty, idx) => (
-                <li key={idx}>{difficulty}</li>
+const uxProjects = [
+    {
+      title: 'E-commerce Redesign',
+      description: 'Redesigned a legacy e-commerce platform to improve usability and modernize its appearance.',
+      difficulties: ['Conducting user research to identify pain points.', 'Creating wireframes and mockups for iterative feedback.'],
+      solutions: ['Conducted user interviews and A/B testing.', 'Created high-fidelity mockups and collaborated with developers for implementation.'],
+      link: 'https://uxportfolio.example.com/ecommerce-redesign', // Example UX portfolio link
+    },
+    {
+      title: 'Mobile App UI Revamp',
+      description: 'Revamped the UI for a mobile productivity app to improve user engagement.',
+      difficulties: ['Designing a dark mode theme.', 'Ensuring consistent usability across different screen sizes.'],
+      solutions: ['Created a design system for reusable components.', 'Tested responsiveness using prototyping tools.'],
+      link: 'https://uxportfolio.example.com/mobile-app-revamp', // Example UX portfolio link
+    },
+    // Add more UX/UI projects here...
+  ];    
+    
+    
+      const Projects = () => {
+        const [currentSection, setCurrentSection] = useState('development');
+      
+        const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
+      
+        return (
+          <div className="projects-page">
+            <header className="projects-page__header">
+              <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
+              <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
+              <div className="projects-page__toggle">
+                <button
+                  onClick={() => setCurrentSection('development')}
+                  className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
+                >
+                  Development Projects
+                </button>
+                <button
+                  onClick={() => setCurrentSection('ux')}
+                  className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
+                >
+                  UX/UI Projects
+                </button>
+              </div>
+            </header>
+            <main className="projects-page__main">
+              {projectsToDisplay.map((project, index) => (
+                <div key={index} className="project-card">
+                  <h2 className="project-card__title">{project.title}</h2>
+                  <p className="project-card__description">{project.description}</p>
+                  <h3 className="project-card__subtitle">Challenges:</h3>
+                  <ul className="project-card__list">
+                    {project.difficulties.map((difficulty, idx) => (
+                      <li key={idx}>{difficulty}</li>
+                    ))}
+                  </ul>
+                  <h3 className="project-card__subtitle">Solutions:</h3>
+                  <ul className="project-card__list">
+                    {project.solutions.map((solution, idx) => (
+                      <li key={idx}>{solution}</li>
+                    ))}
+                  </ul>
+                  <div className="project-card__links">
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
+                        View on GitHub
+                      </a>
+                    )}
+                    {project.demo && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
+                        Live Demo
+                      </a>
+                    )}
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-card__link">
+                        View Case Study
+                      </a>
+                    )}
+                  </div>
+                </div>
               ))}
-            </ul>
-            <h3 className="project-card__subtitle">Solutions:</h3>
-            <ul className="project-card__list">
-              {project.solutions.map((solution, idx) => (
-                <li key={idx}>{solution}</li>
-              ))}
-            </ul>
-            <div className="project-card__links">
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                View on GitHub
-              </a>
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                Live Demo
-              </a>
-            </div>
+            </main>
           </div>
-        ))}
-      </main>
-    </div>
-  );
-};
-
-export default Projects;
+        );
+      };
+      
+      export default Projects;
