@@ -2,7 +2,7 @@ import React from 'react';
 
 const projects = [
   {
-    title: 'Portfolio Website',
+    title: 'Murray Hill Web Design - Frontend',
     description: 'A personal portfolio site to showcase my skills and projects.',
     difficulties: [
       'Integrating dynamic routing with React Router.',
@@ -12,19 +12,23 @@ const projects = [
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
     ],
-    github: 'https://github.com/yourusername/portfolio-website', // GitHub repo link
+    github: 'https://github.com/dstein131/Main', // GitHub repo link
     demo: 'https://murrayhillwebdesign.netlify.app/', // Live demo URL
   },
   {
-    title: 'E-commerce Platform',
-    description: 'A fully-featured e-commerce platform with payment integration.',
+    title: 'Main Website - Backend',
+    description: 'A node/express backend for my personal site.',
     difficulties: [
-      'Managing complex state for the shopping cart and product filters.',
-      'Integrating secure payment gateways like Stripe.',
+      'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
+      'Implementing a RESTful API for the frontend to consume.',
+      'Securing the API with JWT authentication and authorization.',
+      'Setting up a MySQL database and hosting it on AWS RDS.',
     ],
     solutions: [
-      'Utilized Redux for state management, ensuring seamless user experience.',
-      'Followed Stripe documentation and sandbox testing to integrate payments.',
+      'Configured a GitHub Actions workflow to build and deploy the app on Azure.',
+      'Designed a RESTful API with Express and tested it with Postman.',
+      'Implemented JWT authentication middleware to protect routes.',
+      'Created a MySQL database schema and connected it to the app.',
     ],
     github: 'https://github.com/yourusername/e-commerce-platform', // GitHub repo link
     demo: 'https://ecommerce-platform-demo.netlify.app/', // Live demo URL
