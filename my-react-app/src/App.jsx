@@ -5,12 +5,12 @@ import NavBar from './components/NavBar';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import About from './pages/About'; // Import the About component
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
   const [loadingUser, setLoadingUser] = useState(true);
 
-  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -42,6 +42,7 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} /> {/* Add About route */}
         </Routes>
       </main>
     </div>
