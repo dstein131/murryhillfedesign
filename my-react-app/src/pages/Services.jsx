@@ -18,7 +18,7 @@ const Services = () => {
     {
       sectionTitle: 'Project Overview',
       description:
-        'We specialize in designing and developing modern, responsive static websites tailored to your unique needs. Our focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
+        'I specialize in designing and developing modern, responsive static websites tailored to your unique needs. Our focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
     },
     {
       sectionTitle: 'Pricing Packages',
@@ -180,7 +180,7 @@ const Services = () => {
   return (
     <div className="services-page">
       <header className="services-page__header">
-        <h1>Our Services</h1>
+        <h1>Services</h1>
         <p>Choose the package that best fits your needs and let’s build something great together!</p>
       </header>
 
