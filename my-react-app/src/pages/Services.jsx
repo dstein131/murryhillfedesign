@@ -18,7 +18,7 @@ const Services = () => {
     {
       sectionTitle: 'Project Overview',
       description:
-        'I specialize in designing and developing modern, responsive static websites tailored to your unique needs. Our focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
+        'I specialize in designing and developing modern, responsive static websites tailored to your unique needs. My focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
     },
     {
       sectionTitle: 'Pricing Packages',
