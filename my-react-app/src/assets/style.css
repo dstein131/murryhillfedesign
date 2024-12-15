@@ -656,3 +656,31 @@ input:focus {
   margin: 0; /* Reset margin */
   padding: 0; /* Reset padding */
 }
+
+
+/* Customizable Purple Buttons */
+.custom-button {
+  background-color: #535bf2; /* Secondary purple */
+  color: white;
+  border: 1px solid #535bf2; /* Matches button background */
+  font-weight: bold;
+  border-radius: 5px; /* Slightly rounded corners */
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #4444e2; /* Darker purple on hover */
+  border-color: #4444e2; /* Matches hover background */
+  color: #ffffff; /* Ensure text stays white */
+}
+
+.custom-button:active {
+  background-color: #3b3bd8; /* Even darker purple on click */
+  border-color: #3b3bd8;
+}
+
+.custom-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(83, 91, 242, 0.5); /* Purple focus ring */
+}

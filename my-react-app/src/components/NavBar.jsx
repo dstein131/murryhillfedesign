@@ -34,11 +34,7 @@ const NavBar = () => {
             <img
               src="/images/mhwd_logo.svg"
               alt="Murray Hill Web Development Logo"
-              style={{
-                height: '60px', // Increased height for better visibility
-                width: 'auto',
-                marginRight: '10px', // Adds spacing between the logo and other navbar items
-              }}
+              style={{ height: '40px', width: 'auto' }}
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
@@ -49,15 +45,13 @@ const NavBar = () => {
               ) : !isAuthenticated ? (
                 <>
                   <Button
-                    variant="outline-light"
-                    className="me-2 fw-bold"
+                    className="custom-button me-2"
                     onClick={() => setShowLogin(true)}
                   >
                     Login
                   </Button>
                   <Button
-                    variant="light"
-                    className="fw-bold"
+                    className="custom-button"
                     onClick={() => setShowRegister(true)}
                   >
                     Register
@@ -69,9 +63,8 @@ const NavBar = () => {
                     {user ? `Welcome, ${user.username}` : 'Welcome!'}
                   </Nav.Link>
                   <Button
-                    variant="outline-light"
+                    className="custom-button ms-2"
                     onClick={handleLogout}
-                    className="ms-2 fw-bold"
                   >
                     Logout
                   </Button>
