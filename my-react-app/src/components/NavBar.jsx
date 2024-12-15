@@ -30,8 +30,16 @@ const NavBar = () => {
     <>
       <Navbar bg="dark" variant="dark" expand="lg" className="navbar-full">
         <div className="container-fluid">
-          <Navbar.Brand as={Link} to="/" className="fw-bold">
-            MHWD
+          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+            <img
+              src="/images/mhwd_logo.svg"
+              alt="Murray Hill Web Development Logo"
+              style={{
+                height: '60px', // Increased height for better visibility
+                width: 'auto',
+                marginRight: '10px', // Adds spacing between the logo and other navbar items
+              }}
+            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
