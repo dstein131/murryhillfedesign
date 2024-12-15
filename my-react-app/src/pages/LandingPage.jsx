@@ -58,7 +58,7 @@ const LandingPage = () => {
           </div>
           <div style={{ marginBottom: '0.5rem' }}>
             <p>
-              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom APIs
+              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom APIs and Middleware
               <br />
               <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
                 Hosted on Azure with CI/CD pipeline
