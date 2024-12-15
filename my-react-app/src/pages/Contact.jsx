@@ -95,7 +95,7 @@ const Contact = () => {
             />
           </div>
           <div className="contact-form__field">
-            <label htmlFor="service">Service Interested In</label>
+            <label htmlFor="service">Service Interested In - Optional</label>
             <input
               type="text"
               id="service"
