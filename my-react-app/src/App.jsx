@@ -10,6 +10,7 @@ import Projects from './pages/Projects'; // Import the Projects component
 import Resume from './pages/Resume'; // Import the Resume component
 import Contact from './pages/Contact'; // Import the Contact component
 import Music from './pages/Music'; // Import the Music component
+import Blog from './pages/Blog';
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/resume" element={<Resume />} /> {/* Add Resume route */}
           <Route path="/contact" element={<Contact />} /> {/* Add Contact route */}
           <Route path="/music" element={<Music />} /> {/* Add Music route */}
+          <Route path="/blog" element={<Blog user={user} />} />
         </Routes>
       </main>
     </div>
