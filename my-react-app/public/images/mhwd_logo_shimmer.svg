@@ -1,0 +1,47 @@
+<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+
+    @keyframes shimmer {
+      0% {
+        fill: #535bf2;
+        stroke: #535bf2;
+      }
+      50% {
+        fill: #4444e2;
+        stroke: #4444e2;
+      }
+      100% {
+        fill: #535bf2;
+        stroke: #535bf2;
+      }
+    }
+
+    
+    .shimmer {
+      animation: shimmer 3s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Icon: Intertwined "M" and "H" -->
+  <g>
+    <!-- "M" Initial -->
+    <path class="shimmer" d="M30 80 L30 30 L45 50 L60 30 L60 80" 
+          stroke="#535bf2" stroke-width="2" fill="none" />
+    
+    <!-- "H" Initial -->
+    <path class="shimmer" d="M70 80 L70 30 M70 55 L90 55" 
+          stroke="#535bf2" stroke-width="2" />
+  </g>
+  
+  <!-- Company Name -->
+  <text x="100" y="50" 
+        font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" 
+        font-size="24" fill="#535bf2" font-weight="bold" class="shimmer">
+    Murray Hill
+  </text>
+  <text x="100" y="75" 
+        font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" 
+        font-size="16" fill="#535bf2" class="shimmer">
+    Web Development
+  </text>
+</svg>
