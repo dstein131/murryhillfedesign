@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import api from './api/api';
@@ -11,6 +13,7 @@ import Resume from './pages/Resume'; // Import the Resume component
 import Contact from './pages/Contact'; // Import the Contact component
 import Music from './pages/Music'; // Import the Music component
 import Blog from './pages/Blog';
+import Services from './pages/Services'; // Import the Services component
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
@@ -53,6 +56,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} /> {/* Add Contact route */}
           <Route path="/music" element={<Music />} /> {/* Add Music route */}
           <Route path="/blog" element={<Blog user={user} />} />
+          <Route path="/services" element={<Services />} /> {/* Add Services route */}
         </Routes>
       </main>
     </div>

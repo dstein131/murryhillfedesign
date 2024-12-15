@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+// src/pages/Contact.jsx
+
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 
 const Contact = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const prefilledService = queryParams.get('service') || '';
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    service: prefilledService, // Pre-fill service if available
     message: "",
   });
   const [status, setStatus] = useState("");
@@ -21,14 +29,15 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
-  
-    // Structure the email data to include sender details
+
+    // Structure the email data to include sender details and selected service
     const emailData = {
-      from_name: formData.name, // Sender's name
-      from_email: formData.email, // Sender's email
-      message: formData.message, // The message content
+      from_name: formData.name,
+      from_email: formData.email,
+      service: formData.service,
+      message: formData.message,
     };
-  
+
     // Send the email via EmailJS
     emailjs
       .send(
@@ -40,7 +49,7 @@ const Contact = () => {
       .then(
         (result) => {
           console.log("Email sent successfully:", result.text);
-          setFormData({ name: "", email: "", message: "" });
+          setFormData({ name: "", email: "", service: prefilledService, message: "" });
           setStatus("Message sent successfully!");
         },
         (error) => {
@@ -52,7 +61,7 @@ const Contact = () => {
         setLoading(false);
       });
   };
-  
+
   return (
     <div className="contact-page">
       <header className="contact-page__header">
@@ -83,6 +92,17 @@ const Contact = () => {
               onChange={handleChange}
               required
               placeholder="Your Email Address"
+            />
+          </div>
+          <div className="contact-form__field">
+            <label htmlFor="service">Service Interested In</label>
+            <input
+              type="text"
+              id="service"
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              placeholder="e.g., Basic Package, Standard Package"
             />
           </div>
           <div className="contact-form__field">
