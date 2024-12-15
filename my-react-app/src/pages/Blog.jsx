@@ -35,6 +35,9 @@ const Blog = () => {
   const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
   const [isAddTagModalOpen, setIsAddTagModalOpen] = useState(false);
 
+  // State for collapsible New Post Form
+  const [isNewPostCollapsed, setIsNewPostCollapsed] = useState(true);
+
   // Fetch all blog posts with optional filtering
   useEffect(() => {
     const fetchPosts = async () => {
@@ -215,9 +218,10 @@ const Blog = () => {
         throw new Error('Created post data not found.');
       }
 
-      // Reset the new post form
+      // Reset the new post form and collapse it
       setNewPost({ title: '', content: '', categories: [], tags: [] });
       setError('');
+      setIsNewPostCollapsed(true); // Collapse the form after successful creation
     } catch (err) {
       console.error('Error creating post:', err);
       setError('Failed to create post.');
@@ -316,8 +320,20 @@ const Blog = () => {
           </div>
         )}
 
-        {/* New Post Form */}
+        {/* Toggle New Post Form */}
         {isAuthenticated && (
+          <div className="blog-page__new-post-toggle">
+            <button
+              className="toggle-button"
+              onClick={() => setIsNewPostCollapsed(!isNewPostCollapsed)}
+            >
+              {isNewPostCollapsed ? 'Create a New Post' : 'Hide New Post Form'}
+            </button>
+          </div>
+        )}
+
+        {/* New Post Form */}
+        {isAuthenticated && !isNewPostCollapsed && (
           <div className="blog-page__new-post">
             <h2>Create a New Post</h2>
             <form onSubmit={handleCreatePost} className="blog-page__form">

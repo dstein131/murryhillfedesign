@@ -642,3 +642,43 @@ body {
 .modal__content {
     scroll-behavior: smooth;
 }
+
+/* Toggle Button for New Post Form */
+.blog-page__new-post-toggle {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.toggle-button {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+
+.toggle-button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Optional: Smooth Transition for Collapsing/Expanding Form */
+.blog-page__new-post {
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    overflow: hidden;
+}
+
+.blog-page__new-post-collapsed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.blog-page__new-post-expanded {
+    max-height: 2000px; /* A large enough value to accommodate the form */
+    opacity: 1;
+    pointer-events: all;
+}
