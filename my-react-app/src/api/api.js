@@ -29,11 +29,10 @@ api.interceptors.response.use(
   (error) => {
     if (error.response) {
       // Handle common errors (e.g., 401 Unauthorized)
-      if (error.response.status === 401) {
+      if (error.response.status === 401 && window.location.pathname !== '/login') {
         console.error('Unauthorized: Invalid token');
-        // Optionally: Redirect to login page or logout user
-        localStorage.removeItem('token');
-        window.location.href = '/login'; // Adjust path as per your app's routing
+        // Redirect only if not already on the login page
+        window.location.href = '/login';
       }
     } else {
       console.error('Network/Server error:', error.message);

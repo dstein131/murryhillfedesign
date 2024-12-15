@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import api from "../api/api"; // Import the API instance
 import "./ChatGPTInteraction.css"; // Import CSS for styling
 
@@ -7,6 +7,7 @@ const ChatGPTInteraction = () => {
   const [input, setInput] = useState(""); // State for user input
   const [loading, setLoading] = useState(false); // State to indicate if a response is being fetched
   const [error, setError] = useState(null); // State to handle errors
+  const messagesEndRef = useRef(null); // Ref for auto-scrolling
 
   // Function to send a message to the backend and get a response
   const handleSendMessage = async () => {
@@ -22,7 +23,7 @@ const ChatGPTInteraction = () => {
 
     try {
       // Send the message to the backend
-      const response = await api.post("/chatgpt/respond", {
+      const response = await api.post("/api/chatgpt/respond", {
         message: input.trim(),
       });
 
@@ -31,11 +32,22 @@ const ChatGPTInteraction = () => {
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error fetching response:", err);
-      setError("Failed to fetch response. Please try again.");
+      if (err.response?.status === 401) {
+        setError("Unauthorized access. Please log in.");
+      } else if (err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Failed to fetch response. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  // Auto-scroll to the bottom of the messages container
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   // Function to handle input changes
   const handleInputChange = (e) => setInput(e.target.value);
@@ -61,6 +73,7 @@ const ChatGPTInteraction = () => {
           </div>
         ))}
         {loading && <div className="chatgpt-message bot-message">Typing...</div>}
+        <div ref={messagesEndRef} /> {/* Auto-scroll target */}
       </div>
       {error && <div className="chatgpt-error">{error}</div>}
       <div className="chatgpt-input-container">
