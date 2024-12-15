@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -12,31 +13,60 @@ const LandingPage = () => {
     { title: 'Music', description: 'Some of the music I listen to while I work.', route: '/music' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
-    // { title: 'Interact with ChatGPT', description: 'Chat with an AI model.', route: '/chatgptinteraction' },
-   
   ];
 
   return (
     <div className="landing-page">
-      <header className="landing-page__header">
-        {/* Replace Title with Logo */}
+      <header className="landing-page__header text-center">
+        {/* Logo */}
         <img
           src="/images/mhwd_logo.svg"
           alt="Murray Hill Web Development Logo"
-          className="landing-page__logo"
-          style={{ height: '120px', width: 'auto', marginBottom: '20px' }}
+          className="landing-page__logo mb-4"
+          style={{ height: '120px', width: 'auto' }}
         />
-        {/* <p className="landing-page__subtitle">
-          A showcase of my work, skills, and journey as a developer and a person.
-        </p> */}
+
+        {/* Updated Technology Description */}
+        <div className="container" style={{ fontSize: '0.9rem' }}>
+          <div style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>
+            <p>
+              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on Netlify with CI/CD pipeline
+              </span>
+            </p>
+          </div>
+          <div style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>
+            <p>
+              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom APIs
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on Azure with CI/CD pipeline
+              </span>
+            </p>
+          </div>
+          <div style={{ color: 'var(--primary-color)' }}>
+            <p>
+              <strong>Database:</strong> MySQL
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on AWS RDS
+              </span>
+            </p>
+          </div>
+        </div>
       </header>
+
+      {/* Navigation Sections */}
       <main className="landing-page__main">
         <div className="dashboard">
           {sections.map((section, index) => (
             <div
               key={index}
-              className="dashboard__card"
+              className="dashboard__card mb-3 p-3 border rounded"
               onClick={() => navigate(section.route)}
+              style={{ cursor: 'pointer' }}
             >
               <h2 className="dashboard__card-title">{section.title}</h2>
               <p className="dashboard__card-description">{section.description}</p>
