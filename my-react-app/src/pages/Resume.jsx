@@ -129,7 +129,7 @@ const Resume = () => {
       </center>
       <div className="resume-page">
         <header className="resume-page__header">
-          <h1>{resumeData.contact.name}</h1>
+          <h3>{resumeData.contact.name}</h3>
           {/* <p>
             Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
           </p> */}
