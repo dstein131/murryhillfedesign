@@ -25,37 +25,6 @@ const LandingPage = () => {
           className="landing-page__logo mb-4"
           style={{ height: '120px', width: 'auto' }}
         />
-
-        {/* Updated Technology Description */}
-        <div className="container" style={{ fontSize: '0.9rem' }}>
-          <div style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>
-            <p>
-              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios
-              <br />
-              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
-                Hosted on Netlify with CI/CD pipeline
-              </span>
-            </p>
-          </div>
-          <div style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>
-            <p>
-              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom APIs
-              <br />
-              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
-                Hosted on Azure with CI/CD pipeline
-              </span>
-            </p>
-          </div>
-          <div style={{ color: 'var(--primary-color)' }}>
-            <p>
-              <strong>Database:</strong> MySQL
-              <br />
-              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
-                Hosted on AWS RDS
-              </span>
-            </p>
-          </div>
-        </div>
       </header>
 
       {/* Navigation Sections */}
@@ -74,6 +43,39 @@ const LandingPage = () => {
           ))}
         </div>
       </main>
+
+      {/* Technology Description Section as Footer */}
+      <footer className="landing-page__footer mt-4" style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
+        <div className="container text-center">
+          <div style={{ marginBottom: '0.5rem' }}>
+            <p>
+              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on Netlify with CI/CD pipeline
+              </span>
+            </p>
+          </div>
+          <div style={{ marginBottom: '0.5rem' }}>
+            <p>
+              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on Azure with CI/CD pipeline
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <strong>Database:</strong> MySQL
+              <br />
+              <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
+                Hosted on AWS RDS
+              </span>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
