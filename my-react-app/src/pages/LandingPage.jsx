@@ -21,7 +21,7 @@ const LandingPage = () => {
           src="/images/mhwd_logo.svg"
           alt="Murray Hill Web Development Logo"
           className="landing-page__logo"
-          style={{ height: '80px', width: 'auto', marginBottom: '20px' }}
+          style={{ height: '120px', width: 'auto', marginBottom: '20px' }}
         />
         <p className="landing-page__subtitle">
           A showcase of my work, skills, and journey as a developer and a person.

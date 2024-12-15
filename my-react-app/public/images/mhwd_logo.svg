@@ -2,13 +2,23 @@
   <!-- Icon: Intertwined "M" and "H" -->
   <g>
     <!-- "M" Initial -->
-    <path d="M20 80 L20 30 L35 50 L50 30 L50 80" stroke="#646cff" stroke-width="2" fill="none"/>
+    <path d="M30 80 L30 30 L45 50 L60 30 L60 80" 
+          stroke="#535bf2" stroke-width="2" fill="none" />
     
     <!-- "H" Initial -->
-    <path d="M60 80 L60 30 M60 55 L80 55" stroke="#646cff" stroke-width="2"/>
+    <path d="M70 80 L70 30 M70 55 L90 55" 
+          stroke="#535bf2" stroke-width="2" />
   </g>
   
   <!-- Company Name -->
-  <text x="90" y="50" font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" font-size="24" fill="#535bf2" font-weight="bold">Murray Hill</text>
-  <text x="90" y="75" font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" font-size="16" fill="#4444e2">Web Development</text>
+  <text x="100" y="50" 
+        font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" 
+        font-size="24" fill="#535bf2" font-weight="bold">
+    Murray Hill
+  </text>
+  <text x="100" y="75" 
+        font-family="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif" 
+        font-size="16" fill="#535bf2">
+    Web Development
+  </text>
 </svg>
