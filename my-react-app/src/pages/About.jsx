@@ -14,6 +14,7 @@ const About = () => {
             My journey into development started as a UX/UI designer who recognized that there was a discontent between deisgn and development. 
             I decided to bridge that gap by learning to code and becoming a full-stack developer where I was easily able to transition my design skills into development.
           </p>
+          <p>Your website has the potential to be more than just a static online presence. It can become a powerful tool to drive growth and success for your business. From managing inventory and users to handling photos, sales, and more, your website can be a dynamic solution tailored to your needs.</p>
           <p>What interest me the most is problem solving and creating. Learning to build something new and seeing it come to life is what drives me.</p>
         </section>
 
