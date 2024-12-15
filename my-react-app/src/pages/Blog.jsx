@@ -191,24 +191,24 @@ const Blog = () => {
       const response = await api.post('/api/blog/posts', payload);
 
       // Extract postId from the response
-      const { postId } = response.data;
+      const { post } = response.data;
 
-      if (!postId) {
-        throw new Error('Post ID not returned from the server.');
+      if (!post || !post.id) {
+        throw new Error('Post data not returned from the server.');
       }
 
       // Assign categories and tags to the new post
       await Promise.all([
-        api.post(`/api/blog/posts/${postId}/categories`, {
+        api.post(`/api/blog/posts/${post.id}/categories`, {
           categoryIds: newPost.categories,
         }),
-        api.post(`/api/blog/posts/${postId}/tags`, {
+        api.post(`/api/blog/posts/${post.id}/tags`, {
           tagIds: newPost.tags,
         }),
       ]);
 
       // Fetch the newly created post with its categories and tags to ensure consistency
-      const fetchCreatedPost = await api.get(`/api/blog/posts/${postId}`);
+      const fetchCreatedPost = await api.get(`/api/blog/posts/${post.id}`);
       if (fetchCreatedPost.data.post) {
         setPosts([fetchCreatedPost.data.post, ...posts]);
       } else {
@@ -410,6 +410,8 @@ const Blog = () => {
               <div key={post.id} className="blog-page__post-card" onClick={() => handleSelectPost(post)}>
                 <h2 className="blog-page__post-title">{post.title}</h2>
                 <p className="blog-page__post-date">Published on {new Date(post.created_at).toLocaleDateString()}</p>
+                <p className="blog-page__post-author"><strong>Author:</strong> {post.author}</p>
+                <p className="blog-page__post-comments"><strong>Comments:</strong> {post.commentCount}</p>
                 <div
                   className="blog-page__post-excerpt"
                   dangerouslySetInnerHTML={{ __html: post.content.substring(0, 100) + '...' }}
@@ -472,6 +474,7 @@ const Blog = () => {
             </button>
             <h2 className="modal__title">{selectedPost.title}</h2>
             <p className="modal__date">Published on {new Date(selectedPost.created_at).toLocaleDateString()}</p>
+            <p className="modal__author"><strong>Author:</strong> {selectedPost.author}</p>
             <div className="modal__body">
               <div dangerouslySetInnerHTML={{ __html: selectedPost.content }}></div>
               <div className="modal__post-meta">
@@ -518,7 +521,7 @@ const Blog = () => {
               </div>
             </div>
             <hr />
-            <h3 className="modal__subtitle">Comments</h3>
+            <h3 className="modal__subtitle">Comments ({comments.length})</h3>
             <div className="modal__comments">
               {comments.length > 0 ? (
                 comments.map((comment) => (
