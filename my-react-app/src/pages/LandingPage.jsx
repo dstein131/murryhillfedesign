@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const LandingPage = () => {
   const navigate = useNavigate();
 
@@ -17,7 +16,13 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <header className="landing-page__header">
-        <h1 className="landing-page__title">Murray Hill Web Development</h1>
+        {/* Replace Title with Logo */}
+        <img
+          src="/images/mhwd_logo.svg"
+          alt="Murray Hill Web Development Logo"
+          className="landing-page__logo"
+          style={{ height: '80px', width: 'auto', marginBottom: '20px' }}
+        />
         <p className="landing-page__subtitle">
           A showcase of my work, skills, and journey as a developer and a person.
         </p>
