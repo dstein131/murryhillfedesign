@@ -7,10 +7,12 @@ const devProjects = [
     difficulties: [
       'Integrating dynamic routing with React Router.',
       'Deploying the site with Netlify and handling CORS issues.',
+      'Setting up DNS records and configuring custom domains.',
     ],
     solutions: [
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
+      'Configured DNS records with Netlify and added a custom domain.',
     ],
     github: 'https://github.com/dstein131/murryhillfedesign', // GitHub repo link
     demo: 'https://murrayhillwebdesign.netlify.app/', // Live demo URL
