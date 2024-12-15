@@ -24,9 +24,9 @@ const LandingPage = () => {
           className="landing-page__logo"
           style={{ height: '120px', width: 'auto', marginBottom: '20px' }}
         />
-        <p className="landing-page__subtitle">
+        {/* <p className="landing-page__subtitle">
           A showcase of my work, skills, and journey as a developer and a person.
-        </p>
+        </p> */}
       </header>
       <main className="landing-page__main">
         <div className="dashboard">
