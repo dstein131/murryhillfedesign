@@ -12,6 +12,8 @@ const LandingPage = () => {
     { title: 'Music', description: 'Some of the music I listen to while I work.', route: '/music' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
+    { title: 'Interact with ChatGPT', description: 'Chat with an AI model.', route: '/chatgptinteraction' },
+   
   ];
 
   return (
