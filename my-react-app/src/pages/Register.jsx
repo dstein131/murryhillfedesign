@@ -47,7 +47,7 @@ const Register = ({ show, handleClose }) => {
   const handleGoogleLogin = async (response) => {
     try {
       const { credential } = response;
-      const googleResponse = await api.post('/auth/google', { token: credential });
+      const googleResponse = await api.post('api/users/auth/google', { token: credential });
       localStorage.setItem('token', googleResponse.data.token); // Save the token
       dispatch(login(googleResponse.data.user)); // Log in the user
       alert('Google login successful!');
