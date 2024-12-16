@@ -70,7 +70,7 @@ const LandingPage = () => {
               <strong>Database:</strong> MySQL
               <br />
               <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
-                Hosted on AWS RDS
+                Hosted on Azure MySQL Flexible Server with CI/CD pipeline
               </span>
             </p>
           </div>
