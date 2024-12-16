@@ -5,11 +5,13 @@ const devProjects = [
     title: 'Murray Hill Web Design - Frontend',
     description: 'A personal portfolio site to showcase my skills and projects.',
     difficulties: [
+      'Integrating Google OAuth for user authentication.',
       'Integrating dynamic routing with React Router.',
       'Deploying the site with Netlify and handling CORS issues.',
       'Setting up DNS records and configuring custom domains.',
     ],
     solutions: [
+      'Created a backend google auth and callback to handle user authentication.', 
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
       'Configured DNS records with Netlify and added a custom domain.',
