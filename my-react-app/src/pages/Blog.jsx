@@ -30,6 +30,9 @@ const Blog = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [loading, setLoading] = useState(false);
   const [creatingPost, setCreatingPost] = useState(false);
+  const [allPosts, setAllPosts] = useState([]); // All posts fetched initially
+
+
 
   // State for modals
   const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
@@ -43,13 +46,9 @@ const Blog = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        let endpoint = '/api/blog/posts';
-        const params = {};
-        if (selectedCategory) params.categoryId = selectedCategory;
-        if (selectedTag) params.tagId = selectedTag;
-
-        const response = await api.get(endpoint, { params });
-        setPosts(response.data.posts);
+        const response = await api.get('/api/blog/posts');
+        setAllPosts(response.data.posts);
+        setPosts(response.data.posts); // Initially display all posts
         setError('');
       } catch (err) {
         console.error('Error fetching posts:', err);
@@ -58,9 +57,40 @@ const Blog = () => {
         setLoading(false);
       }
     };
-
+  
     fetchPosts();
+  }, []);
+  
+  const filterPosts = () => {
+    let filteredPosts = [...allPosts]; // Start with all posts
+  
+    if (selectedCategory) {
+      filteredPosts = filteredPosts.filter((post) =>
+        post.categories.some((category) => category.id === selectedCategory)
+      );
+    }
+  
+    if (selectedTag) {
+      filteredPosts = filteredPosts.filter((post) =>
+        post.tags.some((tag) => tag.id === selectedTag)
+      );
+    }
+  
+    setPosts(filteredPosts); // Update the displayed posts
+  };
+
+  useEffect(() => {
+    filterPosts();
   }, [selectedCategory, selectedTag]);
+
+  const clearFilters = () => {
+    setSelectedCategory(null);
+    setSelectedTag(null);
+    setPosts(allPosts); // Reset to show all posts
+  };
+  
+  
+  
 
   // Fetch categories and tags on component mount
   useEffect(() => {
