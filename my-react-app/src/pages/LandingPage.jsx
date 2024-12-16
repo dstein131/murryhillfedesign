@@ -49,7 +49,7 @@ const LandingPage = () => {
         <div className="container text-center">
           <div style={{ marginBottom: '0.5rem' }}>
             <p>
-              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios
+              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios, Google OAuth Identity Provider Login
               <br />
               <span style={{ color: 'var(--secondary-color)', fontSize: '0.85rem' }}>
                 Hosted on Netlify with CI/CD pipeline
