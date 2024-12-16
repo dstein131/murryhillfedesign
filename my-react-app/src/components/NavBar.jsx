@@ -32,7 +32,7 @@ const NavBar = () => {
         <div className="container-fluid">
           <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img
-              src="/images/mhwd_logo.svg"
+              src="/images/mhwd_logo_no_text.svg"
               alt="Murray Hill Web Development Logo"
               style={{ height: '40px', width: 'auto' }}
             />
