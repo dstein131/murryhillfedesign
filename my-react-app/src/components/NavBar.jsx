@@ -59,9 +59,10 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link className="fw-bold text-light">
+                  <Nav.Link className="fw-bold text-subtle-white">
                     {user ? `Welcome, ${user.username}` : 'Welcome!'}
-                  </Nav.Link>
+                    </Nav.Link>
+
                   <Button
                     className="custom-button ms-2"
                     onClick={handleLogout}
