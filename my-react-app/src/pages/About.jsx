@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
-import './About.css'; // Import the corresponding CSS
+
 
 const About = () => {
   return (

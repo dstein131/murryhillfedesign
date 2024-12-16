@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom'; // Include useLocation for route tracking
 import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider
 import api from './api/api';
 import NavBar from './components/NavBar';
@@ -19,7 +19,9 @@ import Success from './pages/Success';
 const App = () => {
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
+  const location = useLocation(); // Hook to track route changes
 
+  // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -37,6 +39,39 @@ const App = () => {
 
     fetchUserData();
   }, []);
+
+  // Google Analytics Integration
+  useEffect(() => {
+    const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID; // Fetch GA ID from environment variable
+
+    if (gaId) {
+      // Add Google Analytics script dynamically
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+      document.head.appendChild(script);
+
+      // Initialize Google Analytics
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', gaId);
+    } else {
+      console.warn('Google Analytics ID is missing!');
+    }
+  }, []);
+
+  // Track page views on route changes
+  useEffect(() => {
+    const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+    if (window.gtag && gaId) {
+      window.gtag('config', gaId, {
+        page_path: location.pathname,
+      });
+    }
+  }, [location]);
 
   return (
     <HelmetProvider>
