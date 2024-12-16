@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice'; // Import login action
@@ -12,6 +12,24 @@ const Register = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Initialize Google Identity Services
+    window.google?.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Add this to your .env file
+      callback: handleGoogleLogin,
+    });
+
+    // Render the Google Sign-In button
+    window.google?.accounts.id.renderButton(
+      document.getElementById('google-signin-button'),
+      {
+        theme: 'outline',
+        size: 'large',
+        width: '100%',
+      }
+    );
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -23,6 +41,21 @@ const Register = ({ show, handleClose }) => {
       navigate('/'); // Redirect to the home page or dashboard
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed.');
+    }
+  };
+
+  const handleGoogleLogin = async (response) => {
+    try {
+      const { credential } = response;
+      const googleResponse = await api.post('/auth/google', { token: credential });
+      localStorage.setItem('token', googleResponse.data.token); // Save the token
+      dispatch(login(googleResponse.data.user)); // Log in the user
+      alert('Google login successful!');
+      handleClose(); // Close the modal
+      navigate('/'); // Redirect to the home page or dashboard
+    } catch (err) {
+      console.error('Google login failed:', err);
+      setError('Google login failed. Please try again.');
     }
   };
 
@@ -59,6 +92,7 @@ const Register = ({ show, handleClose }) => {
           />
           <button type="submit">Register</button>
         </form>
+        <div id="google-signin-button" style={{ marginTop: '20px' }}></div>
       </div>
     </div>
   );
