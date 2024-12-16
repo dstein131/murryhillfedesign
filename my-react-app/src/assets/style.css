@@ -644,3 +644,22 @@ input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(83, 91, 242, 0.5); /* Purple focus ring */
 }
+
+
+.project-card__link--disabled {
+  background-color: #e0e0e0; /* Light gray background */
+  color: #6b6b6b; /* Dark gray text */
+  border: 1px solid #b0b0b0; /* Border color */
+  cursor: not-allowed; /* Indicate the button is disabled */
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  opacity: 1; /* Ensure the text is visible */
+}
+
+.project-card__link--disabled:hover {
+  background-color: #d6d6d6; /* Slightly darker gray on hover */
+  color: #4f4f4f; /* Slightly darker text on hover */
+}
