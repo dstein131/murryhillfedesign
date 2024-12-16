@@ -1,11 +1,24 @@
 /* src/components/Services.css */
 
-.services-page {
+/* Reset box-sizing for all elements */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+  }
+  
+  .services-page {
     padding: 2rem;
     color: var(--text-color);
     background-color: var(--background-color);
+    max-width: 100%;
   }
   
+  /* Project Overview Section */
   .services-page__header {
     text-align: center;
     margin-bottom: 2rem;
@@ -24,13 +37,10 @@
     margin: 0 auto;
   }
   
-  .services-page__main {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .services-page__section {
+  .services-page__project-overview {
+    text-align: center;
     margin-bottom: 3rem;
+    padding: 0 1rem; /* Ensure padding on mobile */
   }
   
   .services-page__subtitle {
@@ -44,23 +54,128 @@
     font-size: 1rem;
     color: var(--text-color);
     max-width: 800px;
-    margin: 0 auto 2rem;
-    text-align: center;
+    margin: 0 auto;
+    padding: 0 1rem; /* Ensure padding on mobile */
   }
   
+  /* Carousel Container */
+  .services-page__main {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; /* For positioning arrows */
+    padding: 0 1rem; /* Ensure padding on mobile */
+  }
+  
+  /* react-slick overrides */
+  
+  /* Adjust the padding of the slider to prevent overflow */
+  .slick-slide {
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  
+  .services-page__main .slick-list {
+    margin: 0 -10px;
+  }
+  
+  /* Custom Arrow Styling */
+  .custom-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 123, 255, 0.1); /* Light background for visibility */
+    border-radius: 50%;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  
+  .custom-arrow:hover {
+    background: rgba(0, 123, 255, 0.3); /* Darker on hover */
+  }
+  
+  .custom-prev {
+    position: absolute;
+    top: 50%;
+    left: -60px; /* Positioning arrows outside the carousel */
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  .custom-next {
+    position: absolute;
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  /* Hide arrows on very small screens */
+  @media (max-width: 480px) {
+    .custom-prev,
+    .custom-next {
+      display: none !important;
+    }
+  }
+  
+  /* Custom pagination dots */
+  .slick-dots li button:before {
+    content: '';
+    display: block;
+    width: 16px; /* Larger dot */
+    height: 16px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .slick-dots li button::before {
+    font-size: 0; /* Hide default dot */
+  }
+  
+  .slick-dots li button {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+  }
+  
+  .slick-dots li.slick-active button::before {
+    background-color: var(--secondary-color);
+    transform: scale(1.2);
+  }
+  
+  .custom-dot {
+    width: 16px; /* Larger dot */
+    height: 16px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .slick-dots {
+    bottom: -30px; /* Position dots below the carousel */
+  }
+  
+  /* Service Section */
+  .services-page__section {
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Packages Container */
   .services-page__packages {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 2rem;
-    justify-content: center;
   }
   
+  /* Individual Package Card */
   .services-page__package {
     background-color: var(--card-background-color);
     border: 1px solid var(--primary-color);
     border-radius: 8px;
     padding: 1.5rem;
-    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -102,6 +217,12 @@
     margin-bottom: 0.5rem;
   }
   
+  .services-page__package-features ul {
+    list-style-type: circle;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
   .services-page__package-addons {
     margin-bottom: 1rem;
   }
@@ -135,9 +256,23 @@
     background-color: var(--secondary-hover);
   }
   
-  @media (max-width: 992px) {
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
     .services-page__packages {
-      justify-content: space-around;
+      gap: 1.5rem;
+    }
+  
+    .services-page__package {
+      padding: 1rem;
+    }
+  
+    /* Adjust arrows for smaller screens */
+    .custom-prev {
+      left: -50px;
+    }
+  
+    .custom-next {
+      right: -50px;
     }
   }
   
@@ -148,7 +283,42 @@
     }
   
     .services-page__package {
-      width: 90%;
+      width: 100%;
+      max-width: 350px; /* Limit the maximum width on mobile */
+    }
+  
+    /* Adjust slide padding for smaller screens */
+    .slick-slide {
+      padding: 0 5px;
+    }
+  
+    .services-page__main .slick-list {
+      margin: 0 -5px;
+    }
+  
+    /* Hide arrows on very small screens to maximize space */
+    .custom-prev,
+    .custom-next {
+      display: none !important;
+    }
+  
+    /* Make dots larger on mobile */
+    .slick-dots li button::before {
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+  
+    .slick-dots li.slick-active button::before {
+      background-color: var(--secondary-color);
+      transform: scale(1.4);
+    }
+  
+    /* Ensure carousel does not cause horizontal scroll */
+    .services-page__main {
+      overflow: hidden;
     }
   }
   

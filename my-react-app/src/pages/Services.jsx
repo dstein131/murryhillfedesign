@@ -4,6 +4,34 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Services.css'; // Import the corresponding CSS
 
+// Import react-slick components and styles
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+
+// Custom Arrow Components
+const NextArrow = ({ onClick }) => {
+  return (
+    <div className="custom-arrow custom-next" onClick={onClick}>
+      {/* Custom SVG Icon for Next Arrow */}
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M8 4L16 12L8 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+  );
+};
+
+const PrevArrow = ({ onClick }) => {
+  return (
+    <div className="custom-arrow custom-prev" onClick={onClick}>
+      {/* Custom SVG Icon for Prev Arrow */}
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M16 4L8 12L16 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+  );
+};
+
 const Services = () => {
   const navigate = useNavigate();
 
@@ -13,13 +41,8 @@ const Services = () => {
     navigate(`/contact?service=${encodeURIComponent(serviceName)}`);
   };
 
-  // Services Data
-  const servicesData = [
-    {
-      sectionTitle: 'Project Overview',
-      description:
-        'I specialize in designing and developing modern, responsive static websites tailored to your unique needs. My focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
-    },
+  // Services Categories Data (excluding Project Overview)
+  const servicesCategories = [
     {
       sectionTitle: 'Pricing Packages',
       packages: [
@@ -33,10 +56,7 @@ const Services = () => {
             'Integration of a contact form',
             'Delivery Time: 1 week',
           ],
-          addons: [
-            'Additional Pages: $100/page',
-            'Hosting Setup: $50',
-          ],
+          addons: ['Additional Pages: $100/page', 'Hosting Setup: $50'],
         },
         {
           title: 'Standard Package',
@@ -48,10 +68,7 @@ const Services = () => {
             'Basic SEO optimization (meta tags, alt attributes)',
             'Delivery Time: 2–3 weeks',
           ],
-          addons: [
-            'Blog or Portfolio Section: $200',
-            'Hosting & Domain Setup: $50',
-          ],
+          addons: ['Blog or Portfolio Section: $200', 'Hosting & Domain Setup: $50'],
         },
         {
           title: 'Premium Package',
@@ -64,10 +81,7 @@ const Services = () => {
             'Accessibility Features (WCAG compliance)',
             'Delivery Time: 3–4 weeks',
           ],
-          addons: [
-            'E-commerce Features: $500+',
-            'Content Creation: $200–$400',
-          ],
+          addons: ['E-commerce Features: $500+', 'Content Creation: $200–$400'],
         },
       ],
     },
@@ -167,74 +181,147 @@ const Services = () => {
     },
   ];
 
+  // Project Overview Data
+  const projectOverview = {
+    sectionTitle: 'Project Overview',
+    description:
+      'I specialize in designing and developing modern, responsive static websites tailored to your unique needs. My focus is on creating efficient, scalable, and user-friendly applications that not only look great but also perform seamlessly across all devices.',
+  };
+
   // Function to render features
   const renderFeatures = (features) => {
     if (Array.isArray(features)) {
-      return features.map((feature, idx) => <li key={idx}>{feature}</li>);
-    } else if (typeof features === 'object') {
-      return features.items.map((item, idx) => <li key={idx}>{item}</li>);
+      return features.map((feature, idx) =>
+        typeof feature === 'string' ? (
+          <li key={idx}>{feature}</li>
+        ) : (
+          <div key={idx}>
+            <strong>{feature.heading}</strong>
+            <ul>
+              {feature.items.map((item, itemIndex) => (
+                <li key={itemIndex}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      );
     }
     return null;
   };
 
+  // react-slick settings
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1, // Show one slide by default
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    arrows: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024, // For screens <1024px
+        settings: {
+          slidesToShow: 2, // Show two slides
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768, // For screens <768px
+        settings: {
+          slidesToShow: 1, // Show one slide flush on mobile
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
+    // Custom paging for larger indicators
+    customPaging: (i) => (
+      <div className="custom-dot"></div>
+    ),
+    appendDots: (dots) => (
+      <div>
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    ),
+  };
+
   return (
     <div className="services-page">
+      {/* Project Overview Section */}
       <header className="services-page__header">
         <h1>Services</h1>
         <p>Choose the package that best fits your needs and let’s build something great together!</p>
       </header>
 
+      {/* Project Overview Content */}
+      <section className="services-page__project-overview">
+        <h2 className="services-page__subtitle">{projectOverview.sectionTitle}</h2>
+        {projectOverview.description && (
+          <p className="services-page__description">{projectOverview.description}</p>
+        )}
+      </section>
+
+      {/* Carousel for Service Categories */}
       <main className="services-page__main">
-        {servicesData.map((section, sectionIndex) => (
-          <section className="services-page__section" key={sectionIndex}>
-            <h2 className="services-page__subtitle">{section.sectionTitle}</h2>
-            {section.description && <p className="services-page__description">{section.description}</p>}
-            {section.packages && (
-              <div className="services-page__packages">
-                {section.packages.map((pkg, pkgIndex) => (
-                  <div className="services-page__package" key={pkgIndex}>
-                    <div className="services-page__package-content">
-                      <h3 className="services-page__package-title">{pkg.title}</h3>
-                      {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
-                      <ul className="services-page__package-features">
-                        {pkg.features.map((feature, featureIndex) => (
-                          typeof feature === 'string' ? (
-                            <li key={featureIndex}>{feature}</li>
-                          ) : (
-                            <div key={featureIndex}>
-                              <strong>{feature.heading}</strong>
-                              <ul>
-                                {feature.items.map((item, itemIndex) => (
-                                  <li key={itemIndex}>{item}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )
-                        ))}
-                      </ul>
-                      {pkg.addons && pkg.addons.length > 0 && (
-                        <div className="services-page__package-addons">
-                          <h4>Add-Ons Available:</h4>
-                          <ul>
-                            {pkg.addons.map((addon, addonIndex) => (
-                              <li key={addonIndex}>{addon}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+        <Slider {...sliderSettings}>
+          {servicesCategories.map((category, categoryIndex) => (
+            <div key={categoryIndex} className="services-page__section">
+              <h2 className="services-page__subtitle">{category.sectionTitle}</h2>
+              {category.packages && (
+                <div className="services-page__packages">
+                  {category.packages.map((pkg, pkgIndex) => (
+                    <div className="services-page__package" key={pkgIndex}>
+                      <div className="services-page__package-content">
+                        <h3 className="services-page__package-title">{pkg.title}</h3>
+                        {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
+                        <ul className="services-page__package-features">
+                          {pkg.features.map((feature, featureIndex) => (
+                            <li key={featureIndex}>
+                              {typeof feature === 'string' ? (
+                                feature
+                              ) : (
+                                <>
+                                  <strong>{feature.heading}</strong>
+                                  <ul>
+                                    {feature.items.map((item, itemIndex) => (
+                                      <li key={itemIndex}>{item}</li>
+                                    ))}
+                                  </ul>
+                                </>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                        {pkg.addons && pkg.addons.length > 0 && (
+                          <div className="services-page__package-addons">
+                            <h4>Add-Ons Available:</h4>
+                            <ul>
+                              {pkg.addons.map((addon, addonIndex) => (
+                                <li key={addonIndex}>{addon}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        className="services-page__contact-button"
+                        onClick={() => handleContact(pkg.title)}
+                      >
+                        Contact Me
+                      </button>
                     </div>
-                    <button
-                      className="services-page__contact-button"
-                      onClick={() => handleContact(pkg.title)}
-                    >
-                      Contact Me
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        ))}
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </Slider>
       </main>
     </div>
   );
