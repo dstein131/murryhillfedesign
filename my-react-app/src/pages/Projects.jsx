@@ -1,4 +1,10 @@
-import { useState, React } from 'react';
+// src/pages/Projects.jsx
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
+import './Projects.css'; // Import the corresponding CSS
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 
 const devProjects = [
   {
@@ -11,7 +17,7 @@ const devProjects = [
       'Setting up DNS records and configuring custom domains.',
     ],
     solutions: [
-      'Created a backend google auth and callback to handle user authentication.',
+      'Created a backend Google Auth and callback to handle user authentication.',
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
       'Configured DNS records with Netlify and added a custom domain.',
@@ -21,7 +27,7 @@ const devProjects = [
   },
   {
     title: 'Main Website - Backend',
-    description: 'A node/express backend for my personal site.',
+    description: 'A Node.js/Express backend for my personal site.',
     difficulties: [
       'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
       'Implementing a RESTful API for the frontend to consume.',
@@ -47,7 +53,7 @@ const devProjects = [
       'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
     ],
     solutions: [
-      'Implemented FusoinAuth to handle SSO for the various SRI, Inc. web properties.',
+      'Implemented FusionAuth to handle SSO for the various SRI, Inc. web properties.',
       'Utilized Bootstrap and custom CSS to create a responsive design.',
       'Conducted user testing and feedback sessions to refine the interface.',
       'Designed a dashboard with React and Redux for state management.',
@@ -62,7 +68,7 @@ const devProjects = [
       'Integrating FusionAuth with the backend for SSO.',
       'Creating a RESTful API to interact with the frontend.',
       'Creating a MySQL database to store user and site data.',
-      'Connecting to three different databases to retireive, sort, normalize, and store data to be used by the frontend.',
+      'Connecting to three different databases to retrieve, sort, normalize, and store data to be used by the frontend.',
     ],
     solutions: [
       'Configured FusionAuth to handle SSO and user authentication.',
@@ -77,7 +83,7 @@ const devProjects = [
     title: 'Discord Bot',
     description: 'A Discord bot to manage and moderate a server.',
     difficulties: [
-      'First time using python or creating a bot.',
+      'First time using Python or creating a bot.',
       'Creating a bot that could be used by multiple servers.',
       'Creating a method to avoid spam and other unwanted behavior.',
     ],
@@ -104,13 +110,13 @@ const uxProjects = [
   },
   {
     title: 'Masterfile Portal',
-    description: 'A mobile friendly slimmed down county management system for user to use while in the field.',
+    description: 'A mobile-friendly slimmed-down county management system for users to use while in the field.',
     difficulties: [
-      'Organizing the many tables and forms into a mobile friendly format that also allowed for easy data entry and review.',
+      'Organizing the many tables and forms into a mobile-friendly format that also allowed for easy data entry and review.',
     ],
     solutions: [
-      'Create a tabbed based system that allowed for easy navigation and data entry.',
-      'Utilized programtic review of data to ensure data was entered correctly.',
+      'Created a tabbed-based system that allowed for easy navigation and data entry.',
+      'Utilized programmatic review of data to ensure data was entered correctly.',
     ],
     screenshots: [
       'https://i.imgur.com/ixWNQ0K.png',
@@ -125,6 +131,8 @@ const Projects = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentScreenshots, setCurrentScreenshots] = useState([]);
   const [currentProject, setCurrentProject] = useState('');
+
+  const navigate = useNavigate();
 
   const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
 
@@ -142,102 +150,179 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      <header className="projects-page__header">
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Murray Hill Web Development | Projects</title>
+        <meta
+          name="description"
+          content="Explore the diverse range of development and UX/UI projects undertaken by Murray Hill Web Development. Discover the challenges faced and solutions implemented in each project."
+        />
+        <meta
+          name="keywords"
+          content="projects, web development projects, UX/UI projects, React projects, Node.js projects, Discord bot, full-stack development, Murray Hill, Jacksonville FL"
+        />
+        <meta property="og:title" content="Murray Hill Web Development | Projects" />
+        <meta
+          property="og:description"
+          content="Explore the diverse range of development and UX/UI projects undertaken by Murray Hill Web Development. Discover the challenges faced and solutions implemented in each project."
+        />
+        <meta property="og:image" content="%PUBLIC_URL%/images/mhwd_projects_og_image.svg" />
+        <meta property="og:url" content="https://murrayhillwebdevelopment.com/projects" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Murray Hill Web Development | Projects" />
+        <meta
+          name="twitter:description"
+          content="Explore the diverse range of development and UX/UI projects undertaken by Murray Hill Web Development. Discover the challenges faced and solutions implemented in each project."
+        />
+        <meta name="twitter:image" content="%PUBLIC_URL%/images/mhwd_projects_twitter_image.svg" />
+
+        {/* Structured Data for SEO */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "name": "Projects",
+              "description": "A collection of development and UX/UI projects by Murray Hill Web Development.",
+              "itemListElement": [
+                ${devProjects
+                  .concat(uxProjects)
+                  .map(
+                    (project, index) => `
+                  {
+                    "@type": "ListItem",
+                    "position": ${index + 1},
+                    "item": {
+                      "@type": "CreativeWork",
+                      "name": "${project.title}",
+                      "description": "${project.description}",
+                      "url": "${project.demo !== 'N/A' ? project.demo : project.github}",
+                      "author": {
+                        "@type": "Person",
+                        "name": "David Stein"
+                      }
+                    }
+                  }
+                `
+                  )
+                  .join(',')}
+              ]
+            }
+          `}
+        </script>
+      </Helmet>
+
+      <header className="projects-page__header text-center mb-5">
         <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
         <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
-        <div className="projects-page__toggle">
+        <div className="projects-page__toggle mb-4">
           <button
             onClick={() => setCurrentSection('development')}
-            className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
-            style={{ margin: '2rem' }}
+            className={`btn btn-outline-primary mx-2 ${currentSection === 'development' ? 'active' : ''}`}
+            aria-pressed={currentSection === 'development'}
           >
             Development Projects
           </button>
           <button
             onClick={() => setCurrentSection('ux')}
-            className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
-            style={{ margin: '2rem' }}
+            className={`btn btn-outline-secondary mx-2 ${currentSection === 'ux' ? 'active' : ''}`}
+            aria-pressed={currentSection === 'ux'}
           >
             UX/UI Projects
           </button>
         </div>
       </header>
-      <main className="projects-page__main">
-        {projectsToDisplay.map((project, index) => (
-          <div key={index} className="project-card">
-            <h2 className="project-card__title">{project.title}</h2>
-            <p className="project-card__description">{project.description}</p>
-            <h3 className="project-card__subtitle">Challenges:</h3>
-            <ul className="project-card__list">
-              {project.difficulties.map((difficulty, idx) => (
-                <li key={idx}>{difficulty}</li>
-              ))}
-            </ul>
-            <h3 className="project-card__subtitle">Solutions:</h3>
-            <ul className="project-card__list">
-              {project.solutions.map((solution, idx) => (
-                <li key={idx}>{solution}</li>
-              ))}
-            </ul>
-            {currentSection === 'ux' && (
-              <button
-                onClick={() => openModal(project.screenshots, project.title)}
-                className="project-card__button"
-              >
-                View Screenshots
-              </button>
-            )}
-            {currentSection === 'development' && (
-              <div className="project-card__links">
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-card__link"
-                  >
-                    View on GitHub
-                  </a>
-                )}
-                {project.demo === 'N/A' ? (
-                    <button
-                        className="project-card__link project-card__link--disabled"
-                        disabled
-                    >
-                        Demo Not Available
-                    </button>
-                    ) : (
-                    <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-card__link"
-                    >
-                        Live Demo
-                    </a>
-                    )}
 
-              </div>
-            )}
+      <main className="projects-page__main container">
+        {projectsToDisplay.map((project, index) => (
+          <div key={index} className="project-card card mb-4">
+            <div className="card-body d-flex flex-column">
+              <h2 className="project-card__title card-title">{project.title}</h2>
+              <p className="project-card__description card-text">{project.description}</p>
+
+              <h3 className="project-card__subtitle">Challenges:</h3>
+              <ul className="project-card__list list-unstyled">
+                {project.difficulties.map((difficulty, idx) => (
+                  <li key={idx}>&#8226; {difficulty}</li>
+                ))}
+              </ul>
+
+              <h3 className="project-card__subtitle">Solutions:</h3>
+              <ul className="project-card__list list-unstyled">
+                {project.solutions.map((solution, idx) => (
+                  <li key={idx}>&#8226; {solution}</li>
+                ))}
+              </ul>
+
+              {currentSection === 'ux' && project.screenshots && project.screenshots.length > 0 && (
+                <button
+                  onClick={() => openModal(project.screenshots, project.title)}
+                  className="btn btn-info mt-auto project-card__button"
+                >
+                  View Screenshots
+                </button>
+              )}
+
+              {currentSection === 'development' && (
+                <div className="project-card__links mt-3">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-outline-dark me-2"
+                    >
+                      View on GitHub
+                    </a>
+                  )}
+                  {project.demo === 'N/A' ? (
+                    <button
+                      className="btn btn-outline-secondary"
+                      disabled
+                      aria-disabled="true"
+                      title="Demo Not Available"
+                    >
+                      Demo Not Available
+                    </button>
+                  ) : (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-outline-success"
+                    >
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </main>
+
+      {/* Modal for Screenshots */}
       {modalVisible && (
         <div className="ssmodal">
-          <div className="ssmodal__overlay" onClick={closeModal}></div>
-          <div className="ssmodal__content">
-            <button className="ssmodal__close" onClick={closeModal}>
+          <div className="ssmodal__overlay" onClick={closeModal} aria-label="Close Screenshot Modal"></div>
+          <div className="ssmodal__content" role="dialog" aria-modal="true" aria-labelledby="ssmodal-title">
+            <button className="ssmodal__close btn btn-danger" onClick={closeModal} aria-label="Close">
               &times;
             </button>
-            <h2 className="ssmodal__title">Screenshots for {currentProject}</h2>
-            <div className="ssmodal__images">
+            <h2 id="ssmodal-title" className="ssmodal__title">
+              Screenshots for {currentProject}
+            </h2>
+            <div className="ssmodal__images row">
               {currentScreenshots.map((screenshot, idx) => (
-                <img
-                  key={idx}
-                  src={screenshot}
-                  alt={`Screenshot of ${currentProject} - Image ${idx + 1}`}
-                  className="ssmodal__image"
-                />
+                <div key={idx} className="col-md-6 mb-3">
+                  <img
+                    src={screenshot}
+                    alt={`Screenshot of ${currentProject} - Image ${idx + 1}`}
+                    className="img-fluid ssmodal__image"
+                    loading="lazy"
+                  />
+                </div>
               ))}
             </div>
           </div>
