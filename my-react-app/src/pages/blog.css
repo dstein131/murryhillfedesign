@@ -682,3 +682,10 @@ body {
     opacity: 1;
     pointer-events: all;
 }
+
+.blog-page__subtext {
+    font-size: 0.9rem;
+    color: gray;
+    margin-top: -10px;
+  }
+  
