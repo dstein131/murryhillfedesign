@@ -15,6 +15,7 @@ import Music from './pages/Music'; // Import the Music component
 import Blog from './pages/Blog';
 import Services from './pages/Services'; // Import the Services component
 import ChatGPTInteraction from './pages/ChatGPTInteraction';
+import Success from './pages/Success';
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
@@ -59,6 +60,8 @@ const App = () => {
           <Route path="/blog" element={<Blog user={user} />} />
           <Route path="/services" element={<Services />} /> {/* Add Services route */}
             <Route path="/chat" element={<ChatGPTInteraction />} />
+            <Route path="/auth/success" element={<Success />} />
+
         </Routes>
       </main>
     </div>
