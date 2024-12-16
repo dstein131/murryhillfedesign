@@ -1,11 +1,10 @@
 import React from 'react';
+import './Resume.css';
 
 const Resume = () => {
   const resumeData = {
     contact: {
       name: 'David Stein',
-    //   phone: '305-984-7004',
-    //   email: 'Dstein131@gmail.com',
     },
     education: [
       {
@@ -93,15 +92,6 @@ const Resume = () => {
     ],
   };
 
-//   const maskPhone = (phone) => {
-//     return phone.replace(/(\d{3})-(\d{3})-(\d{4})/, '$1-***-****');
-//   };
-
-//   const obfuscateEmail = (email) => {
-//     const [localPart, domain] = email.split('@');
-//     return `${localPart.replace(/./g, '*')}@${domain}`;
-//   };
-
   const buttonStyle = {
     backgroundColor: '#6A0DAD', // Purple color
     color: '#FFF',
@@ -117,76 +107,75 @@ const Resume = () => {
   };
 
   return (
-    <div>
-      <center>
-      <a
-          href="/resume/David_Stein-Resume.pdf"
-          download="David_Stein_Resume.pdf"
-          style={buttonStyle}
-        >
-          Download PDF
-        </a>
-      </center>
-      <div className="resume-page">
-        <header className="resume-page__header">
-          <h3>{resumeData.contact.name}</h3>
-          {/* <p>
-            Phone: {resumeData.contact.phone} | Email: {resumeData.contact.email}
-          </p> */}
-        </header>
+    <div className="resume-page-container">
+      <div className="resume-content">
         <center>
-          <main>
-            <section className="resume-section">
-              <h2 className="resume-section__title">Education</h2>
-              {resumeData.education.map((edu, index) => (
-                <div key={index} className="resume-item">
-                  <h3>{edu.degree} - {edu.institution}</h3>
-                  <ul>
-                    {edu.details.map((detail, idx) => (
-                      <li key={idx}>{detail}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </section>
-            <section className="resume-section">
-              <h2 className="resume-section__title">Work Experience</h2>
-              {resumeData.workExperience.map((job, index) => (
-                <div key={index} className="resume-item">
-                  <h3>{job.position} - {job.company}</h3>
-                  <p><strong>Years:</strong> {job.years}</p>
-                  <ul>
-                    {job.responsibilities.map((responsibility, idx) => (
-                      <li key={idx}>{responsibility}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </section>
-            <section className="resume-section">
-              <h2 className="resume-section__title">Military Service</h2>
-              <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
-              {resumeData.militaryService.roles.map((role, index) => (
-                <div key={index} className="resume-item">
-                  <h4>{role.position}</h4>
-                  <ul>
-                    {role.responsibilities.map((responsibility, idx) => (
-                      <li key={idx}>{responsibility}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </section>
-            <section className="resume-section">
-              <h2 className="resume-section__title">Skills</h2>
-              <ul className="resume-skills">
-                {resumeData.skills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
-            </section>
-          </main>
+          <a
+            href="/resume/David_Stein-Resume.pdf"
+            download="David_Stein_Resume.pdf"
+            style={buttonStyle}
+          >
+            Download PDF
+          </a>
         </center>
+        <div className="resume-page">
+          <header className="resume-page__header">
+            <h3>{resumeData.contact.name}</h3>
+          </header>
+          <center>
+            <main>
+              <section className="resume-section">
+                <h2 className="resume-section__title">Education</h2>
+                {resumeData.education.map((edu, index) => (
+                  <div key={index} className="resume-item">
+                    <h3>{edu.degree} - {edu.institution}</h3>
+                    <ul>
+                      {edu.details.map((detail, idx) => (
+                        <li key={idx}>{detail}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
+              <section className="resume-section">
+                <h2 className="resume-section__title">Work Experience</h2>
+                {resumeData.workExperience.map((job, index) => (
+                  <div key={index} className="resume-item">
+                    <h3>{job.position} - {job.company}</h3>
+                    <p><strong>Years:</strong> {job.years}</p>
+                    <ul>
+                      {job.responsibilities.map((responsibility, idx) => (
+                        <li key={idx}>{responsibility}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
+              <section className="resume-section">
+                <h2 className="resume-section__title">Military Service</h2>
+                <h3>{resumeData.militaryService.branch} ({resumeData.militaryService.serviceYears})</h3>
+                {resumeData.militaryService.roles.map((role, index) => (
+                  <div key={index} className="resume-item">
+                    <h4>{role.position}</h4>
+                    <ul>
+                      {role.responsibilities.map((responsibility, idx) => (
+                        <li key={idx}>{responsibility}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
+              <section className="resume-section">
+                <h2 className="resume-section__title">Skills</h2>
+                <ul className="resume-skills">
+                  {resumeData.skills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+              </section>
+            </main>
+          </center>
+        </div>
       </div>
     </div>
   );
