@@ -14,7 +14,7 @@ const Register = ({ show, handleClose }) => {
 
     useEffect(() => {
         // Initialize Google Identity Services
-        if (window.google) {
+        if (show && window.google) { // Ensure button is rendered only when the modal is shown
             window.google.accounts.id.initialize({
                 client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
                 callback: handleGoogleCallback,
@@ -31,10 +31,10 @@ const Register = ({ show, handleClose }) => {
             );
 
             console.log('Google Sign-In button rendered.');
-        } else {
+        } else if (!window.google) {
             console.error('Google Identity Services script not loaded.');
         }
-    }, []);
+    }, [show]); // Depend on `show` to re-render when modal visibility changes
 
     const handleSubmit = async (e) => {
         e.preventDefault();
