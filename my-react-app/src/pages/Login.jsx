@@ -11,27 +11,39 @@ const Login = ({ show, handleClose, onSuccess }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Initialize Google Identity Services
-        if (show && window.google) {
-            window.google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
-                callback: handleGoogleCallback,
-            });
+        if (show) {
+            if (window.google) {
+                // Remove any previously rendered Google button
+                const buttonContainer = document.getElementById('google-signin-button-login');
+                if (buttonContainer) buttonContainer.innerHTML = '';
 
-            // Render the Google Sign-In button
-            window.google.accounts.id.renderButton(
-                document.getElementById('google-signin-button'),
-                {
-                    theme: 'outline',
-                    size: 'large',
-                    width: '100%',
-                }
-            );
+                // Initialize Google Identity Services
+                window.google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
+                    callback: handleGoogleCallback,
+                });
 
-            console.log('Google Sign-In button rendered.');
-        } else if (!window.google) {
-            console.error('Google Identity Services script not loaded.');
+                // Render the Google Sign-In button
+                window.google.accounts.id.renderButton(
+                    document.getElementById('google-signin-button-login'),
+                    {
+                        theme: 'outline',
+                        size: 'large',
+                        width: '100%',
+                    }
+                );
+
+                console.log('Google Sign-In button rendered for Login.');
+            } else {
+                console.error('Google Identity Services script not loaded.');
+            }
         }
+
+        // Cleanup when modal closes
+        return () => {
+            const buttonContainer = document.getElementById('google-signin-button-login');
+            if (buttonContainer) buttonContainer.innerHTML = '';
+        };
     }, [show]);
 
     const handleSubmit = async (e) => {
@@ -101,7 +113,7 @@ const Login = ({ show, handleClose, onSuccess }) => {
                         {loading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>
-                <div id="google-signin-button" style={{ marginTop: '20px' }}></div>
+                <div id="google-signin-button-login" style={{ marginTop: '20px' }}></div>
             </div>
         </div>
     );

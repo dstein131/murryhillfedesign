@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/userSlice'; // Import login action
+import { login } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Register = ({ show, handleClose }) => {
@@ -13,28 +13,40 @@ const Register = ({ show, handleClose }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Initialize Google Identity Services
-        if (show && window.google) { // Ensure button is rendered only when the modal is shown
-            window.google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
-                callback: handleGoogleCallback,
-            });
+        if (show) {
+            if (window.google) {
+                // Remove any previously rendered Google button
+                const buttonContainer = document.getElementById('google-signin-button-register');
+                if (buttonContainer) buttonContainer.innerHTML = '';
 
-            // Render the Google Sign-In button
-            window.google.accounts.id.renderButton(
-                document.getElementById('google-signin-button'),
-                {
-                    theme: 'outline',
-                    size: 'large',
-                    width: '100%',
-                }
-            );
+                // Initialize Google Sign-In services
+                window.google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: handleGoogleCallback,
+                });
 
-            console.log('Google Sign-In button rendered.');
-        } else if (!window.google) {
-            console.error('Google Identity Services script not loaded.');
+                // Render the Google Sign-In button
+                window.google.accounts.id.renderButton(
+                    document.getElementById('google-signin-button-register'),
+                    {
+                        theme: 'outline',
+                        size: 'large',
+                        width: '100%',
+                    }
+                );
+
+                console.log('Google Sign-In button rendered for Register.');
+            } else {
+                console.error('Google Identity Services script not loaded.');
+            }
         }
-    }, [show]); // Depend on `show` to re-render when modal visibility changes
+
+        // Cleanup when modal closes
+        return () => {
+            const buttonContainer = document.getElementById('google-signin-button-register');
+            if (buttonContainer) buttonContainer.innerHTML = '';
+        };
+    }, [show]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -98,7 +110,7 @@ const Register = ({ show, handleClose }) => {
                     />
                     <button type="submit">Register</button>
                 </form>
-                <div id="google-signin-button" style={{ marginTop: '20px' }}></div>
+                <div id="google-signin-button-register" style={{ marginTop: '20px' }}></div>
             </div>
         </div>
     );
