@@ -1,68 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice';
+import api from '../api/api'; // Import API for backend communication
 
 const Login = ({ show, handleClose, onSuccess }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Add a loading state
-  const dispatch = useDispatch();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // Add a loading state
+    const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    useEffect(() => {
+        // Initialize Google Identity Services
+        if (show && window.google) {
+            window.google.accounts.id.initialize({
+                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
+                callback: handleGoogleCallback,
+            });
 
-    try {
-      // Log the credentials (remove in production)
-      console.log('Submitting login:', { email, password });
+            // Render the Google Sign-In button
+            window.google.accounts.id.renderButton(
+                document.getElementById('google-signin-button'),
+                {
+                    theme: 'outline',
+                    size: 'large',
+                    width: '100%',
+                }
+            );
 
-      // Dispatch the login action
-      await dispatch(login({ email, password }));
+            console.log('Google Sign-In button rendered.');
+        } else if (!window.google) {
+            console.error('Google Identity Services script not loaded.');
+        }
+    }, [show]);
 
-      // Log success and execute success callback
-      console.log('Login successful');
-      onSuccess(); // Close the modal on successful login
-    } catch (err) {
-      console.error('Login error:', err); // Log error
-      setError(err.response?.data?.message || 'Login failed. Please try again.'); // Display error message
-    } finally {
-      setLoading(false);
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
 
-  return (
-    <div className={`modal ${show ? 'modal--visible' : ''}`}>
-      <div className="modal__overlay" onClick={handleClose}></div>
-      <div className="modal__content">
-        <button className="modal__close" onClick={handleClose}>
-          &times;
-        </button>
-        <h2>Login</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+        try {
+            console.log('Submitting login:', { email, password });
+
+            // Send login request to the backend
+            const response = await api.post('/api/users/login', { email, password });
+            localStorage.setItem('token', response.data.token); // Save the token
+            dispatch(login(response.data.user)); // Dispatch Redux login action
+            console.log('Login successful');
+            onSuccess(); // Close the modal on successful login
+        } catch (err) {
+            console.error('Login error:', err);
+            setError(err.response?.data?.message || 'Login failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleCallback = async (response) => {
+        try {
+            const { credential } = response;
+            console.log('Google login credential received:', credential);
+
+            // Send the credential to the backend for verification
+            const googleResponse = await api.post('/api/users/auth/google', { token: credential });
+            localStorage.setItem('token', googleResponse.data.token); // Save the token
+            dispatch(login(googleResponse.data.user)); // Log in the user via Redux
+            alert('Google login successful!');
+            onSuccess(); // Close the modal on successful login
+        } catch (err) {
+            console.error('Google login failed:', err);
+            setError('Google login failed. Please try again.');
+        }
+    };
+
+    return (
+        <div className={`modal ${show ? 'modal--visible' : ''}`}>
+            <div className="modal__overlay" onClick={handleClose}></div>
+            <div className="modal__content">
+                <button className="modal__close" onClick={handleClose}>
+                    &times;
+                </button>
+                <h2>Login</h2>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
+                    </button>
+                </form>
+                <div id="google-signin-button" style={{ marginTop: '20px' }}></div>
+            </div>
+        </div>
+    );
 };
 
 export default Login;
