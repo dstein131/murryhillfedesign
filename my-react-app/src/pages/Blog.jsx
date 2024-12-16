@@ -295,7 +295,11 @@ const Blog = () => {
       <header className="blog-page__header">
         <h1 className="blog-page__title">Blog</h1>
         <p className="blog-page__subtitle">Read my latest articles on development, design, and more.</p>
-
+        {!isAuthenticated && (
+            <p className="blog-page__subtext">
+            Please login or register to create a new post.
+            </p>
+        )}
         {/* Filter Section */}
         <div className="blog-page__filters">
           <div className="blog-page__filter">
