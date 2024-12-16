@@ -1,5 +1,8 @@
+// src/pages/LandingPage.jsx
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // Import Helmet
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LandingPage = () => {
@@ -17,6 +20,34 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Murray Hill Web Development | Home</title>
+        <meta
+          name="description"
+          content="Welcome to Murray Hill Web Development. Explore my projects, services, and learn how I can help your business grow with custom web solutions."
+        />
+        <meta
+          name="keywords"
+          content="web development, Murray Hill, custom websites, SEO services, Jacksonville FL, portfolio, contact"
+        />
+        <meta property="og:title" content="Murray Hill Web Development | Home" />
+        <meta
+          property="og:description"
+          content="Welcome to Murray Hill Web Development. Explore my projects, services, and learn how I can help your business grow with custom web solutions."
+        />
+        <meta property="og:image" content="%PUBLIC_URL%/images/mhwd_logo_no_text.svg" />
+        <meta property="og:url" content="https://murrayhillwebdevelopment.com" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Murray Hill Web Development | Home" />
+        <meta
+          name="twitter:description"
+          content="Welcome to Murray Hill Web Development. Explore my projects, services, and learn how I can help your business grow with custom web solutions."
+        />
+        <meta name="twitter:image" content="%PUBLIC_URL%/images/mhwd_logo_no_text.svg" />
+      </Helmet>
+
       <header className="landing-page__header text-center">
         {/* Logo */}
         <img
@@ -29,23 +60,31 @@ const LandingPage = () => {
 
       {/* Navigation Sections */}
       <main className="landing-page__main">
-        <div className="dashboard">
-          {sections.map((section, index) => (
-            <div
-              key={index}
-              className="dashboard__card mb-3 p-3 border rounded"
-              onClick={() => navigate(section.route)}
-              style={{ cursor: 'pointer' }}
-            >
-              <h2 className="dashboard__card-title">{section.title}</h2>
-              <p className="dashboard__card-description">{section.description}</p>
-            </div>
-          ))}
+        <div className="dashboard container">
+          <div className="row">
+            {sections.map((section, index) => (
+              <div key={index} className="col-md-4 mb-4">
+                <div
+                  className="dashboard__card p-4 border rounded h-100"
+                  onClick={() => navigate(section.route)}
+                  style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                >
+                  <h2 className="dashboard__card-title">{section.title}</h2>
+                  <p className="dashboard__card-description">{section.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
 
       {/* Technology Description Section as Footer */}
-      <footer className="landing-page__footer mt-4" style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
+      <footer
+        className="landing-page__footer mt-4"
+        style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}
+      >
         <div className="container text-center">
           <div style={{ marginBottom: '0.5rem' }}>
             <p>

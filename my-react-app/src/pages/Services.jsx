@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
 import './Services.css'; // Import the corresponding CSS
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 
 const Services = () => {
   const navigate = useNavigate();
@@ -154,14 +156,19 @@ const Services = () => {
           addons: [],
         },
         {
-          title: 'Add-On Monthly Services',
-          price: '',
-          features: [
-            'Content Creation (e.g., blog posts, image galleries): $50–$200 per post',
-            'SEO Optimization: $100/month for ongoing keyword updates and reporting',
-            'Third-Party Tool Management (e.g., Mailchimp, Analytics): $50–$100/month',
+          sectionTitle: 'Add-On Monthly Services',
+          packages: [
+            {
+              title: 'Add-On Monthly Services',
+              price: '',
+              features: [
+                'Content Creation (e.g., blog posts, image galleries): $50–$200 per post',
+                'SEO Optimization: $100/month for ongoing keyword updates and reporting',
+                'Third-Party Tool Management (e.g., Mailchimp, Analytics): $50–$100/month',
+              ],
+              addons: [],
+            },
           ],
-          addons: [],
         },
       ],
     },
@@ -179,56 +186,86 @@ const Services = () => {
 
   return (
     <div className="services-page">
-      <header className="services-page__header">
-        <h1>Services</h1>
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Murray Hill Web Development | Services</title>
+        <meta
+          name="description"
+          content="Discover the range of web development services offered by Murray Hill Web Development. From basic to premium packages, we provide tailored solutions to meet your business needs."
+        />
+        <meta
+          name="keywords"
+          content="web development services, Murray Hill, static websites, responsive design, SEO optimization, hosting, maintenance, custom websites, Jacksonville FL"
+        />
+        <meta property="og:title" content="Murray Hill Web Development | Services" />
+        <meta
+          property="og:description"
+          content="Explore the comprehensive web development services offered by Murray Hill Web Development. Choose from a variety of packages tailored to your specific needs."
+        />
+        <meta property="og:image" content="%PUBLIC_URL%/images/mhwd_services_og_image.svg" />
+        <meta property="og:url" content="https://murrayhillwebdevelopment.com/services" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Murray Hill Web Development | Services" />
+        <meta
+          name="twitter:description"
+          content="Explore the comprehensive web development services offered by Murray Hill Web Development. Choose from a variety of packages tailored to your specific needs."
+        />
+        <meta name="twitter:image" content="%PUBLIC_URL%/images/mhwd_services_twitter_image.svg" />
+      </Helmet>
+
+      <header className="services-page__header text-center mb-5">
+        <h1>Our Services</h1>
         <p>Choose the package that best fits your needs and let’s build something great together!</p>
       </header>
 
-      <main className="services-page__main">
+      <main className="services-page__main container">
         {servicesData.map((section, sectionIndex) => (
-          <section className="services-page__section" key={sectionIndex}>
-            <h2 className="services-page__subtitle">{section.sectionTitle}</h2>
-            {section.description && <p className="services-page__description">{section.description}</p>}
+          <section className="services-page__section mb-5" key={sectionIndex}>
+            <h2 className="services-page__subtitle mb-3">{section.sectionTitle}</h2>
+            {section.description && <p className="services-page__description mb-4">{section.description}</p>}
             {section.packages && (
-              <div className="services-page__packages">
+              <div className="services-page__packages row">
                 {section.packages.map((pkg, pkgIndex) => (
-                  <div className="services-page__package" key={pkgIndex}>
-                    <div className="services-page__package-content">
-                      <h3 className="services-page__package-title">{pkg.title}</h3>
-                      {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
-                      <ul className="services-page__package-features">
-                        {pkg.features.map((feature, featureIndex) => (
-                          typeof feature === 'string' ? (
-                            <li key={featureIndex}>{feature}</li>
-                          ) : (
-                            <div key={featureIndex}>
-                              <strong>{feature.heading}</strong>
-                              <ul>
-                                {feature.items.map((item, itemIndex) => (
-                                  <li key={itemIndex}>{item}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )
-                        ))}
-                      </ul>
-                      {pkg.addons && pkg.addons.length > 0 && (
-                        <div className="services-page__package-addons">
-                          <h4>Add-Ons Available:</h4>
-                          <ul>
-                            {pkg.addons.map((addon, addonIndex) => (
-                              <li key={addonIndex}>{addon}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+                  <div className="col-md-6 mb-4" key={pkgIndex}>
+                    <div className="services-page__package card h-100">
+                      <div className="card-body d-flex flex-column">
+                        <h3 className="services-page__package-title card-title">{pkg.title}</h3>
+                        {pkg.price && <p className="services-page__package-price card-text"><strong>Price:</strong> {pkg.price}</p>}
+                        <ul className="services-page__package-features list-unstyled flex-grow-1">
+                          {pkg.features.map((feature, featureIndex) => (
+                            typeof feature === 'string' ? (
+                              <li key={featureIndex}>{feature}</li>
+                            ) : (
+                              <div key={featureIndex} className="mb-2">
+                                <strong>{feature.heading}</strong>
+                                <ul>
+                                  {feature.items.map((item, itemIndex) => (
+                                    <li key={itemIndex}>{item}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )
+                          ))}
+                        </ul>
+                        {pkg.addons && pkg.addons.length > 0 && (
+                          <div className="services-page__package-addons mt-3">
+                            <h4>Add-Ons Available:</h4>
+                            <ul className="list-unstyled">
+                              {pkg.addons.map((addon, addonIndex) => (
+                                <li key={addonIndex}>{addon}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        <button
+                          className="btn btn-primary mt-auto services-page__contact-button"
+                          onClick={() => handleContact(pkg.title)}
+                        >
+                          Contact Me
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="services-page__contact-button"
-                      onClick={() => handleContact(pkg.title)}
-                    >
-                      Contact Me
-                    </button>
                   </div>
                 ))}
               </div>
