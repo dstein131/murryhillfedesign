@@ -1,0 +1,52 @@
+
+
+.about-page {
+    padding: 2rem;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border-radius: 8px;
+  }
+  
+  .about-page__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .about-page__main {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .about-page__subtitle {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  .about-page__intro,
+  .about-page__skills,
+  .about-page__values,
+  .about-page__cta {
+    margin-bottom: 2rem;
+  }
+  
+  .about-page__skills-list {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+  }
+  
+  .about-page__cta-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.2rem;
+    color: #fff;
+    background-color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .about-page__cta-link:hover {
+    background-color: var(--primary-hover);
+  }
