@@ -190,66 +190,6 @@ input:focus {
   color: var(--text-color);
 }
 
-.projects-page {
-  padding: 2rem;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-.projects-page__header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.project-card {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background-color: var(--card-background-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.project-card__title {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-}
-
-.project-card__description {
-  margin: 0.5rem 0 1rem;
-}
-
-.project-card__subtitle {
-  font-size: 1.4rem;
-  margin-top: 1rem;
-  color: var(--secondary-color);
-}
-
-.project-card__list {
-  list-style-type: disc;
-  margin-left: 1.5rem;
-  line-height: 1.6;
-}
-
-.project-card__links {
-  margin-top: 1rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.project-card__link {
-  text-decoration: none;
-  color: var(--primary-color);
-  font-weight: bold;
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.project-card__link:hover {
-  background-color: var(--primary-color);
-  color: #fff;
-}
 
 
 

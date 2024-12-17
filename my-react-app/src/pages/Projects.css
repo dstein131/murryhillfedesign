@@ -1,0 +1,112 @@
+.projects-page {
+    padding: 2rem;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  .projects-page__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .project-card {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: var(--card-background-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-card__title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+  }
+  
+  .project-card__description {
+    margin: 0.5rem 0 1rem;
+  }
+  
+  .project-card__subtitle {
+    font-size: 1.4rem;
+    margin-top: 1rem;
+    color: var(--secondary-color);
+  }
+  
+  .project-card__list {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .project-card__links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .project-card__link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .project-card__link:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+  
+  .unique-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker for better contrast */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100; /* Ensure it's above other content */
+  }
+  
+  .unique-modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Keeps overlay consistent */
+  }
+  
+  .unique-modal__content {
+    position: relative;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 70%;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1101;
+  }
+  
+  .unique-modal__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #444;
+  }
+  
+  .unique-modal__images img {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
