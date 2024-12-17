@@ -1,27 +1,25 @@
-/* src/components/Services.css */
-
 .services-page {
-    padding: 2rem;
+    padding: 1rem;
     color: var(--text-color);
     background-color: var(--background-color);
   }
   
   .services-page__header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .services-page__header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   .services-page__header p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--text-color);
-    max-width: 600px;
     margin: 0 auto;
+    max-width: 600px;
   }
   
   .services-page__main {
@@ -30,28 +28,26 @@
   }
   
   .services-page__section {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   
   .services-page__subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
     text-align: center;
   }
   
   .services-page__description {
     font-size: 1rem;
     color: var(--text-color);
-    max-width: 800px;
-    margin: 0 auto 2rem;
     text-align: center;
+    margin-bottom: 1.5rem;
   }
   
   .services-page__packages {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
   }
   
@@ -60,7 +56,8 @@
     border: 1px solid var(--primary-color);
     border-radius: 8px;
     padding: 1rem;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -78,16 +75,16 @@
   }
   
   .services-page__package-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     text-align: center;
   }
   
   .services-page__package-price {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--secondary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     text-align: center;
   }
   
@@ -95,39 +92,19 @@
     list-style-type: disc;
     padding-left: 1rem;
     margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-  
-  .services-page__package-features li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .services-page__package-addons {
-    margin-bottom: 1rem;
-  }
-  
-  .services-page__package-addons h4 {
-    font-size: 1.1rem;
-    color: var(--secondary-color);
-    margin-bottom: 0.5rem;
-  }
-  
-  .services-page__package-addons ul {
-    list-style-type: disc;
-    padding-left: 1rem;
-    color: var(--text-color);
+    font-size: 0.9rem;
   }
   
   .services-page__contact-button {
-    display: block;
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.6rem;
     background-color: var(--secondary-color);
     color: #fff;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 1rem;
     transition: background-color 0.3s;
   }
   
@@ -135,20 +112,30 @@
     background-color: var(--secondary-hover);
   }
   
-  @media (max-width: 992px) {
-    .services-page__packages {
-      justify-content: space-around;
-    }
-  }
-  
   @media (max-width: 768px) {
     .services-page__packages {
       flex-direction: column;
+      gap: 1rem;
       align-items: center;
     }
   
     .services-page__package {
       width: 100%;
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .services-page {
+      padding: 0.5rem;
+    }
+  
+    .services-page__header h1 {
+      font-size: 1.75rem;
+    }
+  
+    .services-page__subtitle {
+      font-size: 1.25rem;
     }
   }
   

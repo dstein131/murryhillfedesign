@@ -1,19 +1,57 @@
-// src/components/Services.jsx
-
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Services.css'; // Import the corresponding CSS
+
+const PackageCard = memo(({ pkg, handleContact }) => {
+  return (
+    <div className="services-page__package">
+      <div className="services-page__package-content">
+        <h3 className="services-page__package-title">{pkg.title}</h3>
+        {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
+        <ul className="services-page__package-features">
+          {pkg.features.map((feature, featureIndex) => (
+            typeof feature === 'string' ? (
+              <li key={featureIndex}>{feature}</li>
+            ) : (
+              <div key={featureIndex}>
+                <strong>{feature.heading}</strong>
+                <ul>
+                  {feature.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          ))}
+        </ul>
+        {pkg.addons && pkg.addons.length > 0 && (
+          <div className="services-page__package-addons">
+            <h4>Add-Ons Available:</h4>
+            <ul>
+              {pkg.addons.map((addon, addonIndex) => (
+                <li key={addonIndex}>{addon}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+      <button
+        className="services-page__contact-button"
+        onClick={() => handleContact(pkg.title)}
+      >
+        Contact Me
+      </button>
+    </div>
+  );
+});
 
 const Services = () => {
   const navigate = useNavigate();
 
-  // Function to handle contact button click
-  const handleContact = (serviceName) => {
-    // Navigate to the Contact page with a query parameter indicating the selected service
+  const handleContact = useCallback((serviceName) => {
     navigate(`/contact?service=${encodeURIComponent(serviceName)}`);
-  };
+  }, [navigate]);
 
-  // Services Data
   const servicesData = [
     {
       sectionTitle: 'Project Overview',
@@ -167,16 +205,6 @@ const Services = () => {
     },
   ];
 
-  // Function to render features
-  const renderFeatures = (features) => {
-    if (Array.isArray(features)) {
-      return features.map((feature, idx) => <li key={idx}>{feature}</li>);
-    } else if (typeof features === 'object') {
-      return features.items.map((item, idx) => <li key={idx}>{item}</li>);
-    }
-    return null;
-  };
-
   return (
     <div className="services-page">
       <header className="services-page__header">
@@ -188,48 +216,17 @@ const Services = () => {
         {servicesData.map((section, sectionIndex) => (
           <section className="services-page__section" key={sectionIndex}>
             <h2 className="services-page__subtitle">{section.sectionTitle}</h2>
-            {section.description && <p className="services-page__description">{section.description}</p>}
+            {section.description && (
+              <p className="services-page__description">{section.description}</p>
+            )}
             {section.packages && (
               <div className="services-page__packages">
                 {section.packages.map((pkg, pkgIndex) => (
-                  <div className="services-page__package" key={pkgIndex}>
-                    <div className="services-page__package-content">
-                      <h3 className="services-page__package-title">{pkg.title}</h3>
-                      {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
-                      <ul className="services-page__package-features">
-                        {pkg.features.map((feature, featureIndex) => (
-                          typeof feature === 'string' ? (
-                            <li key={featureIndex}>{feature}</li>
-                          ) : (
-                            <div key={featureIndex}>
-                              <strong>{feature.heading}</strong>
-                              <ul>
-                                {feature.items.map((item, itemIndex) => (
-                                  <li key={itemIndex}>{item}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )
-                        ))}
-                      </ul>
-                      {pkg.addons && pkg.addons.length > 0 && (
-                        <div className="services-page__package-addons">
-                          <h4>Add-Ons Available:</h4>
-                          <ul>
-                            {pkg.addons.map((addon, addonIndex) => (
-                              <li key={addonIndex}>{addon}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      className="services-page__contact-button"
-                      onClick={() => handleContact(pkg.title)}
-                    >
-                      Contact Me
-                    </button>
-                  </div>
+                  <PackageCard
+                    key={pkgIndex}
+                    pkg={pkg}
+                    handleContact={handleContact}
+                  />
                 ))}
               </div>
             )}
