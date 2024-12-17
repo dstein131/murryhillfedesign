@@ -2,6 +2,9 @@ import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Services.css'; // Import the corresponding CSS
 
+// Helper function to generate unique keys
+const generateKey = (prefix, ...args) => `${prefix}-${args.join('-')}`;
+
 const PackageCard = memo(({ pkg, handleContact }) => {
   return (
     <div className="services-page__package">
@@ -11,16 +14,16 @@ const PackageCard = memo(({ pkg, handleContact }) => {
         <ul className="services-page__package-features">
           {pkg.features.map((feature, featureIndex) => (
             typeof feature === 'string' ? (
-              <li key={featureIndex}>{feature}</li>
+              <li key={generateKey('feature', featureIndex)}>{feature}</li>
             ) : (
-              <div key={featureIndex}>
+              <li key={generateKey('feature', featureIndex)}>
                 <strong>{feature.heading}</strong>
                 <ul>
                   {feature.items.map((item, itemIndex) => (
-                    <li key={itemIndex}>{item}</li>
+                    <li key={generateKey('item', featureIndex, itemIndex)}>{item}</li>
                   ))}
                 </ul>
-              </div>
+              </li>
             )
           ))}
         </ul>
@@ -29,7 +32,7 @@ const PackageCard = memo(({ pkg, handleContact }) => {
             <h4>Add-Ons Available:</h4>
             <ul>
               {pkg.addons.map((addon, addonIndex) => (
-                <li key={addonIndex}>{addon}</li>
+                <li key={generateKey('addon', addonIndex)}>{addon}</li>
               ))}
             </ul>
           </div>
@@ -214,7 +217,7 @@ const Services = () => {
 
       <main className="services-page__main">
         {servicesData.map((section, sectionIndex) => (
-          <section className="services-page__section" key={sectionIndex}>
+          <section className="services-page__section" key={generateKey('section', sectionIndex)}>
             <h2 className="services-page__subtitle">{section.sectionTitle}</h2>
             {section.description && (
               <p className="services-page__description">{section.description}</p>
@@ -223,7 +226,7 @@ const Services = () => {
               <div className="services-page__packages">
                 {section.packages.map((pkg, pkgIndex) => (
                   <PackageCard
-                    key={pkgIndex}
+                    key={generateKey('package', sectionIndex, pkgIndex)}
                     pkg={pkg}
                     handleContact={handleContact}
                   />
