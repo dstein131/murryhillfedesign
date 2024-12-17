@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async'; // Import Helmet
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './LandingPage.css';
+
 const LandingPage = () => {
   const navigate = useNavigate();
 
