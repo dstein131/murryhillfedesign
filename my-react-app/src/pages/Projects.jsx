@@ -1,228 +1,318 @@
-import { useState, React } from 'react';
+// Projects.jsx
+
+import React, { useState, memo, useCallback } from 'react';
 import './Projects.css';
 
 const devProjects = [
-    {
-      title: 'Murray Hill Web Design - Frontend',
-      description: 'A personal portfolio site to showcase my skills and projects.',
-      difficulties: [
-        'Integrating Google OAuth for user authentication.',
-        'Integrating dynamic routing with React Router.',
-        'Deploying the site with Netlify and handling CORS issues.',
-        'Setting up DNS records and configuring custom domains.',
-      ],
-      solutions: [
-        'Created a backend google auth and callback to handle user authentication.',
-        'Implemented React Router and tested route-based navigation extensively.',
-        'Updated the CORS configuration to allow requests from multiple origins.',
-        'Configured DNS records with Netlify and added a custom domain.',
-      ],
-      github: 'https://github.com/dstein131/murryhillfedesign',
-      demo: 'https://murrayhillwebdesign.netlify.app/',
-    },
-    {
-      title: 'Main Website - Backend',
-      description: 'A node/express backend for my personal site.',
-      difficulties: [
-        'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
-        'Implementing a RESTful API for the frontend to consume.',
-        'Securing the API with JWT authentication and authorization.',
-        'Setting up a MySQL database and hosting it on AWS RDS.',
-      ],
-      solutions: [
-        'Configured a GitHub Actions workflow to build and deploy the app on Azure.',
-        'Designed a RESTful API with Express and tested it with Postman.',
-        'Implemented JWT authentication middleware to protect routes.',
-        'Created a MySQL database schema and connected it to the app.',
-      ],
-      github: 'https://github.com/dstein131/Main',
-      demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net',
-    },
-    {
-      title: 'SRI, Inc - Frontend',
-      description: 'A React frontend to unify the SRI, Inc. web presence.',
-      difficulties: [
-        'Creating a SSO solution for the various SRI, Inc. web properties.',
-        'Implementing a responsive design that works across devices.',
-        'Designing a user-friendly interface for non-technical users.',
-        'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
-      ],
-      solutions: [
-        'Implemented FusoinAuth to handle SSO for the various SRI, Inc. web properties.',
-        'Utilized Bootstrap and custom CSS to create a responsive design.',
-        'Conducted user testing and feedback sessions to refine the interface.',
-        'Designed a dashboard with React and Redux for state management.',
-      ],
-      github: 'https://github.com/dstein131/sri_services_web_node',
-      demo: 'https://sriserviceswebsiteimpl.azurewebsites.net/',
-    },
-    {
-      title: 'SRI, Inc - Backend',
-      description: 'A Node.js backend for the SRI, Inc. web properties.',
-      difficulties: [
-        'Integrating FusionAuth with the backend for SSO.',
-        'Creating a RESTful API to interact with the frontend.',
-        'Creating a MySQL database to store user and site data.',
-        'Connecting to three different databases to retireive, sort, normalize, and store data to be used by the frontend.',
-      ],
-      solutions: [
-        'Configured FusionAuth to handle SSO and user authentication.',
-        'Designed a RESTful API with Express to interact with the frontend.',
-        'Created a MySQL database schema and connected it to the app.',
-        'Utilized multiple database connections to retrieve, sort, normalize, and store data.',
-      ],
-      github: 'https://github.com/dstein131/UserMgmt',
-      demo: 'https://usermgmtwebappimpl.azurewebsites.net/',
-    },
-    {
-      title: 'Discord Bot',
-      description: 'A Discord bot to manage and moderate a server.',
-      difficulties: [
-        'First time using python or creating a bot.',
-        'Creating a bot that could be used by multiple servers.',
-        'Creating a method to avoid spam and other unwanted behavior.',
-      ],
-      solutions: [
-        'Utilized the discord.py library to create a bot that could be used by multiple servers.',
-        'Implemented methods to avoid spam and other unwanted behavior.',
-        'Created other fun commands to keep users engaged.',
-      ],
-      github: 'https://github.com/dstein131/clip_bot',
-      demo: 'N/A',
-    },
-  ];
-  
-  const uxProjects = [
-    {
-      title: 'Lien Assist Program',
-      description: 'UX/UI design for a web app designed to assist County employees in managing liens.',
-      difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
-      solutions: [
-        'Interviewed users to understand their needs and pain points.',
-        'Designed a simple and intuitive dashboard with XD.',
-      ],
-      screenshots: ['https://i.imgur.com/HMCKuec.png', 'https://i.imgur.com/sDM9SAf.png'],
-    },
-    {
-      title: 'Masterfile Portal',
-      description: 'A mobile friendly slimmed down county management system for user to use while in the field.',
-      difficulties: [
-        'Organizing the many tables and forms into a mobile friendly format that also allowed for easy data entry and review.',
-      ],
-      solutions: [
-        'Create a tabbed based system that allowed for easy navigation and data entry.',
-        'Utilized programtic review of data to ensure data was entered correctly.',
-      ],
-      screenshots: [
-        'https://i.imgur.com/ixWNQ0K.png',
-        'https://i.imgur.com/0yhnmSb.png',
-        'https://i.imgur.com/z8cicK0.png',
-      ],
-    },
-  ];
+  {
+    title: 'Murray Hill Web Design - Frontend',
+    description: 'A personal portfolio site to showcase my skills and projects.',
+    difficulties: [
+      'Integrating Google OAuth for user authentication.',
+      'Integrating dynamic routing with React Router.',
+      'Deploying the site with Netlify and handling CORS issues.',
+      'Setting up DNS records and configuring custom domains.',
+    ],
+    solutions: [
+      'Created a backend google auth and callback to handle user authentication.',
+      'Implemented React Router and tested route-based navigation extensively.',
+      'Updated the CORS configuration to allow requests from multiple origins.',
+      'Configured DNS records with Netlify and added a custom domain.',
+    ],
+    github: 'https://github.com/dstein131/murryhillfedesign',
+    demo: 'https://murrayhillwebdesign.netlify.app/',
+  },
+  {
+    title: 'Main Website - Backend',
+    description: 'A node/express backend for my personal site.',
+    difficulties: [
+      'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
+      'Implementing a RESTful API for the frontend to consume.',
+      'Securing the API with JWT authentication and authorization.',
+      'Setting up a MySQL database and hosting it on AWS RDS.',
+    ],
+    solutions: [
+      'Configured a GitHub Actions workflow to build and deploy the app on Azure.',
+      'Designed a RESTful API with Express and tested it with Postman.',
+      'Implemented JWT authentication middleware to protect routes.',
+      'Created a MySQL database schema and connected it to the app.',
+    ],
+    github: 'https://github.com/dstein131/Main',
+    demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net',
+  },
+  {
+    title: 'SRI, Inc - Frontend',
+    description: 'A React frontend to unify the SRI, Inc. web presence.',
+    difficulties: [
+      'Creating a SSO solution for the various SRI, Inc. web properties.',
+      'Implementing a responsive design that works across devices.',
+      'Designing a user-friendly interface for non-technical users.',
+      'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
+    ],
+    solutions: [
+      'Implemented FusoinAuth to handle SSO for the various SRI, Inc. web properties.',
+      'Utilized Bootstrap and custom CSS to create a responsive design.',
+      'Conducted user testing and feedback sessions to refine the interface.',
+      'Designed a dashboard with React and Redux for state management.',
+    ],
+    github: 'https://github.com/dstein131/sri_services_web_node',
+    demo: 'https://sriserviceswebsiteimpl.azurewebsites.net/',
+  },
+  {
+    title: 'SRI, Inc - Backend',
+    description: 'A Node.js backend for the SRI, Inc. web properties.',
+    difficulties: [
+      'Integrating FusionAuth with the backend for SSO.',
+      'Creating a RESTful API to interact with the frontend.',
+      'Creating a MySQL database to store user and site data.',
+      'Connecting to three different databases to retrieve, sort, normalize, and store data to be used by the frontend.',
+    ],
+    solutions: [
+      'Configured FusionAuth to handle SSO and user authentication.',
+      'Designed a RESTful API with Express to interact with the frontend.',
+      'Created a MySQL database schema and connected it to the app.',
+      'Utilized multiple database connections to retrieve, sort, normalize, and store data.',
+    ],
+    github: 'https://github.com/dstein131/UserMgmt',
+    demo: 'https://usermgmtwebappimpl.azurewebsites.net/',
+  },
+  {
+    title: 'Discord Bot',
+    description: 'A Discord bot to manage and moderate a server.',
+    difficulties: [
+      'First time using Python or creating a bot.',
+      'Creating a bot that could be used by multiple servers.',
+      'Creating a method to avoid spam and other unwanted behavior.',
+    ],
+    solutions: [
+      'Utilized the discord.py library to create a bot that could be used by multiple servers.',
+      'Implemented methods to avoid spam and other unwanted behavior.',
+      'Created other fun commands to keep users engaged.',
+    ],
+    github: 'https://github.com/dstein131/clip_bot',
+    demo: 'N/A',
+  },
+];
+
+const uxProjects = [
+  {
+    title: 'Lien Assist Program',
+    description: 'UX/UI design for a web app designed to assist County employees in managing liens.',
+    difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
+    solutions: [
+      'Interviewed users to understand their needs and pain points.',
+      'Designed a simple and intuitive dashboard with XD.',
+    ],
+    screenshots: ['https://i.imgur.com/HMCKuec.png', 'https://i.imgur.com/sDM9SAf.png'],
+  },
+  {
+    title: 'Masterfile Portal',
+    description: 'A mobile-friendly slimmed-down county management system for users to use while in the field.',
+    difficulties: [
+      'Organizing the many tables and forms into a mobile-friendly format that also allowed for easy data entry and review.',
+    ],
+    solutions: [
+      'Created a tabbed-based system that allowed for easy navigation and data entry.',
+      'Utilized programmatic review of data to ensure data was entered correctly.',
+    ],
+    screenshots: [
+      'https://i.imgur.com/ixWNQ0K.png',
+      'https://i.imgur.com/0yhnmSb.png',
+      'https://i.imgur.com/z8cicK0.png',
+    ],
+  },
+];
+
+const ProjectCard = memo(({ project, section, openModal }) => {
+  const { title, description, difficulties, solutions, github, demo, screenshots } = project;
+
+  return (
+    <div
+      className="projects-page-new__card"
+      id={`projects-page-new__card-${title.replace(/\s+/g, '-').toLowerCase()}`}
+    >
+      <h2 className="projects-page-new__card-title">{title}</h2>
+      <p className="projects-page-new__card-description">{description}</p>
+
+      <div className="projects-page-new__card-section">
+        <h3 className="projects-page-new__card-subtitle">Challenges:</h3>
+        <ul className="projects-page-new__card-list">
+          {difficulties.map((difficulty, idx) => (
+            <li key={`projects-page-new__card-diff-${title}-${idx}`} className="projects-page-new__card-list-item">
+              {difficulty}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="projects-page-new__card-section">
+        <h3 className="projects-page-new__card-subtitle">Solutions:</h3>
+        <ul className="projects-page-new__card-list">
+          {solutions.map((solution, idx) => (
+            <li key={`projects-page-new__card-sol-${title}-${idx}`} className="projects-page-new__card-list-item">
+              {solution}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {section === 'ux' && screenshots && screenshots.length > 0 && (
+        <>
+          <button
+            className="projects-page-new__card-button"
+            onClick={() => openModal(screenshots, title)}
+            aria-label={`View screenshots of ${title}`}
+          >
+            View Screenshots
+          </button>
+
+          {/* Modal for Screenshots */}
+          <div
+            id={`projects-page-new__modal-${title.replace(/\s+/g, '-')}`}
+            className="projects-page-new__modal"
+          >
+            <div className="projects-page-new__modal-overlay" onClick={() => openModal([], '')}></div>
+            <div className="projects-page-new__modal-content">
+              <button
+                className="projects-page-new__modal-close"
+                onClick={() => openModal([], '')}
+                aria-label="Close modal"
+              >
+                &times;
+              </button>
+              <h3 className="projects-page-new__modal-title">{title} Screenshots</h3>
+              <div className="projects-page-new__modal-images">
+                {screenshots.map((screenshot, idx) => (
+                  <img
+                    key={`projects-page-new__modal-screenshot-${title}-${idx}`}
+                    src={screenshot}
+                    alt={`Screenshot ${idx + 1} of ${title}`}
+                    className="projects-page-new__modal-image"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {section === 'development' && (github || demo) && (
+        <div className="projects-page-new__card-links">
+          {github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="projects-page-new__card-link"
+              aria-label={`View ${title} on GitHub`}
+            >
+              GitHub
+            </a>
+          )}
+          {demo && demo !== 'N/A' && (
+            <a
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="projects-page-new__card-link"
+              aria-label={`View live demo of ${title}`}
+            >
+              Live Demo
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  );
+});
 
 const Projects = () => {
   const [currentSection, setCurrentSection] = useState('development');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [currentScreenshots, setCurrentScreenshots] = useState([]);
-  const [currentProject, setCurrentProject] = useState('');
+  const [modalData, setModalData] = useState({ screenshots: [], title: '' });
+
+  const openModal = useCallback((screenshots, title) => {
+    setModalData({ screenshots, title });
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalData({ screenshots: [], title: '' });
+  }, []);
 
   const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
 
-  const openModal = (screenshots, title) => {
-    setCurrentScreenshots(screenshots);
-    setCurrentProject(title);
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    setCurrentScreenshots([]);
-    setCurrentProject('');
-  };
-
   return (
-    <div className="projects-page">
-      <header className="projects-page__header">
-        <h1>{currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}</h1>
-        <p>Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.</p>
-        <div className="projects-page__toggle">
+    <div className="projects-page-new">
+      <header className="projects-page-new__header">
+        <h1 className="projects-page-new__title">
+          {currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}
+        </h1>
+        <p className="projects-page-new__subtitle">
+          Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.
+        </p>
+        <div className="projects-page-new__toggle">
           <button
             onClick={() => setCurrentSection('development')}
-            className={`toggle-button ${currentSection === 'development' ? 'active' : ''}`}
+            className={`projects-page-new__toggle-button ${
+              currentSection === 'development' ? 'projects-page-new__toggle-button--active' : ''
+            }`}
+            aria-pressed={currentSection === 'development'}
           >
             Development Projects
           </button>
           <button
             onClick={() => setCurrentSection('ux')}
-            className={`toggle-button ${currentSection === 'ux' ? 'active' : ''}`}
+            className={`projects-page-new__toggle-button ${
+              currentSection === 'ux' ? 'projects-page-new__toggle-button--active' : ''
+            }`}
+            aria-pressed={currentSection === 'ux'}
           >
             UX/UI Projects
           </button>
         </div>
       </header>
-      <main className="projects-page__main">
+
+      <main className="projects-page-new__main">
         {projectsToDisplay.map((project, index) => (
-          <div key={`${project.title}-${index}`} className="project-card">
-            <h2 className="project-card__title">{project.title}</h2>
-            <p className="project-card__description">{project.description}</p>
-            <h3>Challenges:</h3>
-            <ul>
-              {project.difficulties.map((difficulty, idx) => (
-                <li key={`${project.title}-diff-${idx}`}>{difficulty}</li>
-              ))}
-            </ul>
-            <h3>Solutions:</h3>
-            <ul>
-              {project.solutions.map((solution, idx) => (
-                <li key={`${project.title}-sol-${idx}`}>{solution}</li>
-              ))}
-            </ul>
-            {currentSection === 'ux' && project.screenshots && (
-              <button
-                onClick={() => openModal(project.screenshots, project.title)}
-                className="project-card__button"
-              >
-                View Screenshots
-              </button>
-            )}
-            {currentSection === 'development' && (
-              <div className="project-card__links">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                  GitHub
-                </a>
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link">
-                  Live Demo
-                </a>
-              </div>
-            )}
-          </div>
+          <ProjectCard
+            key={`projects-page-new__card-${project.title}-${index}`}
+            project={project}
+            section={currentSection}
+            openModal={openModal}
+          />
         ))}
       </main>
-      {modalVisible && (
-        <div 
-            id={`unique-modal-${currentProject.replace(/\s/g, '-')}`} 
-            className="unique-modal"
-        >
-            <div className="unique-modal__overlay" onClick={closeModal}></div>
-            <div className="unique-modal__content">
-            <button className="unique-modal__close" onClick={closeModal}>
-                &times;
-            </button>
-            <h2>{currentProject} Screenshots</h2>
-            <div className="unique-modal__images">
-                {currentScreenshots.map((screenshot, idx) => (
-                <img 
-                    key={`unique-screenshot-${currentProject}-${idx}`} 
-                    src={screenshot} 
-                    alt={`Screenshot ${idx + 1} of ${currentProject}`} 
-                />
-                ))}
-            </div>
-            </div>
-        </div>
-        )}
 
+      {/* Modal for Screenshots */}
+      {modalData.title && modalData.screenshots.length > 0 && (
+        <div
+          id={`projects-page-new__modal-${modalData.title.replace(/\s+/g, '-')}`}
+          className={`projects-page-new__modal ${
+            modalData.screenshots.length > 0 ? 'projects-page-new__modal--visible' : ''
+          }`}
+        >
+          <div className="projects-page-new__modal-overlay" onClick={closeModal}></div>
+          <div className="projects-page-new__modal-content">
+            <button
+              className="projects-page-new__modal-close"
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+            <h3 className="projects-page-new__modal-title">{modalData.title} Screenshots</h3>
+            <div className="projects-page-new__modal-images">
+              {modalData.screenshots.map((screenshot, idx) => (
+                <img
+                  key={`projects-page-new__modal-screenshot-${modalData.title}-${idx}`}
+                  src={screenshot}
+                  alt={`Screenshot ${idx + 1} of ${modalData.title}`}
+                  className="projects-page-new__modal-image"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
