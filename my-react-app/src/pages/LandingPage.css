@@ -7,8 +7,9 @@
     justify-content: flex-start;
     min-height: 100vh;
     color: var(--text-color);
-    background-color: var(--background-color);
+    background-color: transparent; /* Transparent background */
   }
+  
   
   .landing-page__header {
     text-align: center;

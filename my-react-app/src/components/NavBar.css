@@ -1,0 +1,58 @@
+/* Fixed Navbar with Custom Styles */
+.navbar-custom {
+    position: fixed; /* Fix to the top */
+    top: 0;
+    width: 100%;
+    z-index: 1050; /* Ensures it appears above other content */
+    background-color: rgba(36, 36, 36, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Optional blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar-brand-custom {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  
+  .navbar-brand-custom:hover {
+    color: var(--primary-hover);
+  }
+  
+  .navbar-logo {
+    height: 40px;
+    width: auto;
+  }
+  
+  .navbar-link-custom {
+    color: var(--text-color);
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+  }
+  
+  .navbar-link-custom:hover {
+    color: var(--primary-hover);
+  }
+  
+  .navbar-toggler-custom {
+    border: none;
+    outline: none;
+  }
+  
+  .custom-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .custom-button:hover {
+    background-color: var(--primary-hover);
+    color: white;
+  }
+  

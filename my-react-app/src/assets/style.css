@@ -19,6 +19,7 @@
 }
 
 /* Base Typography */
+/* Base Typography */
 body {
   font-family: var(--font-family);
   margin: 0;
@@ -28,8 +29,11 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--text-color);
-  background-color: var(--background-color);
+  background: url('/images/background.png') no-repeat center center fixed;
+  background-size: cover; /* Ensure the image covers the entire screen */
+  background-color: var(--background-color); /* Fallback color */
 }
+
 
 /* App Layout */
 #app {
@@ -58,71 +62,7 @@ body {
   padding: 2rem;
 }
 
-/* Navbar Custom Styling */
-.navbar-custom {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0; /* Remove unnecessary padding */
-  background-color: var(--background-color);
-  z-index: 1000;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-.navbar-custom .container-fluid {
-  padding: 0; /* Remove padding inside the container */
-}
-
-.navbar-custom .navbar-toggler {
-  border-color: transparent;
-}
-
-.navbar-custom .navbar-brand {
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  color: var(--text-color);
-  text-decoration: none;
-}
-
-.navbar-custom .navbar-brand:hover {
-  color: var(--primary-hover);
-}
-
-.navbar-custom .nav-link {
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--text-color);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-}
-
-.navbar-custom .nav-link:hover {
-  color: var(--primary-hover);
-}
-
-.navbar-custom .btn {
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-}
-
-.navbar-custom .btn-outline-light {
-  color: var(--text-color);
-  border-color: var(--text-color);
-}
-.navbar-custom .btn-outline-light:hover {
-  color: var(--primary-hover);
-  border-color: var(--primary-hover);
-}
-
-.navbar-custom .btn-light {
-  background-color: var(--primary-color);
-  color: #fff;
-}
-.navbar-custom .btn-light:hover {
-  background-color: var(--primary-hover);
-}
 
 .text-subtle-white {
   color: rgba(255, 255, 255, 0.8); /* Subtle white color */

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, logoutUser } from '../redux/userSlice';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+// Import NavBar.css for custom styling
+import '../components/NavBar.css';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -22,26 +24,26 @@ const NavBar = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    dispatch(logoutUser()); // Logout user
-    navigate('/'); // Navigate to the homepage after logout
+    dispatch(logoutUser());
+    navigate('/');
   };
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg" className="navbar-full">
+      <Navbar expand="lg" className="navbar-custom fixed-top">
         <div className="container-fluid">
-          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
             <img
               src="/images/mhwd_logo_no_text.svg"
               alt="Murray Hill Web Development Logo"
-              style={{ height: '40px', width: 'auto' }}
+              className="navbar-logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
+          <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom" />
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto d-flex align-items-center">
               {loading ? (
-                <Nav.Link className="fw-bold text-light">Loading...</Nav.Link>
+                <Nav.Link className="navbar-link-custom">Loading...</Nav.Link>
               ) : !isAuthenticated ? (
                 <>
                   <Button
@@ -59,14 +61,10 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link className="fw-bold text-subtle-white">
+                  <Nav.Link className="navbar-link-custom">
                     {user ? `Welcome, ${user.username}` : 'Welcome!'}
-                    </Nav.Link>
-
-                  <Button
-                    className="custom-button ms-2"
-                    onClick={handleLogout}
-                  >
+                  </Nav.Link>
+                  <Button className="custom-button ms-2" onClick={handleLogout}>
                     Logout
                   </Button>
                 </>
@@ -82,7 +80,7 @@ const NavBar = () => {
         handleClose={() => setShowLogin(false)}
         onSuccess={() => {
           setShowLogin(false);
-          dispatch(verifyToken()); // Verify token immediately after successful login
+          dispatch(verifyToken());
         }}
       />
 
