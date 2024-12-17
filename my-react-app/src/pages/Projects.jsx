@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async'; // Import Helmet for SEO
-
+import './Projects.css'; // Import the corresponding CSS
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 
 const devProjects = [
