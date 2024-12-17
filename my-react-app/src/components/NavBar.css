@@ -1,15 +1,18 @@
-/* Fixed Navbar with Custom Styles */
+
+/* Fixed Navbar */
 .navbar-custom {
-    position: fixed; /* Fix to the top */
+    position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1050; /* Ensures it appears above other content */
-    background-color: rgba(36, 36, 36, 0.8); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Optional blur effect */
+    z-index: 1050; /* Ensures navbar stays on top */
+    background-color: rgba(36, 36, 36, 0.8); /* Semi-transparent */
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari support */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0.5rem 1rem;
+    padding-bottom: 70px; /* Bottom padding to offset content */
   }
+  
   
   .navbar-brand-custom {
     font-size: 1.5rem;
