@@ -1,26 +1,39 @@
+// Services.jsx
+
 import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Services.css'; // Import the corresponding CSS
+import './Services.css'; // Ensure this file is correctly imported
 
 // Helper function to generate unique keys
-const generateKey = (prefix, ...args) => `${prefix}-${args.join('-')}`;
+const generateUniqueKey = (...args) => args.join('-');
 
 const PackageCard = memo(({ pkg, handleContact }) => {
+  // Generate a unique ID based on the package title
+  const packageId = `package-${pkg.title.replace(/\s+/g, '-').toLowerCase()}`;
+
   return (
-    <div className="services-page__package">
-      <div className="services-page__package-content">
-        <h3 className="services-page__package-title">{pkg.title}</h3>
-        {pkg.price && <p className="services-page__package-price">{pkg.price}</p>}
-        <ul className="services-page__package-features">
-          {pkg.features.map((feature, featureIndex) => (
+    <div className="services-page__card" id={packageId}>
+      <div className="services-page__card-content">
+        <h3 className="services-page__card-title">{pkg.title}</h3>
+        {pkg.price && (
+          <p className="services-page__card-price">{pkg.price}</p>
+        )}
+        <ul className="services-page__card-features">
+          {pkg.features.map((feature, featureIdx) => (
             typeof feature === 'string' ? (
-              <li key={generateKey('feature', featureIndex)}>{feature}</li>
+              <li key={generateUniqueKey('feature', pkg.title, featureIdx)}>
+                {feature}
+              </li>
             ) : (
-              <li key={generateKey('feature', featureIndex)}>
+              <li key={generateUniqueKey('feature', pkg.title, featureIdx)}>
                 <strong>{feature.heading}</strong>
-                <ul>
-                  {feature.items.map((item, itemIndex) => (
-                    <li key={generateKey('item', featureIndex, itemIndex)}>{item}</li>
+                <ul className="services-page__card-subfeatures">
+                  {feature.items.map((item, itemIdx) => (
+                    <li
+                      key={generateUniqueKey('feature-item', pkg.title, featureIdx, itemIdx)}
+                    >
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </li>
@@ -28,19 +41,24 @@ const PackageCard = memo(({ pkg, handleContact }) => {
           ))}
         </ul>
         {pkg.addons && pkg.addons.length > 0 && (
-          <div className="services-page__package-addons">
-            <h4>Add-Ons Available:</h4>
-            <ul>
-              {pkg.addons.map((addon, addonIndex) => (
-                <li key={generateKey('addon', addonIndex)}>{addon}</li>
+          <div className="services-page__card-addons">
+            <h4 className="services-page__card-addons-title">
+              Add-Ons Available:
+            </h4>
+            <ul className="services-page__card-addons-list">
+              {pkg.addons.map((addon, addonIdx) => (
+                <li key={generateUniqueKey('addon', pkg.title, addonIdx)}>
+                  {addon}
+                </li>
               ))}
             </ul>
           </div>
         )}
       </div>
       <button
-        className="services-page__contact-button"
+        className="services-page__card-button"
         onClick={() => handleContact(pkg.title)}
+        aria-label={`Contact about ${pkg.title}`}
       >
         Contact Me
       </button>
@@ -51,9 +69,12 @@ const PackageCard = memo(({ pkg, handleContact }) => {
 const Services = () => {
   const navigate = useNavigate();
 
-  const handleContact = useCallback((serviceName) => {
-    navigate(`/contact?service=${encodeURIComponent(serviceName)}`);
-  }, [navigate]);
+  const handleContact = useCallback(
+    (serviceName) => {
+      navigate(`/contact?service=${encodeURIComponent(serviceName)}`);
+    },
+    [navigate]
+  );
 
   const servicesData = [
     {
@@ -74,10 +95,7 @@ const Services = () => {
             'Integration of a contact form',
             'Delivery Time: 1 week',
           ],
-          addons: [
-            'Additional Pages: $100/page',
-            'Hosting Setup: $50',
-          ],
+          addons: ['Additional Pages: $100/page', 'Hosting Setup: $50'],
         },
         {
           title: 'Standard Package',
@@ -89,10 +107,7 @@ const Services = () => {
             'Basic SEO optimization (meta tags, alt attributes)',
             'Delivery Time: 2–3 weeks',
           ],
-          addons: [
-            'Blog or Portfolio Section: $200',
-            'Hosting & Domain Setup: $50',
-          ],
+          addons: ['Blog or Portfolio Section: $200', 'Hosting & Domain Setup: $50'],
         },
         {
           title: 'Premium Package',
@@ -105,10 +120,7 @@ const Services = () => {
             'Accessibility Features (WCAG compliance)',
             'Delivery Time: 3–4 weeks',
           ],
-          addons: [
-            'E-commerce Features: $500+',
-            'Content Creation: $200–$400',
-          ],
+          addons: ['E-commerce Features: $500+', 'Content Creation: $200–$400'],
         },
       ],
     },
@@ -211,22 +223,29 @@ const Services = () => {
   return (
     <div className="services-page">
       <header className="services-page__header">
-        <h1>Services</h1>
-        <p>Choose the package that best fits your needs and let’s build something great together!</p>
+        <h1 className="services-page__title">Services</h1>
+        <p className="services-page__subtitle">
+          Choose the package that best fits your needs and let’s build something great together!
+        </p>
       </header>
 
       <main className="services-page__main">
-        {servicesData.map((section, sectionIndex) => (
-          <section className="services-page__section" key={generateKey('section', sectionIndex)}>
-            <h2 className="services-page__subtitle">{section.sectionTitle}</h2>
+        {servicesData.map((section, sectionIdx) => (
+          <section
+            className="services-page__section"
+            key={generateUniqueKey('section', sectionIdx)}
+          >
+            <h2 className="services-page__section-title">{section.sectionTitle}</h2>
             {section.description && (
-              <p className="services-page__description">{section.description}</p>
+              <p className="services-page__section-description">
+                {section.description}
+              </p>
             )}
             {section.packages && (
               <div className="services-page__packages">
-                {section.packages.map((pkg, pkgIndex) => (
+                {section.packages.map((pkg, pkgIdx) => (
                   <PackageCard
-                    key={generateKey('package', sectionIndex, pkgIndex)}
+                    key={generateUniqueKey('package', sectionIdx, pkgIdx)}
                     pkg={pkg}
                     handleContact={handleContact}
                   />

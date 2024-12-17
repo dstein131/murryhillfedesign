@@ -1,161 +1,236 @@
+/* Services.css */
+
+/* Define CSS variables for consistent theming */
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
   
-  .services-page {
-    padding: 1rem;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    /* Color Scheme */
+    --text-color: rgba(255, 255, 255, 0.87);
+    --background-color: #242424;
+    --card-background-color: #1a1a1a;
+    --primary-color: #646cff;
+    --primary-hover: #535bf2;
+    --secondary-color: #535bf2;
+    --secondary-hover: #4444e2;
+  
+    /* Input Colors */
+    --input-bg: #242424;
+    --input-border: #646cff;
   }
   
+  /* Main container */
+  .services-page {
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  /* Header styling */
   .services-page__header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   
-  .services-page__header h1 {
-    font-size: 2rem;
+  .services-page__title {
+    font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
   }
   
-  .services-page__header p {
-    font-size: 1rem;
-    color: var(--text-color);
+  .services-page__subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
     margin: 0 auto;
-    max-width: 600px;
+    color: var(--text-color);
   }
   
+  /* Main content area */
   .services-page__main {
     max-width: 1200px;
     margin: 0 auto;
   }
   
+  /* Section styling */
   .services-page__section {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
   
-  .services-page__subtitle {
-    font-size: 1.5rem;
+  .services-page__section-title {
+    font-size: 2rem;
     color: var(--primary-color);
     text-align: center;
+    margin-bottom: 1rem;
   }
   
-  .services-page__description {
+  .services-page__section-description {
     font-size: 1rem;
     color: var(--text-color);
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   
+  /* Packages container */
   .services-page__packages {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
   }
   
-  .services-page__package {
+  /* Individual package card */
+  .services-page__card {
     background-color: var(--card-background-color);
     border: 1px solid var(--primary-color);
-    border-radius: 8px;
-    padding: 1rem;
+    border-radius: 10px;
+    padding: 1.5rem;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    min-height: 200px; /* Added */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .services-page__package:hover {
+  .services-page__card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
   
-  .services-page__package-content {
-    /* flex-grow: 1; */ /* Removed */
+  /* Card content */
+  .services-page__card-content {
+    flex-grow: 1;
   }
   
-  .services-page__package-title {
-    font-size: 1.25rem;
+  /* Card title */
+  .services-page__card-title {
+    font-size: 1.5rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     text-align: center;
   }
   
-  .services-page__package-price {
-    font-size: 1rem;
+  /* Card price */
+  .services-page__card-price {
+    font-size: 1.2rem;
     color: var(--secondary-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     text-align: center;
   }
   
-  .services-page__package-features {
+  /* Features list */
+  .services-page__card-features {
     list-style-type: disc;
-    padding-left: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    overflow: auto; /* Added */
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
   }
   
-  .services-page__contact-button {
+  .services-page__card-subfeatures {
+    list-style-type: circle;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Add-ons section within card */
+  .services-page__card-addons {
+    margin-top: 1rem;
+  }
+  
+  .services-page__card-addons-title {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .services-page__card-addons-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+  }
+  
+  /* Contact button */
+  .services-page__card-button {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.8rem;
     background-color: var(--secondary-color);
-    color: #fff;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 1rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
   }
   
-  .services-page__contact-button:hover {
+  .services-page__card-button:hover {
     background-color: var(--secondary-hover);
   }
   
-  @media (max-width: 768px) {
+  /* Responsive Styles */
+  
+  /* Tablet and below */
+  @media (max-width: 992px) {
     .services-page__packages {
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
     }
   
-    .services-page__package {
-      width: 90%;
-      max-width: none;
+    .services-page__card {
+      max-width: 90%;
     }
   }
   
+  /* Mobile */
   @media (max-width: 576px) {
     .services-page {
-      padding: 0.5rem;
+      padding: 1rem;
     }
   
-    .services-page__header h1 {
-      font-size: 1.75rem;
+    .services-page__title {
+      font-size: 2rem;
     }
   
     .services-page__subtitle {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
   
-    .services-page__package-title {
-      font-size: 1.1rem;
+    .services-page__section-title {
+      font-size: 1.75rem;
     }
   
-    .services-page__package-price {
+    .services-page__section-description {
       font-size: 0.95rem;
     }
   
-    .services-page__package-features {
+    .services-page__card {
+      max-width: 100%;
+      padding: 1rem;
+    }
+  
+    .services-page__card-title {
+      font-size: 1.3rem;
+    }
+  
+    .services-page__card-price {
+      font-size: 1.1rem;
+    }
+  
+    .services-page__card-features {
       font-size: 0.85rem;
     }
   
-    .services-page__contact-button {
-      padding: 0.5rem;
+    .services-page__card-addons-title,
+    .services-page__card-addons-list {
+      font-size: 0.9rem;
+    }
+  
+    .services-page__card-button {
+      padding: 0.6rem;
       font-size: 0.9rem;
     }
   }
-  
