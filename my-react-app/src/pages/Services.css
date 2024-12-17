@@ -93,7 +93,7 @@
   
   .services-page__package-features {
     list-style-type: disc;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     margin-bottom: 1rem;
     color: var(--text-color);
   }
@@ -114,7 +114,7 @@
   
   .services-page__package-addons ul {
     list-style-type: disc;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     color: var(--text-color);
   }
   
@@ -148,7 +148,7 @@
     }
   
     .services-page__package {
-      width: 90%;
+      width: 100%;
     }
   }
   
