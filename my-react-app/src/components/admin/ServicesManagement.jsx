@@ -38,26 +38,58 @@ const ServicesManagement = ({ services, loading }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currentService) {
-      // Update existing service
-      await dispatch(updateService({ id: currentService.service_id, updatedData: formData })).unwrap();
-    } else {
-      // Create new service
-      await dispatch(createService(formData)).unwrap();
+    // Validate and convert price to a number
+    const validatedFormData = {
+      ...formData,
+      price: formData.price ? Number(formData.price) : null,
+    };
+
+    if (isNaN(validatedFormData.price) && validatedFormData.price !== null) {
+      alert('Please enter a valid number for the price.');
+      return;
     }
 
-    // Refresh services
-    dispatch(fetchServices());
+    try {
+      if (currentService) {
+        // Update existing service
+        await dispatch(updateService({ id: currentService.service_id, updatedData: validatedFormData })).unwrap();
+      } else {
+        // Create new service
+        await dispatch(createService(validatedFormData)).unwrap();
+      }
 
-    handleClose();
+      // Refresh services
+      dispatch(fetchServices());
+
+      handleClose();
+    } catch (err) {
+      console.error('Error submitting the form:', err);
+      // Optionally, handle submission errors here
+    }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
-      await dispatch(deleteService(id)).unwrap();
-      // Refresh services
-      dispatch(fetchServices());
+      try {
+        await dispatch(deleteService(id)).unwrap();
+        // Refresh services
+        dispatch(fetchServices());
+      } catch (err) {
+        console.error('Error deleting the service:', err);
+        // Optionally, handle deletion errors here
+      }
     }
+  };
+
+  /**
+   * Helper function to format the price.
+   * Ensures that the price is a number before calling toFixed.
+   * Returns 'N/A' if price is not a valid number.
+   */
+  const formatPrice = (price) => {
+    const numericPrice = Number(price);
+    if (isNaN(numericPrice)) return 'N/A';
+    return numericPrice.toFixed(2);
   };
 
   return (
@@ -69,7 +101,9 @@ const ServicesManagement = ({ services, loading }) => {
       {error && <Alert variant="danger">{error}</Alert>}
 
       {loading ? (
-        <Spinner animation="border" />
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" />
+        </div>
       ) : (
         <Table striped bordered hover responsive>
           <thead>
@@ -82,17 +116,26 @@ const ServicesManagement = ({ services, loading }) => {
             </tr>
           </thead>
           <tbody>
-            {services.map(service => (
+            {services.map((service) => (
               <tr key={service.service_id}>
                 <td>{service.service_id}</td>
                 <td>{service.title}</td>
-                <td>{service.price !== null ? service.price.toFixed(2) : 'N/A'}</td>
+                <td>{service.price != null ? formatPrice(service.price) : 'N/A'}</td>
                 <td>{service.description}</td>
                 <td>
-                  <Button variant="warning" size="sm" onClick={() => handleEdit(service)} className="me-2">
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={() => handleEdit(service)}
+                    className="me-2"
+                  >
                     Edit
                   </Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(service.service_id)}>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleDelete(service.service_id)}
+                  >
                     Delete
                   </Button>
                 </td>
@@ -129,9 +172,7 @@ const ServicesManagement = ({ services, loading }) => {
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               />
-              <Form.Text className="text-muted">
-                Leave blank if not applicable.
-              </Form.Text>
+              <Form.Text className="text-muted">Leave blank if not applicable.</Form.Text>
             </Form.Group>
 
             <Form.Group controlId="serviceDescription" className="mb-3">

@@ -46,33 +46,65 @@ const AddonsManagement = ({ services, addonsByService, loading }) => {
       return;
     }
 
-    if (currentAddon) {
-      // Update existing add-on
-      await dispatch(updateAddon({
-        serviceId: selectedServiceId,
-        addonId: currentAddon.addon_id,
-        updatedData: formData,
-      })).unwrap();
-    } else {
-      // Create new add-on
-      await dispatch(createAddon({
-        serviceId: selectedServiceId,
-        addonData: formData,
-      })).unwrap();
+    // Validate and convert price to a number
+    const validatedFormData = {
+      ...formData,
+      price: formData.price ? Number(formData.price) : null,
+    };
+
+    if (isNaN(validatedFormData.price) && validatedFormData.price !== null) {
+      alert('Please enter a valid number for the price.');
+      return;
     }
 
-    // Refresh add-ons for the selected service
-    dispatch(fetchAddons(selectedServiceId));
+    try {
+      if (currentAddon) {
+        // Update existing add-on
+        await dispatch(updateAddon({
+          serviceId: selectedServiceId,
+          addonId: currentAddon.addon_id,
+          updatedData: validatedFormData,
+        })).unwrap();
+      } else {
+        // Create new add-on
+        await dispatch(createAddon({
+          serviceId: selectedServiceId,
+          addonData: validatedFormData,
+        })).unwrap();
+      }
 
-    handleClose();
+      // Refresh add-ons for the selected service
+      dispatch(fetchAddons(selectedServiceId));
+
+      handleClose();
+    } catch (err) {
+      console.error('Error submitting the form:', err);
+      // Optionally, handle submission errors here
+    }
   };
 
   const handleDelete = async (serviceId, addonId) => {
     if (window.confirm('Are you sure you want to delete this add-on?')) {
-      await dispatch(deleteAddon({ serviceId, addonId })).unwrap();
-      // Refresh add-ons for the service
-      dispatch(fetchAddons(serviceId));
+      try {
+        await dispatch(deleteAddon({ serviceId, addonId })).unwrap();
+        // Refresh add-ons for the service
+        dispatch(fetchAddons(serviceId));
+      } catch (err) {
+        console.error('Error deleting the add-on:', err);
+        // Optionally, handle deletion errors here
+      }
     }
+  };
+
+  /**
+   * Helper function to format the price.
+   * Ensures that the price is a number before calling toFixed.
+   * Returns 'N/A' if price is not a valid number.
+   */
+  const formatPrice = (price) => {
+    const numericPrice = Number(price);
+    if (isNaN(numericPrice)) return 'N/A';
+    return numericPrice.toFixed(2);
   };
 
   return (
@@ -84,11 +116,13 @@ const AddonsManagement = ({ services, addonsByService, loading }) => {
       {error && <Alert variant="danger">{error}</Alert>}
 
       {loading ? (
-        <Spinner animation="border" />
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" />
+        </div>
       ) : (
         <Accordion defaultActiveKey="0">
           {services.map(service => (
-            <Accordion.Item eventKey={service.service_id} key={service.service_id}>
+            <Accordion.Item eventKey={service.service_id.toString()} key={service.service_id}>
               <Accordion.Header>{service.title}</Accordion.Header>
               <Accordion.Body>
                 {addonsByService[service.service_id]?.length > 0 ? (
@@ -107,7 +141,7 @@ const AddonsManagement = ({ services, addonsByService, loading }) => {
                         <tr key={addon.addon_id}>
                           <td>{addon.addon_id}</td>
                           <td>{addon.name}</td>
-                          <td>{addon.price !== null ? addon.price.toFixed(2) : 'N/A'}</td>
+                          <td>{addon.price != null ? formatPrice(addon.price) : 'N/A'}</td>
                           <td>{addon.description}</td>
                           <td>
                             <Button variant="warning" size="sm" onClick={() => handleEdit(service.service_id, addon)} className="me-2">
