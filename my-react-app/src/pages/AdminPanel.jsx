@@ -1,72 +1,50 @@
 // src/pages/AdminPanel.jsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { Tabs, Tab, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllUsers, fetchAllRoles } from '../redux/adminSlice'; // Assuming you have admin-related thunks
-import '../styles/AdminPanel.css'; // Optional: Create specific styles for AdminPanel
+import { fetchServices } from '../redux/servicesSlice';
+import { fetchAddons } from '../redux/addonsSlice';
+import ServicesManagement from '../components/admin/ServicesManagement';
+import AddonsManagement from '../components/admin/AddonsManagement';
+import './AdminPanel.css'; // Optional: Custom styles
 
 const AdminPanel = () => {
   const dispatch = useDispatch();
-  const { users, roles, loading, error } = useSelector((state) => state.admin);
+  const { services, loading: servicesLoading, error: servicesError } = useSelector((state) => state.services);
+  const { addonsByService, loading: addonsLoading, error: addonsError } = useSelector((state) => state.addons);
 
   useEffect(() => {
-    // Fetch all users and roles when the component mounts
-    dispatch(fetchAllUsers());
-    dispatch(fetchAllRoles());
+    dispatch(fetchServices());
   }, [dispatch]);
 
+  useEffect(() => {
+    services.forEach(service => {
+      dispatch(fetchAddons(service.service_id));
+    });
+  }, [dispatch, services]);
+
   return (
-    <div className="admin-panel">
-      <h1>Admin Panel</h1>
+    <Container className="admin-panel mt-5 pt-5">
+      <h1 className="mb-4">Admin Panel</h1>
 
-      {loading && <p>Loading data...</p>}
-      {error && <p className="error-message">{error}</p>}
+      {(servicesError || addonsError) && (
+        <Alert variant="danger">
+          {servicesError && <div>{servicesError}</div>}
+          {addonsError && <div>{addonsError}</div>}
+        </Alert>
+      )}
 
-      <section className="admin-section">
-        <h2>Users</h2>
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Superadmin</th>
-              <th>Roles</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users && users.length > 0 ? (
-              users.map((user) => (
-                <tr key={user.user_id}>
-                  <td>{user.user_id}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.is_superadmin ? 'Yes' : 'No'}</td>
-                  <td>
-                    {user.roles.map((role) => role.role_name).join(', ')}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No users found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
-
-      <section className="admin-section">
-        <h2>Roles</h2>
-        <ul className="roles-list">
-          {roles && roles.length > 0 ? (
-            roles.map((role) => <li key={role.role_id}>{role.role_name}</li>)
-          ) : (
-            <li>No roles found.</li>
-          )}
-        </ul>
-      </section>
-    </div>
+      <Tabs defaultActiveKey="services" id="admin-tabs" className="mb-3">
+        <Tab eventKey="services" title="Services">
+          <ServicesManagement services={services} loading={servicesLoading} />
+        </Tab>
+        <Tab eventKey="addons" title="Service Add-Ons">
+          <AddonsManagement services={services} addonsByService={addonsByService} loading={addonsLoading} />
+        </Tab>
+        {/* Add more tabs for other tables if needed */}
+      </Tabs>
+    </Container>
   );
 };
 
