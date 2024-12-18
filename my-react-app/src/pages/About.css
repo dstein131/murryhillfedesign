@@ -5,6 +5,7 @@
     color: var(--text-color);
     background-color: var(--background-color);
     border-radius: 8px;
+    margin-top: 60px; /* Account for fixed navbar */
   }
   
   .about-page__header {
