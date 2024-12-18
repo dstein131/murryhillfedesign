@@ -34,7 +34,7 @@ const NavBar = () => {
         <div className="container-fluid">
           <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
             <img
-              src="/images/mhwd_logo_no_text.svg"
+              src="/images/DEVLOGONOTEXT.svg"
               alt="Murray Hill Web Development Logo"
               className="navbar-logo"
             />
