@@ -11,7 +11,6 @@ export const login = createAsyncThunk(
       const response = await api.post('/api/users/login', credentials);
       return response.data; // { token, user, is_superadmin, applications, roles }
     } catch (err) {
-      // Extract error message from response or set a default message
       const errorMessage =
         err.response?.data?.message || 'Login failed. Please try again.';
       return rejectWithValue(errorMessage);
@@ -73,6 +72,7 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+// Create slice
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -203,6 +203,11 @@ const userSlice = createSlice({
   },
 });
 
+// Export actions
 export const { setUser, setLoading, setError, logout } = userSlice.actions;
 
+// Export thunks (ensure no duplicates)
+export { login, verifyToken, googleLogin, logoutUser };
+
+// Export reducer
 export default userSlice.reducer;

@@ -1,118 +1,213 @@
-// src/components/NavBar.js
+// src/redux/userSlice.js
 
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { verifyToken, logoutUser } from '../redux/userSlice';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import '../components/NavBar.css';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../api/api'; // Ensure this points to your API utility
 
-const NavBar = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { user, is_superadmin, applications, roles, isAuthenticated, loading, error } = useSelector((state) => state.user);
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
-  // Verify token on initial mount
-  useEffect(() => {
-    dispatch(verifyToken());
-  }, [dispatch]);
-
-  const handleLogout = async () => {
+// Async thunk for traditional login
+export const login = createAsyncThunk(
+  'user/login',
+  async (credentials, { rejectWithValue }) => {
     try {
-      await dispatch(logoutUser()).unwrap();
-      navigate('/');
+      const response = await api.post('/api/users/login', credentials);
+      return response.data; // { token, user, is_superadmin, applications, roles }
     } catch (err) {
-      console.error('Logout error:', err);
-      // Optionally, handle logout errors
+      const errorMessage =
+        err.response?.data?.message || 'Login failed. Please try again.';
+      return rejectWithValue(errorMessage);
     }
-  };
+  }
+);
 
-  return (
-    <>
-      <Navbar expand="lg" className="navbar-custom fixed-top">
-        <div className="container-fluid">
-          <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
-            <img
-              src="/images/DEVLOGONOTEXT.svg"
-              alt="Murray Hill Web Development Logo"
-              className="navbar-logo"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom" />
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="ms-auto d-flex align-items-center">
-              {loading ? (
-                <Nav.Link className="navbar-link-custom">Loading...</Nav.Link>
-              ) : !isAuthenticated ? (
-                <>
-                  <Button
-                    className="custom-button me-2"
-                    onClick={() => setShowLogin(true)}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    className="custom-button"
-                    onClick={() => setShowRegister(true)}
-                  >
-                    Register
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Nav.Link className="navbar-link-custom">
-                    {user ? `Welcome, ${user.username}` : 'Welcome!'}
-                  </Nav.Link>
-                  {is_superadmin && (
-                    <Nav.Link as={Link} to="/admin" className="navbar-link-custom">
-                      Admin Panel
-                    </Nav.Link>
-                  )}
-                  {/* Example: Display applications */}
-                  {applications.length > 0 && (
-                    <Nav.Link as={Link} to="/applications" className="navbar-link-custom">
-                      Applications ({applications.length})
-                    </Nav.Link>
-                  )}
-                  {/* Example: Display roles */}
-                  {roles.length > 0 && (
-                    <Nav.Link as={Link} to="/roles" className="navbar-link-custom">
-                      Roles ({roles.length})
-                    </Nav.Link>
-                  )}
-                  <Button className="custom-button ms-2" onClick={handleLogout}>
-                    Logout
-                  </Button>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </div>
-      </Navbar>
+// Async thunk for verifying token
+export const verifyToken = createAsyncThunk(
+  'user/verifyToken',
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return rejectWithValue('No token found');
+      }
 
-      {/* Login Modal */}
-      <Login
-        show={showLogin}
-        handleClose={() => setShowLogin(false)}
-        onSuccess={() => {
-          setShowLogin(false);
-          // Optionally, navigate or perform other actions upon successful login
-        }}
-      />
+      const response = await api.get('/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data; // { user, is_superadmin, applications, roles }
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Token verification failed.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
-      {/* Register Modal */}
-      <Register
-        show={showRegister}
-        handleClose={() => setShowRegister(false)}
-      />
-    </>
-  );
-};
+// Async thunk for Google login
+export const googleLogin = createAsyncThunk(
+  'user/googleLogin',
+  async (credential, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/users/auth/google', { token: credential });
+      return response.data; // { token, user, is_superadmin, applications, roles }
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Google login failed. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
-export default NavBar;
+// Async thunk for logging out the user
+export const logoutUser = createAsyncThunk(
+  'user/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.post('/api/users/logout'); // Optional: Invalidate session on the server
+      return;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Logout failed. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Create slice
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    user: null, // Stores user details
+    is_superadmin: false, // Indicates if the user is a superadmin
+    applications: [], // List of user applications
+    roles: [], // List of user roles
+    isAuthenticated: false, // Authentication status
+    loading: false, // Indicates if an async operation is in progress
+    error: null, // Stores error messages
+  },
+  reducers: {
+    setUser: (state, action) => {
+      const { user, is_superadmin, applications, roles } = action.payload;
+      state.user = user;
+      state.is_superadmin = is_superadmin;
+      state.applications = applications;
+      state.roles = roles;
+      state.isAuthenticated = !!user; // Sets to true if user exists
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload; // true or false
+    },
+    setError: (state, action) => {
+      state.error = action.payload; // Error message string
+    },
+    logout: (state) => {
+      localStorage.removeItem('token'); // Clear token from localStorage
+      state.user = null;
+      state.is_superadmin = false;
+      state.applications = [];
+      state.roles = [];
+      state.isAuthenticated = false;
+      state.error = null;
+      state.loading = false;
+    },
+  },
+  extraReducers: (builder) => {
+    // Handle login
+    builder
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        const { token, user, is_superadmin, applications, roles } = action.payload;
+        localStorage.setItem('token', token);
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Login failed. Please try again.';
+      });
+
+    // Handle verifyToken
+    builder
+      .addCase(verifyToken.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyToken.fulfilled, (state, action) => {
+        const { user, is_superadmin, applications, roles } = action.payload;
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(verifyToken.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.is_superadmin = false;
+        state.applications = [];
+        state.roles = [];
+        state.isAuthenticated = false;
+        state.error = action.payload || 'Token verification failed.';
+      });
+
+    // Handle googleLogin
+    builder
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        const { token, user, is_superadmin, applications, roles } = action.payload;
+        localStorage.setItem('token', token);
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Google login failed. Please try again.';
+      });
+
+    // Handle logoutUser
+    builder
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.is_superadmin = false;
+        state.applications = [];
+        state.roles = [];
+        state.isAuthenticated = false;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Logout failed. Please try again.';
+      });
+  },
+});
+
+// Export actions
+export const { setUser, setLoading, setError, logout } = userSlice.actions;
+
+// Export thunks (ensure no duplicates)
+export { login, verifyToken, googleLogin, logoutUser };
+
+// Export reducer
+export default userSlice.reducer;
