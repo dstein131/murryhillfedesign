@@ -1,7 +1,77 @@
 // src/redux/userSlice.js
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../api/api'; // Ensure this points to your API utility
+
+// Async thunk for traditional login
+export const login = createAsyncThunk(
+  'user/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/users/login', credentials);
+      return response.data; // { token, user, is_superadmin, applications, roles }
+    } catch (err) {
+      // Extract error message from response or set a default message
+      const errorMessage =
+        err.response?.data?.message || 'Login failed. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Async thunk for verifying token
+export const verifyToken = createAsyncThunk(
+  'user/verifyToken',
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return rejectWithValue('No token found');
+      }
+
+      const response = await api.get('/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data; // { user, is_superadmin, applications, roles }
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Token verification failed.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Async thunk for Google login
+export const googleLogin = createAsyncThunk(
+  'user/googleLogin',
+  async (credential, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/users/auth/google', { token: credential });
+      return response.data; // { token, user, is_superadmin, applications, roles }
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Google login failed. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+// Async thunk for logging out the user
+export const logoutUser = createAsyncThunk(
+  'user/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.post('/api/users/logout'); // Optional: Invalidate session on the server
+      return;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Logout failed. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
@@ -40,118 +110,99 @@ const userSlice = createSlice({
       state.loading = false;
     },
   },
+  extraReducers: (builder) => {
+    // Handle login
+    builder
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        const { token, user, is_superadmin, applications, roles } = action.payload;
+        localStorage.setItem('token', token);
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Login failed. Please try again.';
+      });
+
+    // Handle verifyToken
+    builder
+      .addCase(verifyToken.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyToken.fulfilled, (state, action) => {
+        const { user, is_superadmin, applications, roles } = action.payload;
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(verifyToken.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.is_superadmin = false;
+        state.applications = [];
+        state.roles = [];
+        state.isAuthenticated = false;
+        state.error = action.payload || 'Token verification failed.';
+      });
+
+    // Handle googleLogin
+    builder
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        const { token, user, is_superadmin, applications, roles } = action.payload;
+        localStorage.setItem('token', token);
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Google login failed. Please try again.';
+      });
+
+    // Handle logoutUser
+    builder
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.is_superadmin = false;
+        state.applications = [];
+        state.roles = [];
+        state.isAuthenticated = false;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Logout failed. Please try again.';
+      });
+  },
 });
 
 export const { setUser, setLoading, setError, logout } = userSlice.actions;
-
-/**
- * Async thunk for traditional login
- * Dispatches setUser with user data upon successful login
- */
-export const login = (credentials) => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    // Send login credentials to the API
-    const response = await api.post('/api/users/login', credentials);
-    const { token, user, is_superadmin, applications, roles } = response.data;
-
-    // Save the token to localStorage
-    localStorage.setItem('token', token);
-
-    // Dispatch setUser with all necessary user data
-    dispatch(setUser({ user, is_superadmin, applications, roles }));
-
-    // Clear any previous errors
-    dispatch(setError(null));
-  } catch (err) {
-    console.error('Error logging in:', err);
-    // Extract error message from response or set a default message
-    const errorMessage =
-      err.response?.data?.message || 'Login failed. Please try again.';
-    dispatch(setError(errorMessage));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-/**
- * Async thunk for verifying token on app load or refresh
- * Dispatches setUser if token is valid
- */
-export const verifyToken = () => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Fetch user data using the token
-      const response = await api.get('/api/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const { user, is_superadmin, applications, roles } = response.data;
-
-      // Dispatch setUser with all necessary user data
-      dispatch(setUser({ user, is_superadmin, applications, roles }));
-    } else {
-      // No token found, ensure state reflects unauthenticated user
-      dispatch(setUser(null));
-    }
-  } catch (err) {
-    console.error('Error verifying token:', err);
-    // If token verification fails, clear user data
-    dispatch(setUser(null));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-/**
- * Async thunk for logging out the user
- * Optionally calls the logout API endpoint to invalidate the session
- */
-export const logoutUser = () => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    await api.post('/api/users/logout'); // Optional: Invalidate session on the server
-  } catch (err) {
-    console.error('Error logging out:', err);
-    // Even if the API call fails, proceed to clear local state
-  } finally {
-    // Dispatch logout to clear user data from Redux store
-    dispatch(logout());
-    dispatch(setLoading(false));
-  }
-};
-
-/**
- * Async thunk for Google login
- * Dispatches setUser with user data upon successful Google authentication
- */
-export const googleLogin = (credential) => async (dispatch) => {
-  dispatch(setLoading(true));
-  try {
-    // Send the Google credential to the backend for verification
-    const response = await api.post('/api/users/auth/google', { token: credential });
-    const { token, user, is_superadmin, applications, roles } = response.data;
-
-    // Save the token to localStorage
-    localStorage.setItem('token', token);
-
-    // Dispatch setUser with all necessary user data
-    dispatch(setUser({ user, is_superadmin, applications, roles }));
-
-    // Clear any previous errors
-    dispatch(setError(null));
-  } catch (err) {
-    console.error('Google login failed:', err);
-    // Extract error message from response or set a default message
-    const errorMessage =
-      err.response?.data?.message || 'Google login failed. Please try again.';
-    dispatch(setError(errorMessage));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
 
 export default userSlice.reducer;

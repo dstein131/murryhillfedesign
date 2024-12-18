@@ -7,15 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, logoutUser } from '../redux/userSlice';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-// Import NavBar.css for custom styling
 import '../components/NavBar.css';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Access user state and authentication state from Redux store
-  const { user, is_superadmin, applications, roles, isAuthenticated, loading } = useSelector((state) => state.user);
+  const { user, is_superadmin, applications, roles, isAuthenticated, loading, error } = useSelector((state) => state.user);
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -25,9 +23,14 @@ const NavBar = () => {
     dispatch(verifyToken());
   }, [dispatch]);
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigate('/');
+    } catch (err) {
+      console.error('Logout error:', err);
+      // Optionally, handle logout errors
+    }
   };
 
   return (
@@ -99,7 +102,7 @@ const NavBar = () => {
         handleClose={() => setShowLogin(false)}
         onSuccess={() => {
           setShowLogin(false);
-          dispatch(verifyToken());
+          // Optionally, navigate or perform other actions upon successful login
         }}
       />
 

@@ -56,7 +56,7 @@ const Login = ({ show, handleClose, onSuccess }) => {
     try {
       console.log('Submitting login:', { email, password });
 
-      // Dispatch the login thunk with credentials
+      // Dispatch the login thunk with credentials and unwrap the result
       await dispatch(login({ email, password })).unwrap();
 
       console.log('Login successful');
@@ -74,7 +74,7 @@ const Login = ({ show, handleClose, onSuccess }) => {
       const { credential } = response;
       console.log('Google login credential received:', credential);
 
-      // Dispatch the googleLogin thunk with the credential
+      // Dispatch the googleLogin thunk with the credential and unwrap the result
       await dispatch(googleLogin(credential)).unwrap();
 
       alert('Google login successful!');
