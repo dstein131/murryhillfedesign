@@ -2,346 +2,346 @@
 
 /* Define CSS variables for consistent theming */
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-  
-    /* Color Scheme */
-    --text-color: rgba(255, 255, 255, 0.87);
-    --background-color: #242424;
-    --card-background-color: #1a1a1a;
-    --primary-color: #646cff;
-    --primary-hover: #535bf2;
-    --secondary-color: #535bf2;
-    --secondary-hover: #4444e2;
-  
-    /* Input Colors */
-    --input-bg: #242424;
-    --input-border: #646cff;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Color Scheme */
+  --text-color: rgba(255, 255, 255, 0.87);
+  --background-color: #242424;
+  --card-background-color: #1a1a1a;
+  --primary-color: #646cff;
+  --primary-hover: #535bf2;
+  --secondary-color: #535bf2;
+  --secondary-hover: #4444e2;
+
+  /* Input Colors */
+  --input-bg: #242424;
+  --input-border: #646cff;
+}
+
+/* Main container */
+.projects-page {
+  padding: 2rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin-top: 60px; /* Account for fixed navbar */
+}
+
+/* Header styling */
+.projects-page__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.projects-page__title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.projects-page__subtitle {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-color);
+}
+
+/* Toggle buttons */
+.projects-page__toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.projects-page__toggle-button {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--card-background-color);
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1rem;
+}
+
+.projects-page__toggle-button:hover,
+.projects-page__toggle-button:focus {
+  background-color: var(--primary-hover);
+  color: #ffffff;
+}
+
+.projects-page__toggle-button--active {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+/* Main content area */
+.projects-page__main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual project card */
+.project-card {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: var(--card-background-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Card title */
+.project-card__title {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Card description */
+.project-card__description {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+/* Card sections (Challenges and Solutions) */
+.project-card__section {
+  margin-bottom: 1rem;
+}
+
+.project-card__subtitle {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.project-card__list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.project-card__list-item {
+  margin-bottom: 0.3rem;
+}
+
+/* Sub-features for nested lists */
+.project-card__subfeatures {
+  list-style-type: circle;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* Links in development projects */
+.project-card__links {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.project-card__link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.project-card__link:hover,
+.project-card__link:focus {
+  background-color: var(--primary-hover);
+  color: #ffffff;
+}
+
+/* Project Card Button */
+.project-card__button {
+  padding: 0.6rem 1rem;
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.project-card__button:hover,
+.project-card__button:focus {
+  background-color: var(--secondary-hover);
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal--visible {
+  display: flex;
+  opacity: 1;
+}
+
+.modal__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal__content {
+  position: relative;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
-  /* Main container */
-  .projects-page-new {
-    padding: 2rem;
-    background-color: var(--background-color);
-    color: var(--text-color);
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  /* Header styling */
-  .projects-page-new__header {
-    text-align: center;
-    margin-bottom: 2rem;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
+}
+
+.modal__close:hover,
+.modal__close:focus {
+  color: var(--secondary-hover);
+}
+
+.modal__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.modal__images {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal__image {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+
+/* Responsive Styles */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+  .projects-page__main {
+    padding: 1rem;
   }
-  
-  .projects-page-new__title {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+
+  .projects-page__toggle {
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  
-  .projects-page-new__subtitle {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto;
-    color: var(--text-color);
+
+  .projects-page__toggle-button {
+    width: 100%;
   }
-  
-  /* Toggle buttons */
-  .projects-page-new__toggle {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+
+  .project-card {
+    max-width: 90%;
   }
-  
-  .projects-page-new__toggle-button {
-    padding: 0.6rem 1.2rem;
-    background-color: var(--card-background-color);
-    color: var(--text-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .projects-page {
+    padding: 1rem;
+  }
+
+  .projects-page__title {
+    font-size: 2rem;
+  }
+
+  .projects-page__subtitle {
     font-size: 1rem;
   }
-  
-  .projects-page-new__toggle-button:hover,
-  .projects-page-new__toggle-button:focus {
-    background-color: var(--primary-hover);
-    color: #ffffff;
+
+  .project-card__title {
+    font-size: 1.5rem;
   }
-  
-  .projects-page-new__toggle-button--active {
-    background-color: var(--primary-color);
-    color: #ffffff;
-  }
-  
-  /* Main content area */
-  .projects-page-new__main {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Individual project card */
-  .projects-page-new__card {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    background-color: var(--card-background-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .projects-page-new__card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Card title */
-  .projects-page-new__card-title {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Card description */
-  .projects-page-new__card-description {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-  
-  /* Card sections (Challenges and Solutions) */
-  .projects-page-new__card-section {
-    margin-bottom: 1rem;
-  }
-  
-  .projects-page-new__card-subtitle {
-    font-size: 1.2rem;
-    color: var(--secondary-color);
-    margin-bottom: 0.5rem;
-  }
-  
-  .projects-page-new__card-list {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    color: var(--text-color);
+
+  .project-card__description {
     font-size: 0.95rem;
   }
-  
-  .projects-page-new__card-list-item {
-    margin-bottom: 0.3rem;
+
+  .project-card__subtitle {
+    font-size: 1.1rem;
   }
-  
-  /* Sub-features for nested lists */
-  .projects-page-new__card-subfeatures {
-    list-style-type: circle;
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
-    color: var(--text-color);
+
+  .project-card__list {
+    font-size: 0.85rem;
+  }
+
+  .project-card__subfeatures {
+    font-size: 0.8rem;
+  }
+
+  .modal__content {
+    padding: 1rem;
+  }
+
+  .modal__title {
+    font-size: 1.3rem;
+  }
+
+  .modal__image {
+    max-width: 100%;
+  }
+
+  .project-card__button {
+    padding: 0.5rem 0.8rem;
     font-size: 0.9rem;
   }
-  
-  /* Links in development projects */
-  .projects-page-new__card-links {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .projects-page-new__card-link {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: bold;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .projects-page-new__card-link:hover,
-  .projects-page-new__card-link:focus {
-    background-color: var(--primary-hover);
-    color: #ffffff;
-  }
-  
-  /* Screenshot Modal */
-  .projects-page-new__modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none; /* Hidden by default */
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .projects-page-new__modal--visible {
-    display: flex;
-    opacity: 1;
-  }
-  
-  .projects-page-new__modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .projects-page-new__modal-content {
-    position: relative;
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    animation: fadeInScale 0.3s ease;
-  }
-  
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .projects-page-new__modal-close {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: var(--secondary-color);
-    transition: color 0.3s ease;
-  }
-  
-  .projects-page-new__modal-close:hover,
-  .projects-page-new__modal-close:focus {
-    color: var(--secondary-hover);
-  }
-  
-  .projects-page-new__modal-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: var(--primary-color);
-  }
-  
-  .projects-page-new__modal-images {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .projects-page-new__modal-image {
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    object-fit: cover;
-  }
-  
-  /* Project Card Button */
-  .projects-page-new__card-button {
-    padding: 0.6rem 1rem;
-    background-color: var(--secondary-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .projects-page-new__card-button:hover,
-  .projects-page-new__card-button:focus {
-    background-color: var(--secondary-hover);
-  }
-  
-  /* Responsive Styles */
-  
-  /* Tablet and below */
-  @media (max-width: 992px) {
-    .projects-page-new__main {
-      padding: 1rem;
-    }
-  
-    .projects-page-new__toggle {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  
-    .projects-page-new__toggle-button {
-      width: 100%;
-    }
-  
-    .projects-page-new__card {
-      max-width: 90%;
-    }
-  }
-  
-  /* Mobile */
-  @media (max-width: 576px) {
-    .projects-page-new {
-      padding: 1rem;
-    }
-  
-    .projects-page-new__title {
-      font-size: 2rem;
-    }
-  
-    .projects-page-new__subtitle {
-      font-size: 1rem;
-    }
-  
-    .projects-page-new__card-title {
-      font-size: 1.5rem;
-    }
-  
-    .projects-page-new__card-description {
-      font-size: 0.95rem;
-    }
-  
-    .projects-page-new__card-subtitle {
-      font-size: 1.1rem;
-    }
-  
-    .projects-page-new__card-list {
-      font-size: 0.85rem;
-    }
-  
-    .projects-page-new__card-subfeatures {
-      font-size: 0.8rem;
-    }
-  
-    .projects-page-new__modal-content {
-      padding: 1rem;
-    }
-  
-    .projects-page-new__modal-title {
-      font-size: 1.3rem;
-    }
-  
-    .projects-page-new__modal-image {
-      max-width: 100%;
-    }
-  
-    .projects-page-new__card-button {
-      padding: 0.5rem 0.8rem;
-      font-size: 0.9rem;
-    }
-  }
-  
+}

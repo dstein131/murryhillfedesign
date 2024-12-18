@@ -1,6 +1,6 @@
 // Projects.jsx
 
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState } from 'react';
 import './Projects.css';
 
 const devProjects = [
@@ -14,7 +14,7 @@ const devProjects = [
       'Setting up DNS records and configuring custom domains.',
     ],
     solutions: [
-      'Created a backend google auth and callback to handle user authentication.',
+      'Created a backend Google auth and callback to handle user authentication.',
       'Implemented React Router and tested route-based navigation extensively.',
       'Updated the CORS configuration to allow requests from multiple origins.',
       'Configured DNS records with Netlify and added a custom domain.',
@@ -24,7 +24,7 @@ const devProjects = [
   },
   {
     title: 'Main Website - Backend',
-    description: 'A node/express backend for my personal site.',
+    description: 'A Node/Express backend for my personal site.',
     difficulties: [
       'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
       'Implementing a RESTful API for the frontend to consume.',
@@ -50,7 +50,7 @@ const devProjects = [
       'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
     ],
     solutions: [
-      'Implemented FusoinAuth to handle SSO for the various SRI, Inc. web properties.',
+      'Implemented FusionAuth to handle SSO for the various SRI, Inc. web properties.',
       'Utilized Bootstrap and custom CSS to create a responsive design.',
       'Conducted user testing and feedback sessions to refine the interface.',
       'Designed a dashboard with React and Redux for state management.',
@@ -101,7 +101,7 @@ const uxProjects = [
     difficulties: ['Creating a user-friendly dashboard for users who are not tech-savvy.'],
     solutions: [
       'Interviewed users to understand their needs and pain points.',
-      'Designed a simple and intuitive dashboard with XD.',
+      'Designed a simple and intuitive dashboard with Adobe XD.',
     ],
     screenshots: ['https://i.imgur.com/HMCKuec.png', 'https://i.imgur.com/sDM9SAf.png'],
   },
@@ -123,33 +123,30 @@ const uxProjects = [
   },
 ];
 
-const ProjectCard = memo(({ project, section, openModal }) => {
+const ProjectCard = ({ project, section, openModal }) => {
   const { title, description, difficulties, solutions, github, demo, screenshots } = project;
 
   return (
-    <div
-      className="projects-page-new__card"
-      id={`projects-page-new__card-${title.replace(/\s+/g, '-').toLowerCase()}`}
-    >
-      <h2 className="projects-page-new__card-title">{title}</h2>
-      <p className="projects-page-new__card-description">{description}</p>
+    <div className="project-card">
+      <h2 className="project-card__title">{title}</h2>
+      <p className="project-card__description">{description}</p>
 
-      <div className="projects-page-new__card-section">
-        <h3 className="projects-page-new__card-subtitle">Challenges:</h3>
-        <ul className="projects-page-new__card-list">
+      <div className="project-card__section">
+        <h3 className="project-card__subtitle">Challenges:</h3>
+        <ul className="project-card__list">
           {difficulties.map((difficulty, idx) => (
-            <li key={`projects-page-new__card-diff-${title}-${idx}`} className="projects-page-new__card-list-item">
+            <li key={`diff-${idx}`} className="project-card__list-item">
               {difficulty}
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="projects-page-new__card-section">
-        <h3 className="projects-page-new__card-subtitle">Solutions:</h3>
-        <ul className="projects-page-new__card-list">
+      <div className="project-card__section">
+        <h3 className="project-card__subtitle">Solutions:</h3>
+        <ul className="project-card__list">
           {solutions.map((solution, idx) => (
-            <li key={`projects-page-new__card-sol-${title}-${idx}`} className="projects-page-new__card-list-item">
+            <li key={`sol-${idx}`} className="project-card__list-item">
               {solution}
             </li>
           ))}
@@ -159,7 +156,7 @@ const ProjectCard = memo(({ project, section, openModal }) => {
       {section === 'ux' && screenshots && screenshots.length > 0 && (
         <>
           <button
-            className="projects-page-new__card-button"
+            className="project-card__button"
             onClick={() => openModal(screenshots, title)}
             aria-label={`View screenshots of ${title}`}
           >
@@ -167,27 +164,24 @@ const ProjectCard = memo(({ project, section, openModal }) => {
           </button>
 
           {/* Modal for Screenshots */}
-          <div
-            id={`projects-page-new__modal-${title.replace(/\s+/g, '-')}`}
-            className="projects-page-new__modal"
-          >
-            <div className="projects-page-new__modal-overlay" onClick={() => openModal([], '')}></div>
-            <div className="projects-page-new__modal-content">
+          <div className="modal project-modal">
+            <div className="modal__overlay" onClick={() => openModal([], '')}></div>
+            <div className="modal__content">
               <button
-                className="projects-page-new__modal-close"
+                className="modal__close"
                 onClick={() => openModal([], '')}
                 aria-label="Close modal"
               >
                 &times;
               </button>
-              <h3 className="projects-page-new__modal-title">{title} Screenshots</h3>
-              <div className="projects-page-new__modal-images">
+              <h3 className="modal__title">{title} Screenshots</h3>
+              <div className="modal__images">
                 {screenshots.map((screenshot, idx) => (
                   <img
-                    key={`projects-page-new__modal-screenshot-${title}-${idx}`}
+                    key={`screenshot-${idx}`}
                     src={screenshot}
                     alt={`Screenshot ${idx + 1} of ${title}`}
-                    className="projects-page-new__modal-image"
+                    className="modal__image"
                   />
                 ))}
               </div>
@@ -197,13 +191,13 @@ const ProjectCard = memo(({ project, section, openModal }) => {
       )}
 
       {section === 'development' && (github || demo) && (
-        <div className="projects-page-new__card-links">
+        <div className="project-card__links">
           {github && (
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="projects-page-new__card-link"
+              className="project-card__link"
               aria-label={`View ${title} on GitHub`}
             >
               GitHub
@@ -214,7 +208,7 @@ const ProjectCard = memo(({ project, section, openModal }) => {
               href={demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="projects-page-new__card-link"
+              className="project-card__link"
               aria-label={`View live demo of ${title}`}
             >
               Live Demo
@@ -224,36 +218,36 @@ const ProjectCard = memo(({ project, section, openModal }) => {
       )}
     </div>
   );
-});
+};
 
 const Projects = () => {
   const [currentSection, setCurrentSection] = useState('development');
   const [modalData, setModalData] = useState({ screenshots: [], title: '' });
 
-  const openModal = useCallback((screenshots, title) => {
+  const openModal = (screenshots, title) => {
     setModalData({ screenshots, title });
-  }, []);
+  };
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setModalData({ screenshots: [], title: '' });
-  }, []);
+  };
 
   const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
 
   return (
-    <div className="projects-page-new">
-      <header className="projects-page-new__header">
-        <h1 className="projects-page-new__title">
+    <div className="projects-page">
+      <header className="projects-page__header">
+        <h1 className="projects-page__title">
           {currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}
         </h1>
-        <p className="projects-page-new__subtitle">
+        <p className="projects-page__subtitle">
           Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.
         </p>
-        <div className="projects-page-new__toggle">
+        <div className="projects-page__toggle">
           <button
             onClick={() => setCurrentSection('development')}
-            className={`projects-page-new__toggle-button ${
-              currentSection === 'development' ? 'projects-page-new__toggle-button--active' : ''
+            className={`projects-page__toggle-button ${
+              currentSection === 'development' ? 'projects-page__toggle-button--active' : ''
             }`}
             aria-pressed={currentSection === 'development'}
           >
@@ -261,8 +255,8 @@ const Projects = () => {
           </button>
           <button
             onClick={() => setCurrentSection('ux')}
-            className={`projects-page-new__toggle-button ${
-              currentSection === 'ux' ? 'projects-page-new__toggle-button--active' : ''
+            className={`projects-page__toggle-button ${
+              currentSection === 'ux' ? 'projects-page__toggle-button--active' : ''
             }`}
             aria-pressed={currentSection === 'ux'}
           >
@@ -271,10 +265,10 @@ const Projects = () => {
         </div>
       </header>
 
-      <main className="projects-page-new__main">
+      <main className="projects-page__main">
         {projectsToDisplay.map((project, index) => (
           <ProjectCard
-            key={`projects-page-new__card-${project.title}-${index}`}
+            key={`project-${index}`}
             project={project}
             section={currentSection}
             openModal={openModal}
@@ -284,29 +278,24 @@ const Projects = () => {
 
       {/* Modal for Screenshots */}
       {modalData.title && modalData.screenshots.length > 0 && (
-        <div
-          id={`projects-page-new__modal-${modalData.title.replace(/\s+/g, '-')}`}
-          className={`projects-page-new__modal ${
-            modalData.screenshots.length > 0 ? 'projects-page-new__modal--visible' : ''
-          }`}
-        >
-          <div className="projects-page-new__modal-overlay" onClick={closeModal}></div>
-          <div className="projects-page-new__modal-content">
+        <div className={`modal ${modalData.screenshots.length > 0 ? 'modal--visible' : ''}`}>
+          <div className="modal__overlay" onClick={closeModal}></div>
+          <div className="modal__content">
             <button
-              className="projects-page-new__modal-close"
+              className="modal__close"
               onClick={closeModal}
               aria-label="Close modal"
             >
               &times;
             </button>
-            <h3 className="projects-page-new__modal-title">{modalData.title} Screenshots</h3>
-            <div className="projects-page-new__modal-images">
+            <h3 className="modal__title">{modalData.title} Screenshots</h3>
+            <div className="modal__images">
               {modalData.screenshots.map((screenshot, idx) => (
                 <img
-                  key={`projects-page-new__modal-screenshot-${modalData.title}-${idx}`}
+                  key={`modal-screenshot-${idx}`}
                   src={screenshot}
                   alt={`Screenshot ${idx + 1} of ${modalData.title}`}
-                  className="projects-page-new__modal-image"
+                  className="modal__image"
                 />
               ))}
             </div>
