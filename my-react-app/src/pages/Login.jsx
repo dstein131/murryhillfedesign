@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/userSlice';
+import { login, googleLogin } from '../redux/userSlice'; // Import both thunks
 import api from '../api/api'; // Import API for backend communication
 
 const Login = ({ show, handleClose, onSuccess }) => {
@@ -74,21 +74,14 @@ const Login = ({ show, handleClose, onSuccess }) => {
       const { credential } = response;
       console.log('Google login credential received:', credential);
 
-      // Send the credential to the backend for verification
-      const googleResponse = await api.post('/api/users/auth/google', { token: credential });
-      const { token, user, is_superadmin, applications, roles } = googleResponse.data;
+      // Dispatch the googleLogin thunk with the credential
+      await dispatch(googleLogin(credential)).unwrap();
 
-      // Save the token
-      localStorage.setItem('token', token);
-
-      // Dispatch setUser with complete user data
-      dispatch(setUser({ user, is_superadmin, applications, roles }));
-      
       alert('Google login successful!');
       onSuccess(); // Close the modal on successful login
     } catch (err) {
       console.error('Google login failed:', err);
-      setError('Google login failed. Please try again.');
+      setError(err || 'Google login failed. Please try again.');
     }
   };
 

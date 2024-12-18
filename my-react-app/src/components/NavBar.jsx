@@ -71,6 +71,18 @@ const NavBar = () => {
                       Admin Panel
                     </Nav.Link>
                   )}
+                  {/* Example: Display applications */}
+                  {applications.length > 0 && (
+                    <Nav.Link as={Link} to="/applications" className="navbar-link-custom">
+                      Applications ({applications.length})
+                    </Nav.Link>
+                  )}
+                  {/* Example: Display roles */}
+                  {roles.length > 0 && (
+                    <Nav.Link as={Link} to="/roles" className="navbar-link-custom">
+                      Roles ({roles.length})
+                    </Nav.Link>
+                  )}
                   <Button className="custom-button ms-2" onClick={handleLogout}>
                     Logout
                   </Button>

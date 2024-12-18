@@ -1,96 +1,156 @@
+// src/redux/userSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
-import api from '../api/api';
+import api from '../api/api'; // Ensure this points to your API utility
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null, // Stores user details
-    isAuthenticated: false,
-    loading: false, // Updated default state
-    error: null, // Track authentication-related errors
+    is_superadmin: false, // Indicates if the user is a superadmin
+    applications: [], // List of user applications
+    roles: [], // List of user roles
+    isAuthenticated: false, // Authentication status
+    loading: false, // Indicates if an async operation is in progress
+    error: null, // Stores error messages
   },
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
-      state.isAuthenticated = !!action.payload; // Determine authentication state
+      const { user, is_superadmin, applications, roles } = action.payload;
+      state.user = user;
+      state.is_superadmin = is_superadmin;
+      state.applications = applications;
+      state.roles = roles;
+      state.isAuthenticated = !!user; // Sets to true if user exists
     },
     setLoading: (state, action) => {
-      state.loading = action.payload;
+      state.loading = action.payload; // true or false
     },
     setError: (state, action) => {
-      state.error = action.payload; // Capture error messages
+      state.error = action.payload; // Error message string
     },
     logout: (state) => {
-      localStorage.removeItem('token'); // Clear token
+      localStorage.removeItem('token'); // Clear token from localStorage
       state.user = null;
+      state.is_superadmin = false;
+      state.applications = [];
+      state.roles = [];
       state.isAuthenticated = false;
+      state.error = null;
+      state.loading = false;
     },
   },
 });
 
 export const { setUser, setLoading, setError, logout } = userSlice.actions;
 
-// Async thunk for login
+/**
+ * Async thunk for traditional login
+ * Dispatches setUser with user data upon successful login
+ */
 export const login = (credentials) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     // Send login credentials to the API
-    const response = await api.post('api/users/login', credentials);
-    const { token } = response.data;
+    const response = await api.post('/api/users/login', credentials);
+    const { token, user, is_superadmin, applications, roles } = response.data;
 
     // Save the token to localStorage
     localStorage.setItem('token', token);
 
-    // Fetch and set user data using the token
-    const userResponse = await api.get('api/users/me', {
-      headers: {
-        Authorization: `Bearer ${token}`, // Include token in Authorization header
-      },
-    });
+    // Dispatch setUser with all necessary user data
+    dispatch(setUser({ user, is_superadmin, applications, roles }));
 
-    // Set user state with the response
-    dispatch(setUser(userResponse.data.user));
-    dispatch(setError(null)); // Clear any previous errors
+    // Clear any previous errors
+    dispatch(setError(null));
   } catch (err) {
     console.error('Error logging in:', err);
-    dispatch(setError(err.response?.data?.message || 'Login failed'));
+    // Extract error message from response or set a default message
+    const errorMessage =
+      err.response?.data?.message || 'Login failed. Please try again.';
+    dispatch(setError(errorMessage));
   } finally {
     dispatch(setLoading(false));
   }
 };
 
-// Async thunk for verifying token
+/**
+ * Async thunk for verifying token on app load or refresh
+ * Dispatches setUser if token is valid
+ */
 export const verifyToken = () => async (dispatch) => {
-    dispatch(setLoading(true));
-    try {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const response = await api.get('/api/users/me', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            dispatch(setUser(response.data.user));
-        } else {
-            dispatch(setUser(null));
-        }
-    } catch (err) {
-        console.error('Error verifying token:', err);
-        dispatch(setUser(null));
-    } finally {
-        dispatch(setLoading(false));
+  dispatch(setLoading(true));
+  try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Fetch user data using the token
+      const response = await api.get('/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { user, is_superadmin, applications, roles } = response.data;
+
+      // Dispatch setUser with all necessary user data
+      dispatch(setUser({ user, is_superadmin, applications, roles }));
+    } else {
+      // No token found, ensure state reflects unauthenticated user
+      dispatch(setUser(null));
     }
+  } catch (err) {
+    console.error('Error verifying token:', err);
+    // If token verification fails, clear user data
+    dispatch(setUser(null));
+  } finally {
+    dispatch(setLoading(false));
+  }
 };
 
-
-// Async thunk for logging out
+/**
+ * Async thunk for logging out the user
+ * Optionally calls the logout API endpoint to invalidate the session
+ */
 export const logoutUser = () => async (dispatch) => {
+  dispatch(setLoading(true));
   try {
-    await api.post('api/users/logout'); // Optional API call to invalidate the session on the server
-    dispatch(logout()); // Clear local state
+    await api.post('/api/users/logout'); // Optional: Invalidate session on the server
   } catch (err) {
     console.error('Error logging out:', err);
-    dispatch(logout()); // Ensure local state is cleared regardless of API response
+    // Even if the API call fails, proceed to clear local state
+  } finally {
+    // Dispatch logout to clear user data from Redux store
+    dispatch(logout());
+    dispatch(setLoading(false));
+  }
+};
+
+/**
+ * Async thunk for Google login
+ * Dispatches setUser with user data upon successful Google authentication
+ */
+export const googleLogin = (credential) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    // Send the Google credential to the backend for verification
+    const response = await api.post('/api/users/auth/google', { token: credential });
+    const { token, user, is_superadmin, applications, roles } = response.data;
+
+    // Save the token to localStorage
+    localStorage.setItem('token', token);
+
+    // Dispatch setUser with all necessary user data
+    dispatch(setUser({ user, is_superadmin, applications, roles }));
+
+    // Clear any previous errors
+    dispatch(setError(null));
+  } catch (err) {
+    console.error('Google login failed:', err);
+    // Extract error message from response or set a default message
+    const errorMessage =
+      err.response?.data?.message || 'Google login failed. Please try again.';
+    dispatch(setError(errorMessage));
+  } finally {
+    dispatch(setLoading(false));
   }
 };
 
