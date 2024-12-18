@@ -1,9 +1,10 @@
 // src/App.jsx
 
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom'; // Removed useLocation as it's not needed here
-import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider
-import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
+import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+
 import NavBar from './components/NavBar';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -17,14 +18,15 @@ import Blog from './pages/Blog';
 import Services from './pages/Services';
 import ChatGPTInteraction from './pages/ChatGPTInteraction';
 import Success from './pages/Success';
-import AdminPanel from './pages/AdminPanel'; // Import AdminPanel
-import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
-import { verifyToken } from './redux/userSlice'; // Import verifyToken thunk
+import AdminPanel from './pages/AdminPanel';
+import Cart from './pages/Cart';       // Import the Cart page
+import Checkout from './pages/Checkout'; // Import the Checkout page
+
+import ProtectedRoute from './components/ProtectedRoute';
+import { verifyToken } from './redux/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
-
-  // Access user state from Redux
   const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   // Verify token on initial mount
@@ -87,7 +89,13 @@ const App = () => {
             <Route path="/chat" element={<ChatGPTInteraction />} />
             <Route path="/auth/success" element={<Success />} />
 
-            {/* Admin Panel Route - Protected */}
+            {/* Cart Route */}
+            <Route path="/cart" element={<Cart />} />
+
+            {/* Checkout Route */}
+            <Route path="/checkout" element={<Checkout />} />
+
+            {/* Protected Admin Panel Route */}
             <Route
               path="/admin"
               element={

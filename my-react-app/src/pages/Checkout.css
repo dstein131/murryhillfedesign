@@ -1,0 +1,52 @@
+/* src/pages/Checkout.css */
+
+:root {
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  
+    /* Color Scheme */
+    --text-color: rgba(255, 255, 255, 0.87);
+    --background-color: #242424;
+    --card-background-color: #1a1a1a;
+    --primary-color: #646cff;
+    --primary-hover: #535bf2;
+    --secondary-color: #535bf2;
+    --secondary-hover: #4444e2;
+  }
+  
+  /* Page Container */
+  .checkout-page {
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin-top: 60px; /* Account for fixed navbar */
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .checkout-page__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .checkout-page__title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .checkout-page__main {
+    text-align: center;
+  }
+  
+  .checkout-page__message {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-color);
+  }
+  

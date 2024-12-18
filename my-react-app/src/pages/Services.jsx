@@ -4,11 +4,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchServices } from '../redux/servicesSlice';
+import { addItemToCart, fetchCart } from '../redux/cartSlice'; // Import cart actions
 import './Services.css'; // Ensure this file is correctly imported
 
-const PackageCard = ({ pkg, onContact }) => {
+const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
   const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
-  
+
   return (
     <div className="service-card">
       <div className="service-card__content">
@@ -32,13 +33,26 @@ const PackageCard = ({ pkg, onContact }) => {
           </div>
         )}
       </div>
-      <button
-        className="service-card__button"
-        onClick={() => onContact(pkg.title)}
-        aria-label={`Contact about ${pkg.title}`}
-      >
-        Contact Me
-      </button>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <button
+          className="service-card__button"
+          onClick={() => onContact(pkg.title)}
+          aria-label={`Contact about ${pkg.title}`}
+        >
+          Contact Me
+        </button>
+
+        {/* Show Add to Cart button if user is logged in and service has a price */}
+        {isAuthenticated && pkg.price && (
+          <button
+            className="service-card__button"
+            style={{ backgroundColor: '#4444e2' }} // Slightly different color for "Add to Cart"
+            onClick={() => onAddToCart(pkg.service_id)}
+          >
+            Add to Cart
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -48,6 +62,7 @@ const Services = () => {
   const dispatch = useDispatch();
 
   const { services, loading, error } = useSelector((state) => state.services);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -55,6 +70,19 @@ const Services = () => {
 
   const handleContact = (serviceName) => {
     navigate(`/contact?service=${encodeURIComponent(serviceName)}`);
+  };
+
+  const handleAddToCart = async (serviceId) => {
+    try {
+      // Add one item of the selected service to the cart with no addons
+      await dispatch(addItemToCart({ service_id: serviceId, quantity: 1, addons: [] })).unwrap();
+      // Re-fetch cart to update cart state
+      dispatch(fetchCart());
+      alert('Item added to cart successfully!');
+    } catch (err) {
+      console.error('Error adding item to cart:', err);
+      alert('Failed to add item to cart. Please try again.');
+    }
   };
 
   // If any service has price null, treat its entire description as addons
@@ -93,6 +121,8 @@ const Services = () => {
                 key={`package-${pkgIdx}`}
                 pkg={pkg}
                 onContact={handleContact}
+                onAddToCart={handleAddToCart}
+                isAuthenticated={isAuthenticated}
               />
             ))}
           </div>

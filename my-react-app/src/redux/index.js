@@ -4,3 +4,4 @@
 export { default as userReducer } from './userSlice';
 export { default as servicesReducer } from './servicesSlice';
 export { default as addonsReducer } from './addonsSlice';
+export { default as cartReducer } from './cartSlice'; // Export the cartReducer as well

@@ -4,16 +4,21 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { verifyToken, performLogoutUser } from '../redux/userSlice'; // Import thunks directly from userSlice
+import { verifyToken, performLogoutUser } from '../redux/userSlice'; 
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import '../components/NavBar.css';
+
+// Import cart icon from react-icons
+import { FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user, is_superadmin, applications, roles, isAuthenticated, loading, error } = useSelector((state) => state.user);
+  const { items } = useSelector((state) => state.cart);
+  const cartItemCount = items ? items.length : 0;
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -39,11 +44,10 @@ const NavBar = () => {
       navigate('/');
     } catch (err) {
       console.error('Logout error:', err);
-      // Optionally, handle logout errors (e.g., show a notification)
     }
   };
 
-  console.log('NavBar rendered with isAuthenticated:', isAuthenticated); // Debugging
+  console.log('NavBar rendered with isAuthenticated:', isAuthenticated);
 
   return (
     <>
@@ -92,18 +96,27 @@ const NavBar = () => {
                       Admin Panel
                     </Nav.Link>
                   )}
-                  {/* Example: Display applications */}
                   {applications.length > 0 && (
                     <Nav.Link as={Link} to="/applications" className="navbar-link-custom">
                       Applications ({applications.length})
                     </Nav.Link>
                   )}
-                  {/* Example: Display roles */}
                   {roles.length > 0 && (
                     <Nav.Link as={Link} to="/roles" className="navbar-link-custom">
                       Roles ({roles.length})
                     </Nav.Link>
                   )}
+
+                  {/* Cart Icon with Item Count */}
+                  <Nav.Link as={Link} to="/cart" className="navbar-link-custom d-flex align-items-center">
+                    <FaShoppingCart style={{ width: '24px', height: '24px', marginRight: '5px' }} />
+                    {cartItemCount > 0 && (
+                      <span style={{ fontWeight: 'bold', color: 'var(--text-color)' }}>
+                        {cartItemCount}
+                      </span>
+                    )}
+                  </Nav.Link>
+
                   <Button
                     className="custom-button ms-2"
                     onClick={() => {
@@ -130,9 +143,6 @@ const NavBar = () => {
         onSuccess={() => {
           console.log('Login successful. Closing modal.');
           setShowLogin(false);
-          // Optionally, navigate or perform other actions upon successful login
-          // For example, navigate to a dashboard
-          // navigate('/dashboard');
         }}
       />
 
