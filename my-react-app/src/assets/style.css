@@ -265,6 +265,35 @@ input:focus {
 }
 
 
+/* Contact Info Styles */
+.contact-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-info__phone {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+/* Make the contact link a button */
+.contact-info__call-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-info__call-button:hover {
+  background-color: var(--primary-hover);
+}
+
 
 .music-page {
   padding: 2rem;

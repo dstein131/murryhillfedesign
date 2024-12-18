@@ -1,6 +1,6 @@
 // src/pages/Contact.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 
@@ -30,7 +30,7 @@ const Contact = () => {
     setLoading(true);
     setStatus("");
 
-    // Structure the email data to include sender details and selected service
+    // Structure the email data
     const emailData = {
       from_name: formData.name,
       from_email: formData.email,
@@ -66,9 +66,17 @@ const Contact = () => {
     <div className="contact-page">
       <header className="contact-page__header">
         <h1>Contact Me</h1>
-        <p>Feel free to reach out by filling out the form below!</p>
+        <p>Feel free to reach out by filling out the form below or call me directly!</p>
       </header>
       <main className="contact-page__main">
+        <div className="contact-info">
+          <p className="contact-info__phone">
+            <strong>Phone:</strong> (904) 383-9688
+          </p>
+          <a href="tel:9043839688" className="contact-info__call-button">
+            Call Now
+          </a>
+        </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="contact-form__field">
             <label htmlFor="name">Name</label>

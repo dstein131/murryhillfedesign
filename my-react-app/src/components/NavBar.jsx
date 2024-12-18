@@ -5,11 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, performLogoutUser } from '../redux/userSlice'; 
+import { fetchCart } from '../redux/cartSlice';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import '../components/NavBar.css';
-
-// Import cart icon from react-icons
 import { FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
@@ -18,7 +17,9 @@ const NavBar = () => {
 
   const { user, is_superadmin, applications, roles, isAuthenticated, loading, error } = useSelector((state) => state.user);
   const { items } = useSelector((state) => state.cart);
-  const cartItemCount = items ? items.length : 0;
+
+  // Calculate total quantity of items in the cart
+  const cartItemCount = items ? items.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0;
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -35,6 +36,14 @@ const NavBar = () => {
         console.log('Token verification failed:', err);
       });
   }, [dispatch]);
+
+  // Whenever the user becomes authenticated, fetch the cart
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('User is authenticated, fetching cart...');
+      dispatch(fetchCart());
+    }
+  }, [isAuthenticated, dispatch]);
 
   const handleLogout = async () => {
     try {
@@ -107,7 +116,7 @@ const NavBar = () => {
                     </Nav.Link>
                   )}
 
-                  {/* Cart Icon with Item Count */}
+                  {/* Cart Icon with total item quantity */}
                   <Nav.Link as={Link} to="/cart" className="navbar-link-custom d-flex align-items-center">
                     <FaShoppingCart style={{ width: '24px', height: '24px', marginRight: '5px' }} />
                     {cartItemCount > 0 && (
@@ -143,6 +152,8 @@ const NavBar = () => {
         onSuccess={() => {
           console.log('Login successful. Closing modal.');
           setShowLogin(false);
+          // Optionally fetch the cart here as well if needed.
+          dispatch(fetchCart());
         }}
       />
 
