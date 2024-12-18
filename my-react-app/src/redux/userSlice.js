@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../api/api'; // Ensure this points to your API utility
 
 // Async thunk for traditional login
-export const login = createAsyncThunk(
+const login = createAsyncThunk(
   'user/login',
   async (credentials, { rejectWithValue }) => {
     try {
@@ -19,7 +19,7 @@ export const login = createAsyncThunk(
 );
 
 // Async thunk for verifying token
-export const verifyToken = createAsyncThunk(
+const verifyToken = createAsyncThunk(
   'user/verifyToken',
   async (_, { rejectWithValue }) => {
     try {
@@ -43,7 +43,7 @@ export const verifyToken = createAsyncThunk(
 );
 
 // Async thunk for Google login
-export const googleLogin = createAsyncThunk(
+const googleLogin = createAsyncThunk(
   'user/googleLogin',
   async (credential, { rejectWithValue }) => {
     try {
@@ -57,12 +57,13 @@ export const googleLogin = createAsyncThunk(
   }
 );
 
-// Async thunk for logging out the user
-export const logoutUser = createAsyncThunk(
+// Async thunk for logging out the user (renamed to performLogoutUser)
+const performLogoutUser = createAsyncThunk(
   'user/logoutUser',
   async (_, { rejectWithValue }) => {
     try {
       await api.post('/api/users/logout'); // Optional: Invalidate session on the server
+      localStorage.removeItem('token'); // Clear token from localStorage
       return;
     } catch (err) {
       const errorMessage =
@@ -85,6 +86,7 @@ const userSlice = createSlice({
     error: null, // Stores error messages
   },
   reducers: {
+    // Removed 'logout' action to prevent duplication
     setUser: (state, action) => {
       const { user, is_superadmin, applications, roles } = action.payload;
       state.user = user;
@@ -99,16 +101,7 @@ const userSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload; // Error message string
     },
-    logout: (state) => {
-      localStorage.removeItem('token'); // Clear token from localStorage
-      state.user = null;
-      state.is_superadmin = false;
-      state.applications = [];
-      state.roles = [];
-      state.isAuthenticated = false;
-      state.error = null;
-      state.loading = false;
-    },
+    // Removed 'logout' action
   },
   extraReducers: (builder) => {
     // Handle login
@@ -181,13 +174,13 @@ const userSlice = createSlice({
         state.error = action.payload || 'Google login failed. Please try again.';
       });
 
-    // Handle logoutUser
+    // Handle performLogoutUser
     builder
-      .addCase(logoutUser.pending, (state) => {
+      .addCase(performLogoutUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(performLogoutUser.fulfilled, (state) => {
         state.user = null;
         state.is_superadmin = false;
         state.applications = [];
@@ -196,7 +189,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
       })
-      .addCase(logoutUser.rejected, (state, action) => {
+      .addCase(performLogoutUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Logout failed. Please try again.';
       });
@@ -204,10 +197,10 @@ const userSlice = createSlice({
 });
 
 // Export actions
-export const { setUser, setLoading, setError, logout } = userSlice.actions;
+export const { setUser, setLoading, setError } = userSlice.actions;
 
-// Export thunks (ensure no duplicates)
-export { login, verifyToken, googleLogin, logoutUser };
+// Export thunks
+export { login, verifyToken, googleLogin, performLogoutUser };
 
 // Export reducer
 export default userSlice.reducer;

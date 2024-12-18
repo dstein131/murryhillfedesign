@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { login, googleLogin } from '../redux/userSlice'; // Correctly import thunks
+import { login, googleLogin } from '../redux/userSlice'; // Import thunks directly from userSlice
 import api from '../api/api'; // Import API for backend communication
 
 const Login = ({ show, handleClose, onSuccess }) => {
