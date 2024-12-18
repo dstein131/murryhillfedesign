@@ -20,18 +20,30 @@ const NavBar = () => {
 
   // Verify token on initial mount
   useEffect(() => {
-    dispatch(verifyToken());
+    console.log('NavBar mounted. Dispatching verifyToken.');
+    dispatch(verifyToken())
+      .unwrap()
+      .then(() => {
+        console.log('Token verified successfully.');
+      })
+      .catch((err) => {
+        console.log('Token verification failed:', err);
+      });
   }, [dispatch]);
 
   const handleLogout = async () => {
     try {
+      console.log('Dispatching performLogoutUser.');
       await dispatch(performLogoutUser()).unwrap();
+      console.log('Logout successful. Navigating to home.');
       navigate('/');
     } catch (err) {
       console.error('Logout error:', err);
-      // Optionally, handle logout errors
+      // Optionally, handle logout errors (e.g., show a notification)
     }
   };
+
+  console.log('NavBar rendered with isAuthenticated:', isAuthenticated); // Debugging
 
   return (
     <>
@@ -53,13 +65,19 @@ const NavBar = () => {
                 <>
                   <Button
                     className="custom-button me-2"
-                    onClick={() => setShowLogin(true)}
+                    onClick={() => {
+                      console.log('Showing Login modal.');
+                      setShowLogin(true);
+                    }}
                   >
                     Login
                   </Button>
                   <Button
                     className="custom-button"
-                    onClick={() => setShowRegister(true)}
+                    onClick={() => {
+                      console.log('Showing Register modal.');
+                      setShowRegister(true);
+                    }}
                   >
                     Register
                   </Button>
@@ -86,7 +104,13 @@ const NavBar = () => {
                       Roles ({roles.length})
                     </Nav.Link>
                   )}
-                  <Button className="custom-button ms-2" onClick={handleLogout}>
+                  <Button
+                    className="custom-button ms-2"
+                    onClick={() => {
+                      console.log('Logout button clicked.');
+                      handleLogout();
+                    }}
+                  >
                     Logout
                   </Button>
                 </>
@@ -99,17 +123,26 @@ const NavBar = () => {
       {/* Login Modal */}
       <Login
         show={showLogin}
-        handleClose={() => setShowLogin(false)}
+        handleClose={() => {
+          console.log('Closing Login modal.');
+          setShowLogin(false);
+        }}
         onSuccess={() => {
+          console.log('Login successful. Closing modal.');
           setShowLogin(false);
           // Optionally, navigate or perform other actions upon successful login
+          // For example, navigate to a dashboard
+          // navigate('/dashboard');
         }}
       />
 
       {/* Register Modal */}
       <Register
         show={showRegister}
-        handleClose={() => setShowRegister(false)}
+        handleClose={() => {
+          console.log('Closing Register modal.');
+          setShowRegister(false);
+        }}
       />
     </>
   );

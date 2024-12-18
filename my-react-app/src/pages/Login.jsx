@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { login, googleLogin } from '../redux/userSlice'; // Import thunks directly from userSlice
+import { login, googleLogin, verifyToken } from '../redux/userSlice'; // Import thunks directly from userSlice
 import api from '../api/api'; // Import API for backend communication
 
 const Login = ({ show, handleClose, onSuccess }) => {
@@ -57,9 +57,14 @@ const Login = ({ show, handleClose, onSuccess }) => {
       console.log('Submitting login:', { email, password });
 
       // Dispatch the login thunk with credentials and unwrap the result
-      await dispatch(login({ email, password })).unwrap();
+      const resultAction = await dispatch(login({ email, password })).unwrap();
+      
+      console.log('Login successful:', resultAction);
 
-      console.log('Login successful');
+      // Optionally, dispatch verifyToken to ensure state consistency
+      await dispatch(verifyToken()).unwrap();
+      console.log('Token verified after login.');
+
       onSuccess(); // Close the modal on successful login
     } catch (err) {
       console.error('Login error:', err);
@@ -75,7 +80,13 @@ const Login = ({ show, handleClose, onSuccess }) => {
       console.log('Google login credential received:', credential);
 
       // Dispatch the googleLogin thunk with the credential and unwrap the result
-      await dispatch(googleLogin(credential)).unwrap();
+      const resultAction = await dispatch(googleLogin(credential)).unwrap();
+
+      console.log('Google login successful:', resultAction);
+
+      // Optionally, dispatch verifyToken to ensure state consistency
+      await dispatch(verifyToken()).unwrap();
+      console.log('Token verified after Google login.');
 
       alert('Google login successful!');
       onSuccess(); // Close the modal on successful login

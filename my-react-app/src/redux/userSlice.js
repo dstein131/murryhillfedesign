@@ -9,10 +9,12 @@ const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post('/api/users/login', credentials);
-      return response.data; // { token, user, is_superadmin, applications, roles }
+      console.log('Login API response:', response.data); // Debugging
+      return response.data; // Ensure this structure matches your state
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || 'Login failed. Please try again.';
+      console.error('Login API error:', errorMessage); // Debugging
       return rejectWithValue(errorMessage);
     }
   }
@@ -25,6 +27,7 @@ const verifyToken = createAsyncThunk(
     try {
       const token = localStorage.getItem('token');
       if (!token) {
+        console.warn('No token found in localStorage'); // Debugging
         return rejectWithValue('No token found');
       }
 
@@ -33,10 +36,12 @@ const verifyToken = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log('VerifyToken API response:', response.data); // Debugging
       return response.data; // { user, is_superadmin, applications, roles }
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || 'Token verification failed.';
+      console.error('VerifyToken API error:', errorMessage); // Debugging
       return rejectWithValue(errorMessage);
     }
   }
@@ -48,10 +53,12 @@ const googleLogin = createAsyncThunk(
   async (credential, { rejectWithValue }) => {
     try {
       const response = await api.post('/api/users/auth/google', { token: credential });
+      console.log('GoogleLogin API response:', response.data); // Debugging
       return response.data; // { token, user, is_superadmin, applications, roles }
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || 'Google login failed. Please try again.';
+      console.error('GoogleLogin API error:', errorMessage); // Debugging
       return rejectWithValue(errorMessage);
     }
   }
@@ -64,10 +71,12 @@ const performLogoutUser = createAsyncThunk(
     try {
       await api.post('/api/users/logout'); // Optional: Invalidate session on the server
       localStorage.removeItem('token'); // Clear token from localStorage
+      console.log('User logged out successfully'); // Debugging
       return;
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || 'Logout failed. Please try again.';
+      console.error('Logout API error:', errorMessage); // Debugging
       return rejectWithValue(errorMessage);
     }
   }
@@ -86,7 +95,6 @@ const userSlice = createSlice({
     error: null, // Stores error messages
   },
   reducers: {
-    // Removed 'logout' action to prevent duplication
     setUser: (state, action) => {
       const { user, is_superadmin, applications, roles } = action.payload;
       state.user = user;
@@ -94,14 +102,16 @@ const userSlice = createSlice({
       state.applications = applications;
       state.roles = roles;
       state.isAuthenticated = !!user; // Sets to true if user exists
+      console.log('setUser called:', action.payload); // Debugging
     },
     setLoading: (state, action) => {
       state.loading = action.payload; // true or false
+      console.log('setLoading called:', action.payload); // Debugging
     },
     setError: (state, action) => {
       state.error = action.payload; // Error message string
+      console.log('setError called:', action.payload); // Debugging
     },
-    // Removed 'logout' action
   },
   extraReducers: (builder) => {
     // Handle login
@@ -109,9 +119,11 @@ const userSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
+        console.log('Login pending...'); // Debugging
       })
       .addCase(login.fulfilled, (state, action) => {
         const { token, user, is_superadmin, applications, roles } = action.payload;
+        console.log('Login fulfilled with payload:', action.payload); // Debugging
         localStorage.setItem('token', token);
         state.user = user;
         state.is_superadmin = is_superadmin;
@@ -124,6 +136,7 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Login failed. Please try again.';
+        console.error('Login rejected:', action.payload); // Debugging
       });
 
     // Handle verifyToken
@@ -131,9 +144,11 @@ const userSlice = createSlice({
       .addCase(verifyToken.pending, (state) => {
         state.loading = true;
         state.error = null;
+        console.log('VerifyToken pending...'); // Debugging
       })
       .addCase(verifyToken.fulfilled, (state, action) => {
         const { user, is_superadmin, applications, roles } = action.payload;
+        console.log('VerifyToken fulfilled with payload:', action.payload); // Debugging
         state.user = user;
         state.is_superadmin = is_superadmin;
         state.applications = applications;
@@ -150,6 +165,7 @@ const userSlice = createSlice({
         state.roles = [];
         state.isAuthenticated = false;
         state.error = action.payload || 'Token verification failed.';
+        console.error('VerifyToken rejected:', action.payload); // Debugging
       });
 
     // Handle googleLogin
@@ -157,9 +173,11 @@ const userSlice = createSlice({
       .addCase(googleLogin.pending, (state) => {
         state.loading = true;
         state.error = null;
+        console.log('GoogleLogin pending...'); // Debugging
       })
       .addCase(googleLogin.fulfilled, (state, action) => {
         const { token, user, is_superadmin, applications, roles } = action.payload;
+        console.log('GoogleLogin fulfilled with payload:', action.payload); // Debugging
         localStorage.setItem('token', token);
         state.user = user;
         state.is_superadmin = is_superadmin;
@@ -172,6 +190,7 @@ const userSlice = createSlice({
       .addCase(googleLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Google login failed. Please try again.';
+        console.error('GoogleLogin rejected:', action.payload); // Debugging
       });
 
     // Handle performLogoutUser
@@ -179,8 +198,10 @@ const userSlice = createSlice({
       .addCase(performLogoutUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        console.log('Logout pending...'); // Debugging
       })
       .addCase(performLogoutUser.fulfilled, (state) => {
+        console.log('Logout fulfilled'); // Debugging
         state.user = null;
         state.is_superadmin = false;
         state.applications = [];
@@ -192,6 +213,7 @@ const userSlice = createSlice({
       .addCase(performLogoutUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Logout failed. Please try again.';
+        console.error('Logout rejected:', action.payload); // Debugging
       });
   },
 });
