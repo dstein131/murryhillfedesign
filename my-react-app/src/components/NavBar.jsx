@@ -1,3 +1,5 @@
+// src/components/NavBar.js
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
@@ -13,7 +15,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   // Access user state and authentication state from Redux store
-  const { user, isAuthenticated, loading } = useSelector((state) => state.user);
+  const { user, is_superadmin, applications, roles, isAuthenticated, loading } = useSelector((state) => state.user);
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -64,6 +66,11 @@ const NavBar = () => {
                   <Nav.Link className="navbar-link-custom">
                     {user ? `Welcome, ${user.username}` : 'Welcome!'}
                   </Nav.Link>
+                  {is_superadmin && (
+                    <Nav.Link as={Link} to="/admin" className="navbar-link-custom">
+                      Admin Panel
+                    </Nav.Link>
+                  )}
                   <Button className="custom-button ms-2" onClick={handleLogout}>
                     Logout
                   </Button>
