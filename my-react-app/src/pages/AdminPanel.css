@@ -1,0 +1,53 @@
+/* src/styles/AdminPanel.css */
+
+.admin-panel {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 8px;
+  }
+  
+  .admin-panel h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+  }
+  
+  .admin-section {
+    margin-bottom: 2rem;
+  }
+  
+  .admin-section h2 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    border: 1px solid var(--primary-color);
+    padding: 0.8rem;
+    text-align: left;
+  }
+  
+  .admin-table th {
+    background-color: var(--card-background-color);
+  }
+  
+  .roles-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
