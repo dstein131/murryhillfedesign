@@ -20,13 +20,14 @@
 
 /* Fixed Navbar */
 .navbar-custom {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1050; /* Ensures navbar stays on top */
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-    padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1050; /* Ensures navbar stays on top */
+  background-color: transparent; /* Fully transparent background */
+  padding: 0.5rem 1rem;
 }
+
 
 .navbar-brand-custom {
     font-size: 1.5rem;
