@@ -38,8 +38,8 @@ const LandingPage = () => {
           property="og:description"
           content="Welcome to Murray Hill Web Development. Explore my projects, services, and learn how I can help your business grow with custom web solutions."
         />
-        <meta property="og:image" content="%PUBLIC_URL%/images/mhwd_logo_no_text.svg" />
-        <meta property="og:url" content="https://murrayhillwebdevelopment.com" />
+        <meta property="og:image" content="%PUBLIC_URL%/images/NEWMHWDLOGO.svg" />
+        <meta property="og:url" content="https://murrayhillwebdevelopment.com" /> 
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Murray Hill Web Development | Home" />
@@ -53,7 +53,7 @@ const LandingPage = () => {
       <header className="landing-page__header text-center">
         {/* Logo */}
         <img
-          src="/images/mhwd_logo.svg"
+          src="/images/NEWMHWDLOGO.svg"
           alt="Murray Hill Web Development Logo"
           className="landing-page__logo mb-4"
           style={{ height: '120px', width: 'auto' }}

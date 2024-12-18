@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: flex-start;
     min-height: 100vh;
+    margin-top: 60px; /* Account for fixed navbar */
     color: var(--text-color);
     background-color: transparent; /* Transparent background */
   }
