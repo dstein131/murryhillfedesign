@@ -1,8 +1,8 @@
 /* Services.css */
 
-/* Define CSS variables for consistent theming */
+/* Root Variables for Consistent Theming */
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -26,7 +26,7 @@
   background-color: var(--background-color);
   color: var(--text-color);
   margin-top: 60px; /* Account for fixed navbar */
-  border-radius: 10px;
+  overflow-x: hidden; /* Prevent horizontal overflow on mobile */
 }
 
 /* Header styling */
@@ -94,6 +94,7 @@
   justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  word-wrap: break-word;
 }
 
 .service-card:hover {
@@ -167,6 +168,7 @@
   cursor: pointer;
   margin-top: 1rem;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .service-card__button:hover {
@@ -175,64 +177,24 @@
 
 /* Responsive Styles */
 
-/* Tablet and below */
-@media (max-width: 992px) {
+/* Ensure that service cards scale properly on small screens */
+@media (max-width: 576px) {
   .services-page__packages {
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
   }
 
   .service-card {
-    max-width: 90%;
-  }
-}
-
-/* Mobile */
-@media (max-width: 576px) {
-  .services-page {
-    padding: 1rem;
-  }
-
-  .services-page__title {
-    font-size: 2rem;
-  }
-
-  .services-page__subtitle {
-    font-size: 1rem;
-  }
-
-  .services-page__section-title {
-    font-size: 1.75rem;
-  }
-
-  .services-page__section-description {
-    font-size: 0.95rem;
-  }
-
-  .service-card {
+    width: 100%;
     max-width: 100%;
-    padding: 1rem;
-  }
-
-  .service-card__title {
-    font-size: 1.3rem;
-  }
-
-  .service-card__price {
-    font-size: 1.1rem;
-  }
-
-  .service-card__features {
-    font-size: 0.85rem;
-  }
-
-  .service-card__addons h4,
-  .service-card__addons ul {
-    font-size: 0.9rem;
+    box-sizing: border-box;
+    margin: 0;
   }
 
   .service-card__button {
-    padding: 0.6rem;
+    width: 100%;
     font-size: 0.9rem;
+    padding: 0.6rem;
   }
 }

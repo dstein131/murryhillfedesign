@@ -1,4 +1,4 @@
-// Projects.jsx
+// src/pages/Projects.jsx
 
 import React, { useState } from 'react';
 import './Projects.css';
@@ -154,40 +154,13 @@ const ProjectCard = ({ project, section, openModal }) => {
       </div>
 
       {section === 'ux' && screenshots && screenshots.length > 0 && (
-        <>
-          <button
-            className="project-card__button"
-            onClick={() => openModal(screenshots, title)}
-            aria-label={`View screenshots of ${title}`}
-          >
-            View Screenshots
-          </button>
-
-          {/* Modal for Screenshots */}
-          <div className="modal project-modal">
-            <div className="modal__overlay" onClick={() => openModal([], '')}></div>
-            <div className="modal__content">
-              <button
-                className="modal__close"
-                onClick={() => openModal([], '')}
-                aria-label="Close modal"
-              >
-                &times;
-              </button>
-              <h3 className="modal__title">{title} Screenshots</h3>
-              <div className="modal__images">
-                {screenshots.map((screenshot, idx) => (
-                  <img
-                    key={`screenshot-${idx}`}
-                    src={screenshot}
-                    alt={`Screenshot ${idx + 1} of ${title}`}
-                    className="modal__image"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </>
+        <button
+          className="project-card__button"
+          onClick={() => openModal(screenshots, title)}
+          aria-label={`View screenshots of ${title}`}
+        >
+          View Screenshots
+        </button>
       )}
 
       {section === 'development' && (github || demo) && (
@@ -276,7 +249,6 @@ const Projects = () => {
         ))}
       </main>
 
-      {/* Modal for Screenshots */}
       {modalData.title && modalData.screenshots.length > 0 && (
         <div className={`modal ${modalData.screenshots.length > 0 ? 'modal--visible' : ''}`}>
           <div className="modal__overlay" onClick={closeModal}></div>

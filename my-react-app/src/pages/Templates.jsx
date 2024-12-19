@@ -32,14 +32,14 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/presentation',
     },
-    // {
-    //   id: 4,
-    //   title: 'Photography Showcase',
-    //   description: 'A visually stunning template to showcase photography portfolios.',
-    //   imageUrl: '/images/templates/photography_showcase.png',
-    //   link: 'https://yourhostedsite.com/photography-showcase',
-    // },
-    // Add more templates as needed
+    {
+      id: 4,
+      title: 'NowUI Kit',
+      description: 'A visually stunning template to showcase photography portfolios.',
+      imageUrl: '/images/templates/photography_showcase.png',
+      link: 'https://yourhostedsite.com/photography-showcase',
+    },
+
   ];
 
   return (
