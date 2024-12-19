@@ -1,0 +1,46 @@
+/* src/pages/PaymentSuccess.css */
+
+.payment-success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.payment-success-page__content {
+    text-align: center;
+    background-color: var(--card-background-color);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.payment-success-page__title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.payment-success-page__message {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.payment-success-page__button {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.payment-success-page__button:hover {
+    background-color: var(--secondary-hover);
+}
