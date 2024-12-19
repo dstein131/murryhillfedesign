@@ -1,5 +1,3 @@
-// src/components/NavBar.js
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
@@ -26,7 +24,6 @@ const NavBar = () => {
 
   // Verify token on initial mount
   useEffect(() => {
-    console.log('NavBar mounted. Dispatching verifyToken.');
     dispatch(verifyToken())
       .unwrap()
       .then(() => {
@@ -40,23 +37,18 @@ const NavBar = () => {
   // Whenever the user becomes authenticated, fetch the cart
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('User is authenticated, fetching cart...');
       dispatch(fetchCart());
     }
   }, [isAuthenticated, dispatch]);
 
   const handleLogout = async () => {
     try {
-      console.log('Dispatching performLogoutUser.');
       await dispatch(performLogoutUser()).unwrap();
-      console.log('Logout successful. Navigating to home.');
       navigate('/');
     } catch (err) {
       console.error('Logout error:', err);
     }
   };
-
-  console.log('NavBar rendered with isAuthenticated:', isAuthenticated);
 
   return (
     <>
@@ -69,7 +61,9 @@ const NavBar = () => {
               className="navbar-logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom" />
+          <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom">
+            <span className="navbar-toggler-icon"></span>
+          </Navbar.Toggle>
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto d-flex align-items-center">
               {loading ? (
@@ -78,19 +72,13 @@ const NavBar = () => {
                 <>
                   <Button
                     className="custom-button me-2"
-                    onClick={() => {
-                      console.log('Showing Login modal.');
-                      setShowLogin(true);
-                    }}
+                    onClick={() => setShowLogin(true)}
                   >
                     Login
                   </Button>
                   <Button
                     className="custom-button"
-                    onClick={() => {
-                      console.log('Showing Register modal.');
-                      setShowRegister(true);
-                    }}
+                    onClick={() => setShowRegister(true)}
                   >
                     Register
                   </Button>
@@ -128,10 +116,7 @@ const NavBar = () => {
 
                   <Button
                     className="custom-button ms-2"
-                    onClick={() => {
-                      console.log('Logout button clicked.');
-                      handleLogout();
-                    }}
+                    onClick={handleLogout}
                   >
                     Logout
                   </Button>
@@ -145,14 +130,9 @@ const NavBar = () => {
       {/* Login Modal */}
       <Login
         show={showLogin}
-        handleClose={() => {
-          console.log('Closing Login modal.');
-          setShowLogin(false);
-        }}
+        handleClose={() => setShowLogin(false)}
         onSuccess={() => {
-          console.log('Login successful. Closing modal.');
           setShowLogin(false);
-          // Optionally fetch the cart here as well if needed.
           dispatch(fetchCart());
         }}
       />
@@ -160,10 +140,7 @@ const NavBar = () => {
       {/* Register Modal */}
       <Register
         show={showRegister}
-        handleClose={() => {
-          console.log('Closing Register modal.');
-          setShowRegister(false);
-        }}
+        handleClose={() => setShowRegister(false)}
       />
     </>
   );
