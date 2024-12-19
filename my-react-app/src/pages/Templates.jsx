@@ -104,7 +104,7 @@ const Templates = () => {
                         className="template-card__button"
                         aria-label={`View ${template.title}`}
                       >
-                        View Template
+                        Live Preview
                       </Button>
                     </div>
                   </Card.Body>
