@@ -14,7 +14,7 @@ const LandingPage = () => {
     { title: 'About Me', description: 'Learn more about who I am and what I do.', route: '/about' },
    
     { title: 'Services', description: 'Learn about the services I offer.', route: '/services' },
-    { title: 'Templates', description: 'View my collection of templates.', route: '/templates' },
+    { title: 'Templates', description: 'View our colletion of templates for your site.', route: '/templates' },
 
     { title: 'CV', description: 'View my professional experience and skills.', route: '/resume' },
     { title: 'Projects', description: 'Explore the apps and projects I’ve worked on.', route: '/projects' },
