@@ -6,7 +6,7 @@
 
   /* Color Scheme */
   --text-color: rgba(255, 255, 255, 0.87);
-  --background-color: #242424;
+  --background-color: rgba(20, 20, 20, 0.8); /* Darker color with 80% opacity */
   --card-background-color: #1a1a1a;
   --primary-color: #646cff;
   --primary-hover: #535bf2;

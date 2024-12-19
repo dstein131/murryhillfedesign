@@ -8,7 +8,7 @@
 
   /* Color Scheme */
   --text-color: rgba(255, 255, 255, 0.87);
-  --background-color: #242424;
+  --background-color: rgba(36, 36, 36, 0.9); /* Adjust the alpha (opacity) value as needed */
   --card-background-color: #1a1a1a;
   --primary-color: #646cff;
   --primary-hover: #535bf2;
@@ -43,6 +43,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden; /* Prevent horizontal overflow on mobile */
   -webkit-transform: translateZ(0); /* Force hardware acceleration */
+  border-radius: 10px;
 }
 
 /* Header styling */
