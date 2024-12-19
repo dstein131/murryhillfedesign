@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart } from '../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { createPaymentIntent } from '../redux/paymentSlice'; // Assuming you have this slice
+import { createPaymentIntent, setPaymentSuccess } from '../redux/paymentSlice'; // Import setPaymentSuccess
 import './Checkout.css';
 
 const Checkout = () => {
@@ -56,16 +56,19 @@ const Checkout = () => {
     
     setProcessing(true);
     
-    // Create payment intent on the backend
+    // Create payment intent on the backend and get the clientSecret directly
+    let paymentData;
     try {
-      await dispatch(createPaymentIntent({ items, currency: 'usd' })).unwrap();
+      paymentData = await dispatch(createPaymentIntent({ items, currency: 'usd' })).unwrap();
+      console.log('Payment Intent Response:', paymentData);
     } catch (err) {
       console.error('Error creating payment intent:', err);
+      setCardError(err);
       setProcessing(false);
       return;
     }
     
-    // Confirm the payment on the client
+    // Confirm the payment on the client using the received clientSecret
     const cardElement = elements.getElement(CardElement);
     
     if (!cardElement) {
@@ -74,21 +77,25 @@ const Checkout = () => {
       return;
     }
     
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+    console.log('Using clientSecret:', paymentData.clientSecret);
+    
+    const { error, paymentIntent } = await stripe.confirmCardPayment(paymentData.clientSecret, {
       payment_method: {
         card: cardElement,
       },
     });
     
     if (error) {
+      console.error('Payment confirmation error:', error);
       setCardError(error.message);
       setProcessing(false);
     } else {
+      console.log('PaymentIntent:', paymentIntent);
       setCardError('');
       setProcessing(false);
-      // The payment success is handled via Redux and webhook
-      // Optionally, you can dispatch an action to set paymentSuccess here
-      // or rely on the webhook to update the state
+      // Dispatch success action to update Redux state
+      dispatch(setPaymentSuccess());
+      // The webhook will handle further processing like order creation
     }
   };
   
