@@ -1,9 +1,11 @@
 // src/App.jsx
 
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
+import { Elements } from '@stripe/react-stripe-js';
+import stripePromise from './config/stripe'; // Import the initialized Stripe promise
 
 import NavBar from './components/NavBar';
 import LandingPage from './pages/LandingPage';
@@ -17,9 +19,9 @@ import Music from './pages/Music';
 import Blog from './pages/Blog';
 import Services from './pages/Services';
 import ChatGPTInteraction from './pages/ChatGPTInteraction';
-import Success from './pages/Success';
+import PaymentSuccess from './pages/PaymentSuccess'; // Renamed Success to PaymentSuccess for clarity
 import AdminPanel from './pages/AdminPanel';
-import Cart from './pages/Cart';       // Import the Cart page
+import Cart from './pages/Cart';         // Import the Cart page
 import Checkout from './pages/Checkout'; // Import the Checkout page
 import Templates from './pages/Templates';
 
@@ -28,6 +30,7 @@ import { verifyToken } from './redux/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation(); // Hook to access the current location
   const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   // Verify token on initial mount
@@ -64,10 +67,10 @@ const App = () => {
     const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
     if (window.gtag && gaId) {
       window.gtag('config', gaId, {
-        page_path: window.location.pathname,
+        page_path: location.pathname,
       });
     }
-  }, [window.location.pathname]);
+  }, [location.pathname]);
 
   return (
     <HelmetProvider>
@@ -88,14 +91,21 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/services" element={<Services />} />
             <Route path="/chat" element={<ChatGPTInteraction />} />
-            <Route path="/auth/success" element={<Success />} />
+            <Route path="/auth/success" element={<PaymentSuccess />} /> {/* Updated route */}
             <Route path="/templates" element={<Templates />} />
 
             {/* Cart Route */}
             <Route path="/cart" element={<Cart />} />
 
-            {/* Checkout Route */}
-            <Route path="/checkout" element={<Checkout />} />
+            {/* Checkout Route wrapped with <Elements> for Stripe */}
+            <Route
+              path="/checkout"
+              element={
+                <Elements stripe={stripePromise}>
+                  <Checkout />
+                </Elements>
+              }
+            />
 
             {/* Protected Admin Panel Route */}
             <Route
