@@ -73,7 +73,8 @@ const OrderDetails = () => {
                   Status: {selectedOrder.order_status}
                 </p>
                 <p className="orderdetails-card__price">
-                  Total: ${selectedOrder.total_amount} {selectedOrder.currency.toUpperCase()}
+                  Total: ${selectedOrder.total_amount}{' '}
+                  {selectedOrder.currency ? selectedOrder.currency.toUpperCase() : 'N/A'}
                 </p>
                 <p className="orderdetails-card__price">
                   Payment Method: {selectedOrder.payment_method || 'N/A'}

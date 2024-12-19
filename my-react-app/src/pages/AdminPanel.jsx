@@ -7,6 +7,7 @@ import { fetchServices } from '../redux/servicesSlice';
 import { fetchAddons } from '../redux/addonsSlice';
 import ServicesManagement from '../components/admin/ServicesManagement';
 import AddonsManagement from '../components/admin/AddonsManagement';
+import Orders from './Orders'; // Import the Orders component
 import './AdminPanel.css'; // Optional: Custom styles
 
 const AdminPanel = () => {
@@ -15,10 +16,12 @@ const AdminPanel = () => {
   const { addonsByService, loading: addonsLoading, error: addonsError } = useSelector((state) => state.addons);
 
   useEffect(() => {
+    // Fetch services when the admin panel loads
     dispatch(fetchServices());
   }, [dispatch]);
 
   useEffect(() => {
+    // Once services are fetched, fetch addons for each service
     services.forEach(service => {
       dispatch(fetchAddons(service.service_id));
     });
@@ -42,7 +45,10 @@ const AdminPanel = () => {
         <Tab eventKey="addons" title="Service Add-Ons">
           <AddonsManagement services={services} addonsByService={addonsByService} loading={addonsLoading} />
         </Tab>
-        {/* Add more tabs for other tables if needed */}
+        <Tab eventKey="orders" title="Orders">
+          {/* Display the Orders component here */}
+          <Orders />
+        </Tab>
       </Tabs>
     </Container>
   );
