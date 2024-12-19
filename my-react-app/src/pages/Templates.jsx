@@ -21,7 +21,7 @@ const Templates = () => {
     {
       id: 2,
       title: 'Landy',
-      description: 'Beautifully designed templates using React.js, ant design and styled-components!',
+      description: 'Beautifully designed templates using React.js, ant design and styled-components! Landy comes with a set of ready to use sections to help you easily create a landing page for your own brand, with all the content your startup desires.',
       imageUrl: '/images/templates/landy.png',
       link: 'https://cute-gaufre-eb0131.netlify.app/',
     },
