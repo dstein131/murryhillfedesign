@@ -18,13 +18,13 @@ const Templates = () => {
       imageUrl: '/images/templates/startup.png', // Ensure these images are in the public/images/templates/ directory
       link: 'https://startupdemo.netlify.app/',
     },
-    // {
-    //   id: 2,
-    //   title: 'E-Commerce Store',
-    //   description: 'A sleek and modern e-commerce template for online stores.',
-    //   imageUrl: '/images/templates/ecommerce_store.png',
-    //   link: 'https://yourhostedsite.com/ecommerce-store',
-    // },
+    {
+      id: 2,
+      title: 'Landy',
+      description: 'A sleek and modern e-commerce template for online stores.',
+      imageUrl: '/images/templates/landy.png',
+      link: 'https://cute-gaufre-eb0131.netlify.app/',
+    },
     // {
     //   id: 3,
     //   title: 'Blog Platform',
