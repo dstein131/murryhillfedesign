@@ -20,13 +20,29 @@
   --input-border: #646cff;
 }
 
+/* Global body/html tweaks */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS Safari */
+}
+
 /* Main container */
 .services-page {
+  position: relative;
+  z-index: 0;
   padding: 2rem;
   background-color: var(--background-color);
   color: var(--text-color);
   margin-top: 60px; /* Account for fixed navbar */
+  min-height: 100vh;
   overflow-x: hidden; /* Prevent horizontal overflow on mobile */
+  -webkit-transform: translateZ(0); /* Force hardware acceleration */
 }
 
 /* Header styling */
@@ -52,6 +68,8 @@
 .services-page__main {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Section styling */
@@ -79,6 +97,8 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* Individual package card */
@@ -92,14 +112,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   word-wrap: break-word;
+  box-shadow: none; /* Remove hover transitions that might cause repaint issues */
+  position: relative;
+  z-index: 2;
+  -webkit-transform: translateZ(0);
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* Remove transform hover effect */
+  /* To avoid potential flicker on mobile */
 }
 
 /* Card content */
@@ -167,12 +189,8 @@
   font-weight: bold;
   cursor: pointer;
   margin-top: 1rem;
-  transition: background-color 0.3s ease;
   text-align: center;
-}
-
-.service-card__button:hover {
-  background-color: var(--secondary-hover);
+  /* Remove hover transitions to avoid repaint issues on mobile */
 }
 
 /* Responsive Styles */
