@@ -9,7 +9,7 @@ export const createPaymentIntent = createAsyncThunk(
   async ({ items, currency }, { rejectWithValue }) => {
     try {
       // Using the centralized API instance ensures the request goes to the backend
-      const response = await api.post('/payments/create-payment-intent', { items, currency });
+      const response = await api.post('api/payments/create-payment-intent', { items, currency });
       return response.data; // { clientSecret, amount, currency }
     } catch (err) {
       // Handle errors more gracefully
