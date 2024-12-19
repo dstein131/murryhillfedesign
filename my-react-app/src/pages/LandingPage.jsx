@@ -17,7 +17,9 @@ const LandingPage = () => {
     { title: 'CV', description: 'View my professional experience and skills.', route: '/resume' },
     // { title: 'Music', description: 'Some of the music I listen to while I work.', route: '/music' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
+    { title: 'Templates', description: 'View my collection of templates.', route: '/templates' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
+    
   ];
 
   return (

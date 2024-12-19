@@ -104,6 +104,7 @@ const Resume = () => {
     fontSize: '16px',
     fontWeight: 'bold',
     marginTop: '20px',
+    marginBottom: '20px',
   };
 
   return (

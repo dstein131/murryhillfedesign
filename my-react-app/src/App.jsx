@@ -21,6 +21,7 @@ import Success from './pages/Success';
 import AdminPanel from './pages/AdminPanel';
 import Cart from './pages/Cart';       // Import the Cart page
 import Checkout from './pages/Checkout'; // Import the Checkout page
+import Templates from './pages/Templates';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import { verifyToken } from './redux/userSlice';
@@ -88,6 +89,7 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/chat" element={<ChatGPTInteraction />} />
             <Route path="/auth/success" element={<Success />} />
+            <Route path="/templates" element={<Templates />} />
 
             {/* Cart Route */}
             <Route path="/cart" element={<Cart />} />
