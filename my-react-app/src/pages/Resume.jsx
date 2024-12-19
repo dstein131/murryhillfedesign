@@ -4,7 +4,7 @@ import './Resume.css';
 const Resume = () => {
   const resumeData = {
     contact: {
-      name: 'David Stein',
+      // name: 'David Stein',
     },
     education: [
       {
