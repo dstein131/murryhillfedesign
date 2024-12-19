@@ -162,9 +162,8 @@ const cartSlice = createSlice({
     builder.addCase(addItemToCart.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      // After adding an item, we can re-fetch cart to get updated items.
-      // For simplicity, let's just trigger a re-fetch from within your components after adding.
-      // Or you can do it here by calling fetchCart if desired.
+      // Optionally, you can push the new item to the items array
+      // Or re-fetch the cart in your components after adding
     });
     builder.addCase(addItemToCart.rejected, (state, action) => {
       state.loading = false;
@@ -179,8 +178,7 @@ const cartSlice = createSlice({
     builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      // After updating quantity, re-fetch cart or manually update the quantity in state.
-      // Let's opt for a re-fetch in components after a successful update.
+      // Optionally, update the specific item's quantity in the state
     });
     builder.addCase(updateCartItemQuantity.rejected, (state, action) => {
       state.loading = false;
@@ -195,8 +193,7 @@ const cartSlice = createSlice({
     builder.addCase(removeCartItem.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      // After removing an item, re-fetch cart or manually remove item from state.
-      // Let's do a re-fetch in components for consistency.
+      // Optionally, remove the specific item from the state
     });
     builder.addCase(removeCartItem.rejected, (state, action) => {
       state.loading = false;
