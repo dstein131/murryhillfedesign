@@ -1,26 +1,20 @@
 // src/redux/paymentSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../api/api'; // Import the centralized Axios instance
 
 // Async thunk to create a payment intent
 export const createPaymentIntent = createAsyncThunk(
   'payment/createPaymentIntent',
   async ({ items, currency }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        '/api/payments/create-payment-intent',
-        { items, currency },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Using the centralized API instance ensures the request goes to the backend
+      const response = await api.post('/payments/create-payment-intent', { items, currency });
       return response.data; // { clientSecret, amount, currency }
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Failed to create payment intent.';
+      // Handle errors more gracefully
+      const errorMessage =
+        err.response?.data?.message || err.message || 'Failed to create payment intent.';
       return rejectWithValue(errorMessage);
     }
   }
@@ -30,6 +24,8 @@ const paymentSlice = createSlice({
   name: 'payment',
   initialState: {
     clientSecret: '',
+    amount: 0,
+    currency: 'usd',
     paymentLoading: false,
     paymentError: null,
     paymentSuccess: false,
@@ -37,6 +33,8 @@ const paymentSlice = createSlice({
   reducers: {
     resetPaymentState: (state) => {
       state.clientSecret = '';
+      state.amount = 0;
+      state.currency = 'usd';
       state.paymentLoading = false;
       state.paymentError = null;
       state.paymentSuccess = false;
