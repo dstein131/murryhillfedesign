@@ -12,6 +12,13 @@ const Templates = () => {
   // Sample data for templates
   const templates = [
     {
+        id: 4,
+        title: 'Upcover',
+        description: 'Upcover is a fully responsive, clean, and modern high-converting Next js landing page template. It is a beautifully handcrafted, pixel-perfect Next js landing page template based on the Next 14.x, React 18.x & Tailwind CSS V3.4.1.',
+        imageUrl: '/images/templates/photography_showcase.png',
+        link: 'https://lambent-lokum-7d6403.netlify.app/',
+      },
+    {
       id: 1,
       title: 'Startup',
       description: 'Next.js template for startups and SaaS business websites comes with all the essential pages, components, and sections you need to launch a complete business website, built-with Next 13.x and Tailwind CSS.',
@@ -32,13 +39,7 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/',
     },
-    {
-      id: 4,
-      title: 'NowUI Kit',
-      description: 'A visually stunning template to showcase photography portfolios.',
-      imageUrl: '/images/templates/photography_showcase.png',
-      link: 'https://yourhostedsite.com/photography-showcase',
-    },
+    
 
   ];
 
