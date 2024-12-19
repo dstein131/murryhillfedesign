@@ -21,7 +21,7 @@ const Templates = () => {
     {
       id: 2,
       title: 'Landy',
-      description: 'A sleek and modern e-commerce template for online stores.',
+      description: 'Beautifully designed templates using React.js, ant design and styled-components!',
       imageUrl: '/images/templates/landy.png',
       link: 'https://cute-gaufre-eb0131.netlify.app/',
     },
