@@ -19,7 +19,7 @@ import Music from './pages/Music';
 import Blog from './pages/Blog';
 import Services from './pages/Services';
 import ChatGPTInteraction from './pages/ChatGPTInteraction';
-import PaymentSuccess from './pages/PaymentSuccess'; // Renamed Success to PaymentSuccess for clarity
+import PaymentSuccess from './pages/PaymentSuccess'; // Import the PaymentSuccess component
 import AdminPanel from './pages/AdminPanel';
 import Cart from './pages/Cart';         // Import the Cart page
 import Checkout from './pages/Checkout'; // Import the Checkout page
@@ -91,7 +91,7 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/services" element={<Services />} />
             <Route path="/chat" element={<ChatGPTInteraction />} />
-            <Route path="/auth/success" element={<PaymentSuccess />} /> {/* Updated route */}
+            <Route path="/auth/success" element={<PaymentSuccess />} /> {/* Existing route */}
             <Route path="/templates" element={<Templates />} />
 
             {/* Cart Route */}
@@ -106,6 +106,9 @@ const App = () => {
                 </Elements>
               }
             />
+
+            {/* Payment Success Route */}
+            <Route path="/payment-success" element={<PaymentSuccess />} /> {/* Add this route */}
 
             {/* Protected Admin Panel Route */}
             <Route
