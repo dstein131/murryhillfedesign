@@ -1,18 +1,15 @@
 // src/redux/paymentSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../api/api'; // Ensure this points to your Axios instance or fetch wrapper
+import axios from 'axios';
 
-/**
- * Create a Payment Intent
- * Payload: { items: [...], currency: 'usd' }
- */
+// Async thunk to create a payment intent
 export const createPaymentIntent = createAsyncThunk(
   'payment/createPaymentIntent',
   async ({ items, currency }, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await api.post(
+      const response = await axios.post(
         '/api/payments/create-payment-intent',
         { items, currency },
         {
@@ -50,7 +47,6 @@ const paymentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // createPaymentIntent
       .addCase(createPaymentIntent.pending, (state) => {
         state.paymentLoading = true;
         state.paymentError = null;
