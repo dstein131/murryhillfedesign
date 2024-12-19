@@ -6,6 +6,7 @@ import servicesReducer from './servicesSlice';
 import addonsReducer from './addonsSlice';
 import cartReducer from './cartSlice';
 import paymentReducer from './paymentSlice'; // Import paymentReducer
+import ordersReducer from './ordersSlice'; // Import the ordersSlice
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     services: servicesReducer,
     addons: addonsReducer,
     cart: cartReducer,
+    orders: ordersReducer, // Add the orders reducer here
     payment: paymentReducer, // Add paymentReducer here
     // Add other reducers here if needed
   },

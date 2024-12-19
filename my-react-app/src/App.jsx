@@ -1,7 +1,7 @@
 // src/App.jsx
 
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { Elements } from '@stripe/react-stripe-js';
@@ -24,8 +24,12 @@ import AdminPanel from './pages/AdminPanel';
 import Cart from './pages/Cart';         // Import the Cart page
 import Checkout from './pages/Checkout'; // Import the Checkout page
 import Templates from './pages/Templates';
+import Orders from './pages/Orders'; // Import the Orders page
+// If you have OrderDetails.jsx, import it as well
+import OrderDetails from './pages/OrderDetails'; // Optional
 
 import ProtectedRoute from './components/ProtectedRoute';
+import SuperAdminRoute from './components/SuperAdminRoute'; // Import the SuperAdminRoute component
 import { verifyToken } from './redux/userSlice';
 
 const App = () => {
@@ -119,6 +123,29 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+
+            {/* Protected Orders Route for SuperAdmins */}
+            <Route
+              path="/orders"
+              element={
+                <SuperAdminRoute>
+                  <Orders />
+                </SuperAdminRoute>
+              }
+            />
+
+            {/* Protected Order Details Route for SuperAdmins */}
+            <Route
+              path="/orders/:orderId"
+              element={
+                <SuperAdminRoute>
+                  <OrderDetails />
+                </SuperAdminRoute>
+              }
+            />
+
+            {/* Catch-all route */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>
