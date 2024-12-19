@@ -30,7 +30,7 @@ const Templates = () => {
       title: 'Material Kit',
       description: 'Material Kit 2 is a comprehensive UI (User Interface) toolkit designed to help developers and designers create stunning, responsive, and modern web applications and websites with ease.',
       imageUrl: '/images/templates/material.png',
-      link: 'https://soft-caramel-31dd34.netlify.app/presentation',
+      link: 'https://soft-caramel-31dd34.netlify.app/',
     },
     {
       id: 4,
