@@ -15,7 +15,7 @@ const Templates = () => {
         id: 4,
         title: 'Upcover',
         description: 'Upcover is a fully responsive, clean, and modern high-converting Next js landing page template. It is a beautifully handcrafted, pixel-perfect Next js landing page template based on the Next 14.x, React 18.x & Tailwind CSS V3.4.1.',
-        imageUrl: '/images/templates/photography_showcase.png',
+        imageUrl: '/images/templates/upcover.png',
         link: 'https://lambent-lokum-7d6403.netlify.app/',
       },
     {
