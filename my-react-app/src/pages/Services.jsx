@@ -34,10 +34,11 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
       </div>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         <button
-          className="service-card__button"
+          className="service-card__button btn btn-primary"
           onClick={() => onContact(pkg.title)}
           aria-label={`Contact about ${pkg.title}`}
         >
+          <i className="bi bi-envelope-fill" style={{ marginRight: '1rem' }}></i>
           Contact Me
         </button>
 
@@ -45,18 +46,18 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
         {pkg.price && (
           isAuthenticated ? (
             <button
-              className="service-card__button"
-              style={{ backgroundColor: '#4444e2' }} // Slightly different color for "Add to Cart"
+              className="service-card__button btn btn-success"
               onClick={() => onAddToCart(pkg.service_id)}
             >
+              <i className="bi bi-cart-plus-fill" style={{ marginRight: '1rem' }}></i>
               Add to Cart
             </button>
           ) : (
             <button
-              className="service-card__button"
-              style={{ backgroundColor: '#e24444' }} // Different color for "Login to Add to Cart"
+              className="service-card__button btn btn-dark"
               onClick={onLogin}
             >
+              <i className="bi bi-box-arrow-in-right" style={{ marginRight: '1rem' }}></i>
               Login to Add to Cart
             </button>
           )
@@ -85,9 +86,7 @@ const Services = () => {
 
   const handleAddToCart = async (serviceId) => {
     try {
-      // Add one item of the selected service to the cart with no addons
       await dispatch(addItemToCart({ service_id: serviceId, quantity: 1, addons: [] })).unwrap();
-      // Re-fetch cart to update cart state
       dispatch(fetchCart());
       alert('Item added to cart successfully!');
     } catch (err) {
@@ -100,7 +99,6 @@ const Services = () => {
     setShowLogin(true);
   };
 
-  // If any service has price null, treat its entire description as addons
   const processedServices = services.map(s => {
     const isAddOn = s.price === null;
     const addons = isAddOn && s.description ? s.description.split(',').map(a => a.trim()) : [];
@@ -145,7 +143,6 @@ const Services = () => {
         </section>
       </main>
 
-      {/* Login Modal */}
       <Login
         show={showLogin}
         handleClose={() => setShowLogin(false)}
