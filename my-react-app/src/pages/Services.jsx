@@ -1,13 +1,12 @@
-// src/pages/Services.jsx
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchServices } from '../redux/servicesSlice';
 import { addItemToCart, fetchCart } from '../redux/cartSlice'; // Import cart actions
+import Login from './Login'; // Import Login Modal
 import './Services.css'; // Ensure this file is correctly imported
 
-const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
+const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) => {
   const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
 
   return (
@@ -42,15 +41,25 @@ const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
           Contact Me
         </button>
 
-        {/* Show Add to Cart button if user is logged in and service has a price */}
-        {isAuthenticated && pkg.price && (
-          <button
-            className="service-card__button"
-            style={{ backgroundColor: '#4444e2' }} // Slightly different color for "Add to Cart"
-            onClick={() => onAddToCart(pkg.service_id)}
-          >
-            Add to Cart
-          </button>
+        {/* Conditional Add to Cart or Login button */}
+        {pkg.price && (
+          isAuthenticated ? (
+            <button
+              className="service-card__button"
+              style={{ backgroundColor: '#4444e2' }} // Slightly different color for "Add to Cart"
+              onClick={() => onAddToCart(pkg.service_id)}
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <button
+              className="service-card__button"
+              style={{ backgroundColor: '#e24444' }} // Different color for "Login to Add to Cart"
+              onClick={onLogin}
+            >
+              Login to Add to Cart
+            </button>
+          )
         )}
       </div>
     </div>
@@ -63,6 +72,8 @@ const Services = () => {
 
   const { services, loading, error } = useSelector((state) => state.services);
   const { isAuthenticated } = useSelector((state) => state.user);
+
+  const [showLogin, setShowLogin] = useState(false); // State to manage login modal visibility
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -83,6 +94,10 @@ const Services = () => {
       console.error('Error adding item to cart:', err);
       alert('Failed to add item to cart. Please try again.');
     }
+  };
+
+  const handleLoginPrompt = () => {
+    setShowLogin(true);
   };
 
   // If any service has price null, treat its entire description as addons
@@ -122,12 +137,23 @@ const Services = () => {
                 pkg={pkg}
                 onContact={handleContact}
                 onAddToCart={handleAddToCart}
+                onLogin={handleLoginPrompt}
                 isAuthenticated={isAuthenticated}
               />
             ))}
           </div>
         </section>
       </main>
+
+      {/* Login Modal */}
+      <Login
+        show={showLogin}
+        handleClose={() => setShowLogin(false)}
+        onSuccess={() => {
+          setShowLogin(false);
+          dispatch(fetchCart());
+        }}
+      />
     </div>
   );
 };
