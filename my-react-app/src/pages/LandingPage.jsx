@@ -13,7 +13,7 @@ const LandingPage = () => {
     { title: 'About Me', description: 'Learn more about who I am and what I do.', route: '/about' },
     { title: 'Services', description: 'Learn about the services I offer.', route: '/services' },
     { title: 'Templates', description: 'View our collection of templates for your site.', route: '/templates' },
-    { title: 'CV', description: 'View my professional experience and skills.', route: '/resume' },
+    // { title: 'CV', description: 'View my professional experience and skills.', route: '/resume' },
     { title: 'Projects', description: 'Explore the apps and projects I’ve worked on.', route: '/projects' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
