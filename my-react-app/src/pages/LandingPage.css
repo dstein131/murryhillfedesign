@@ -66,6 +66,7 @@ html,
   font-size: 1.5rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .dashboard__card-description {

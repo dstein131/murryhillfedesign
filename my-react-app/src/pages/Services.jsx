@@ -147,7 +147,7 @@ const Services = () => {
 
       <main className="services-page__main">
         <section className="services-page__section">
-          <h2 className="services-page__section-title">Our Offerings</h2>
+         
           <div className="services-page__packages">
             {processedServices.map((pkg, pkgIdx) => (
               <PackageCard

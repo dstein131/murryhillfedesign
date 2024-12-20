@@ -56,6 +56,7 @@ body {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .services-page__subtitle {
@@ -63,6 +64,7 @@ body {
   max-width: 700px;
   margin: 0 auto;
   color: var(--text-color);
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* Main content area */
@@ -136,6 +138,8 @@ body {
   color: var(--primary-color);
   margin-bottom: 0.5rem;
   text-align: center;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+ 
 }
 
 /* Card price */

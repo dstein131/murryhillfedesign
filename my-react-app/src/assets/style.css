@@ -1,6 +1,6 @@
 /* Root Variables for Consistent Theming */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -199,11 +199,13 @@ input:focus {
   padding: 2rem;
   color: var(--text-color);
   background-color: var(--background-color);
+  margin-top: 60px;
 }
 
 .contact-page__header {
   text-align: center;
   margin-bottom: 2rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .contact-form {
@@ -223,6 +225,7 @@ input:focus {
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: var(--primary-color);
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .contact-form__field input,
@@ -449,22 +452,26 @@ input:focus {
   border-radius: 5px; /* Slightly rounded corners */
   padding: 0.5rem 1rem;
   transition: background-color 0.3s, border-color 0.3s;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .custom-button:hover {
   background-color: #4444e2; /* Darker purple on hover */
   border-color: #4444e2; /* Matches hover background */
   color: #ffffff; /* Ensure text stays white */
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .custom-button:active {
   background-color: #3b3bd8; /* Even darker purple on click */
   border-color: #3b3bd8;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .custom-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(83, 91, 242, 0.5); /* Purple focus ring */
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 
@@ -484,4 +491,13 @@ input:focus {
 .project-card__link--disabled:hover {
   background-color: #d6d6d6; /* Slightly darker gray on hover */
   color: #4f4f4f; /* Slightly darker text on hover */
+}
+
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", serif;
+  font-weight: 300; /* Lighter weight for less bold text */
+  font-style: normal;
+  font-size: 3rem; /* Increase font size */
+  line-height: 1.4; /* Adjust line height for better spacing */
 }

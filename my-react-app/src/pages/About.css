@@ -12,18 +12,21 @@
   .about-page__header {
     text-align: center;
     margin-bottom: 2rem;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   }
   
   .about-page__main {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
+    
   }
   
   .about-page__subtitle {
     font-size: 1.8rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   }
   
   .about-page__intro,

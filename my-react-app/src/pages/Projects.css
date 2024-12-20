@@ -20,17 +20,6 @@
   --input-border: #646cff;
 }
 
-/* Global body/html tweaks */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS Safari */
-}
 
 /* Main container */
 .projects-page {
@@ -50,12 +39,14 @@ body {
 .projects-page__header {
   text-align: center;
   margin-bottom: 2rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .projects-page__title {
   font-size: 2.5rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .projects-page__subtitle {
@@ -63,6 +54,7 @@ body {
   max-width: 700px;
   margin: 0 auto;
   color: var(--text-color);
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* Toggle buttons */

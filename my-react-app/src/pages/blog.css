@@ -37,6 +37,7 @@ body {
 /* Blog Header */
 .blog-page__header {
     text-align: center;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .blog-page__title {
@@ -44,6 +45,7 @@ body {
     font-weight: bold;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .blog-page__subtitle {
