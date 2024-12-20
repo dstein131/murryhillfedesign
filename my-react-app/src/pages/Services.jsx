@@ -1,13 +1,14 @@
 // src/pages/Services.jsx
 
-import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchServices } from '../redux/servicesSlice';
 import { addItemToCart, fetchCart } from '../redux/cartSlice'; // Import cart actions
+import Login from './Login'; // Import Login Modal
 import './Services.css'; // Ensure this file is correctly imported
 
-const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
+const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) => {
   const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
 
   return (
@@ -33,7 +34,7 @@ const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
           </div>
         )}
       </div>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div className="service-card__buttons">
         <button
           className="service-card__button btn btn-primary"
           onClick={() => onContact(pkg.title)}
@@ -43,7 +44,7 @@ const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
           Contact Me
         </button>
 
-        {/* Conditional Add to Cart or Login button */}
+        {/* Conditional Add to Cart or Login/Register buttons */}
         {pkg.price && (
           isAuthenticated ? (
             <button
@@ -54,14 +55,14 @@ const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
               Add to Cart
             </button>
           ) : (
-            <Link
-              to="/login"
+            <button
               className="service-card__button btn btn-dark"
+              onClick={onLogin}
               aria-label="Login to Add to Cart"
             >
               <i className="bi bi-box-arrow-in-right" style={{ marginRight: '1rem' }}></i>
               Login to Add to Cart
-            </Link>
+            </button>
           )
         )}
       </div>
@@ -75,6 +76,9 @@ const Services = () => {
 
   const { services, loading, error } = useSelector((state) => state.services);
   const { isAuthenticated } = useSelector((state) => state.user);
+
+  const [showLogin, setShowLogin] = useState(false); // State to manage login modal visibility
+  const [pendingServiceId, setPendingServiceId] = useState(null); // To track which service to add after login
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -92,6 +96,26 @@ const Services = () => {
     } catch (err) {
       console.error('Error adding item to cart:', err);
       alert('Failed to add item to cart. Please try again.');
+    }
+  };
+
+  const handleLoginPrompt = (serviceId) => {
+    setPendingServiceId(serviceId); // Store the service ID to add after login
+    setShowLogin(true);
+  };
+
+  const handleLoginSuccess = async () => {
+    setShowLogin(false);
+    if (pendingServiceId) {
+      try {
+        await dispatch(addItemToCart({ service_id: pendingServiceId, quantity: 1, addons: [] })).unwrap();
+        dispatch(fetchCart());
+        alert('Item added to cart successfully!');
+        setPendingServiceId(null);
+      } catch (err) {
+        console.error('Error adding item to cart after login:', err);
+        alert('Failed to add item to cart. Please try again.');
+      }
     }
   };
 
@@ -131,12 +155,23 @@ const Services = () => {
                 pkg={pkg}
                 onContact={handleContact}
                 onAddToCart={handleAddToCart}
+                onLogin={() => handleLoginPrompt(pkg.service_id)}
                 isAuthenticated={isAuthenticated}
               />
             ))}
           </div>
         </section>
       </main>
+
+      {/* Login/Register Modal */}
+      <Login
+        show={showLogin}
+        handleClose={() => {
+          setShowLogin(false);
+          setPendingServiceId(null);
+        }}
+        onSuccess={handleLoginSuccess}
+      />
     </div>
   );
 };

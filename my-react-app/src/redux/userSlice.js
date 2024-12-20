@@ -20,6 +20,23 @@ const login = createAsyncThunk(
   }
 );
 
+// Async thunk for user registration
+const register = createAsyncThunk(
+  'user/register',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/users/register', userData);
+      console.log('Register API response:', response.data); // Debugging
+      return response.data; // Ensure this structure matches your state
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || 'Registration failed. Please try again.';
+      console.error('Register API error:', errorMessage); // Debugging
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 // Async thunk for verifying token
 const verifyToken = createAsyncThunk(
   'user/verifyToken',
@@ -139,6 +156,31 @@ const userSlice = createSlice({
         console.error('Login rejected:', action.payload); // Debugging
       });
 
+    // Handle register
+    builder
+      .addCase(register.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        console.log('Register pending...'); // Debugging
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        const { token, user, is_superadmin, applications, roles } = action.payload;
+        console.log('Register fulfilled with payload:', action.payload); // Debugging
+        localStorage.setItem('token', token);
+        state.user = user;
+        state.is_superadmin = is_superadmin;
+        state.applications = applications;
+        state.roles = roles;
+        state.isAuthenticated = !!user;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Registration failed. Please try again.';
+        console.error('Register rejected:', action.payload); // Debugging
+      });
+
     // Handle verifyToken
     builder
       .addCase(verifyToken.pending, (state) => {
@@ -222,7 +264,7 @@ const userSlice = createSlice({
 export const { setUser, setLoading, setError } = userSlice.actions;
 
 // Export thunks
-export { login, verifyToken, googleLogin, performLogoutUser };
+export { login, register, verifyToken, googleLogin, performLogoutUser };
 
 // Export reducer
 export default userSlice.reducer;

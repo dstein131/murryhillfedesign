@@ -1,3 +1,5 @@
+// src/components/Navbar.jsx
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
@@ -5,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, performLogoutUser } from '../redux/userSlice'; 
 import { fetchCart } from '../redux/cartSlice';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
-import '../components/NavBar.css';
+import '../components/Navbar.css';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
@@ -20,7 +21,6 @@ const NavBar = () => {
   const cartItemCount = items ? items.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0;
 
   const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
 
   // Verify token on initial mount
   useEffect(() => {
@@ -69,20 +69,12 @@ const NavBar = () => {
               {loading ? (
                 <Nav.Link className="navbar-link-custom">Loading...</Nav.Link>
               ) : !isAuthenticated ? (
-                <>
-                  <Button
-                    className="custom-button me-2"
-                    onClick={() => setShowLogin(true)}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    className="custom-button"
-                    onClick={() => setShowRegister(true)}
-                  >
-                    Register
-                  </Button>
-                </>
+                <Button
+                  className="custom-button me-2"
+                  onClick={() => setShowLogin(true)}
+                >
+                  Login
+                </Button>
               ) : (
                 <>
                   <Nav.Link className="navbar-link-custom">
@@ -127,7 +119,7 @@ const NavBar = () => {
         </div>
       </Navbar>
 
-      {/* Login Modal */}
+      {/* Login/Register Modal */}
       <Login
         show={showLogin}
         handleClose={() => setShowLogin(false)}
@@ -135,12 +127,6 @@ const NavBar = () => {
           setShowLogin(false);
           dispatch(fetchCart());
         }}
-      />
-
-      {/* Register Modal */}
-      <Register
-        show={showRegister}
-        handleClose={() => setShowRegister(false)}
       />
     </>
   );
