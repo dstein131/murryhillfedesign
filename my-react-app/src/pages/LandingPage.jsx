@@ -85,7 +85,7 @@ const LandingPage = () => {
         <div className="container text-center">
           <div style={{ marginBottom: '0.5rem' }}>
             <p>
-              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, React Bootstrap, Axios, Google OAuth Identity
+              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, Stripe, React Bootstrap, Axios, Google OAuth Identity
               Provider Login
               <br />
               <span className="footer__secondary-text">
@@ -95,7 +95,7 @@ const LandingPage = () => {
           </div>
           <div style={{ marginBottom: '0.5rem' }}>
             <p>
-              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, JWT, Axios, Custom APIs and Middleware
+              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, Stripe, JWT, Axios, Custom APIs and Middleware
               <br />
               <span className="footer__secondary-text">
                 Hosted on Azure with CI/CD pipeline
