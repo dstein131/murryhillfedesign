@@ -11,6 +11,13 @@ const Templates = () => {
 
   // Sample data for templates
   const templates = [
+    { 
+        id: 5,
+           title: 'MXapp',
+           description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. The code is very clean, easy to use and developer friendly which would be so easy for any engineer to customize.',
+           imageUrl: '/images/templates/mxapp.png',
+           link: 'https://startling-palmier-5d995d.netlify.app/',
+       },
     {
         id: 4,
         title: 'Upcover',
@@ -39,6 +46,7 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/',
     },
+    
     
 
   ];
