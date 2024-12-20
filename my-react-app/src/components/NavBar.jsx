@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, performLogoutUser } from '../redux/userSlice'; 
 import { fetchCart } from '../redux/cartSlice';
 import Login from '../pages/Login';
-import '../components/Navbar.css';
 import { FaShoppingCart } from 'react-icons/fa';
+import './NavBar.css'
 
 const NavBar = () => {
   const navigate = useNavigate();
