@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/pages/Services.jsx
+
+import React, { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchServices } from '../redux/servicesSlice';
 import { addItemToCart, fetchCart } from '../redux/cartSlice'; // Import cart actions
-import Login from './Login'; // Import Login Modal
 import './Services.css'; // Ensure this file is correctly imported
 
-const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) => {
+const PackageCard = ({ pkg, onContact, onAddToCart, isAuthenticated }) => {
   const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
 
   return (
@@ -53,13 +54,14 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
               Add to Cart
             </button>
           ) : (
-            <button
+            <Link
+              to="/login"
               className="service-card__button btn btn-dark"
-              onClick={onLogin}
+              aria-label="Login to Add to Cart"
             >
               <i className="bi bi-box-arrow-in-right" style={{ marginRight: '1rem' }}></i>
               Login to Add to Cart
-            </button>
+            </Link>
           )
         )}
       </div>
@@ -73,8 +75,6 @@ const Services = () => {
 
   const { services, loading, error } = useSelector((state) => state.services);
   const { isAuthenticated } = useSelector((state) => state.user);
-
-  const [showLogin, setShowLogin] = useState(false); // State to manage login modal visibility
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -93,10 +93,6 @@ const Services = () => {
       console.error('Error adding item to cart:', err);
       alert('Failed to add item to cart. Please try again.');
     }
-  };
-
-  const handleLoginPrompt = () => {
-    setShowLogin(true);
   };
 
   const processedServices = services.map(s => {
@@ -135,22 +131,12 @@ const Services = () => {
                 pkg={pkg}
                 onContact={handleContact}
                 onAddToCart={handleAddToCart}
-                onLogin={handleLoginPrompt}
                 isAuthenticated={isAuthenticated}
               />
             ))}
           </div>
         </section>
       </main>
-
-      <Login
-        show={showLogin}
-        handleClose={() => setShowLogin(false)}
-        onSuccess={() => {
-          setShowLogin(false);
-          dispatch(fetchCart());
-        }}
-      />
     </div>
   );
 };
