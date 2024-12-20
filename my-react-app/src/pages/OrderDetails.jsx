@@ -1,5 +1,3 @@
-// src/pages/OrderDetails.jsx
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -18,6 +16,7 @@ const OrderDetails = () => {
     if (isAuthenticated && is_superadmin && orderId) {
       dispatch(fetchOrderById(orderId));
     }
+
     return () => {
       dispatch(clearSelectedOrder());
     };
@@ -53,6 +52,26 @@ const OrderDetails = () => {
     );
   }
 
+  if (!loading && !error && !selectedOrder) {
+    return (
+      <div className="orderdetails-page">
+        <header className="orderdetails-page__header">
+          <h1 className="orderdetails-page__title">Order Details</h1>
+          <p className="orderdetails-page__subtitle">
+            No details available for this order. Please try again later.
+          </p>
+        </header>
+        <button
+          className="orderdetails-card__button"
+          onClick={handleGoBack}
+          aria-label="Back to Orders"
+        >
+          Back to Orders
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="orderdetails-page">
       <header className="orderdetails-page__header">
@@ -62,7 +81,12 @@ const OrderDetails = () => {
       <main className="orderdetails-page__main">
         <section className="orderdetails-page__section">
           {loading && <p>Loading order details...</p>}
-          {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+          {error && (
+            <div>
+              <p style={{ color: 'red' }}>Error: {error}</p>
+              <pre>{JSON.stringify(error, null, 2)}</pre> {/* Debug output */}
+            </div>
+          )}
           {!loading && !error && selectedOrder && (
             <div className="orderdetails-card">
               <div className="orderdetails-card__content">
