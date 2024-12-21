@@ -32,6 +32,7 @@ import DirectMessagingPage from './pages/DirectMessagingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import SuperAdminRoute from './components/SuperAdminRoute';
 import { verifyToken } from './redux/userSlice';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -99,6 +100,7 @@ const App = () => {
                         <Route path="/chat" element={<ChatGPTInteraction />} />
                         <Route path="/auth/success" element={<PaymentSuccess />} />
                         <Route path="/templates" element={<Templates />} />
+                        <Route path="/privacy" element={<PrivacyPolicy />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route
                             path="/checkout"

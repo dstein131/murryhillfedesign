@@ -1,6 +1,13 @@
 /* Import Google Fonts for better typography (optional) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+/* Apply box-sizing globally for consistent sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Variables for consistent theming */
 :root {
   --primary-color: #2c3e50;
@@ -90,9 +97,7 @@ html {
   height: 80px; /* Maximum height constraint */
   display: flex;
   align-items: center;
-  position: sticky;
-  bottom: 0;
-  width: 100%;
+  margin-top: auto; /* Push footer to the bottom */
 }
 
 .footer__company {
@@ -113,21 +118,42 @@ html {
   margin-left: 0.5rem;
 }
 
+.footer__privacy {
+  margin-left: 0.5rem;
+}
+
+.footer__privacy a {
+  color: var(--footer-link-color);
+  text-decoration: none;
+}
+
+.footer__privacy a:hover {
+  color: var(--footer-link-hover-color);
+  text-decoration: underline;
+}
+
 .footer__social a {
   display: inline-block;
   transition: transform var(--transition-duration), fill var(--transition-duration);
 }
 
-.footer__social a:hover .facebook-icon {
+.footer__social a:hover .facebook-icon,
+.footer__social a:hover .instagram-icon {
   transform: scale(1.1);
   fill: var(--footer-link-hover-color);
 }
 
-.facebook-icon {
+.facebook-icon,
+.instagram-icon {
   width: 24px;
   height: 24px;
   fill: var(--footer-link-color);
   transition: transform var(--transition-duration), fill var(--transition-duration);
+  vertical-align: middle;
+}
+
+.instagram-icon {
+  margin-left: 10px; /* Space between Facebook and Instagram icons */
 }
 
 /* Animation Styles */
@@ -154,7 +180,8 @@ html {
 
 /* Responsive Styles */
 @media (max-width: 991.98px) {
-  .footer__social a .facebook-icon {
+  .footer__social a .facebook-icon,
+  .footer__social a .instagram-icon {
     width: 20px;
     height: 20px;
   }
@@ -177,7 +204,8 @@ html {
     font-size: 0.75rem;
   }
 
-  .footer__social a .facebook-icon {
+  .footer__social a .facebook-icon,
+  .footer__social a .instagram-icon {
     width: 20px;
     height: 20px;
   }
@@ -197,7 +225,8 @@ html {
     font-size: 0.65rem;
   }
 
-  .footer__social a .facebook-icon {
+  .footer__social a .facebook-icon,
+  .footer__social a .instagram-icon {
     width: 18px;
     height: 18px;
   }
