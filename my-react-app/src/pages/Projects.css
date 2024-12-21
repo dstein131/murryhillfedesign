@@ -158,6 +158,7 @@ body {
   font-size: var(--card-title-font-size);
   color: var(--primary-color);
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* Card description */
@@ -177,6 +178,7 @@ body {
   font-size: 1.2rem;
   color: var(--secondary-color);
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* Lists */
@@ -210,6 +212,7 @@ body {
   border-radius: 5px;
   padding: 0.5rem 1rem;
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .project-card__link:hover,
@@ -232,6 +235,7 @@ body {
   font-weight: bold;
   font-size: var(--button-font-size);
   transition: background-color 0.3s ease;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .project-card__button:hover,
