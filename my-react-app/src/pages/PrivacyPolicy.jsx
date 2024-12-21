@@ -5,9 +5,9 @@ const PrivacyPolicy = () => {
   return (
     <div className="privacy-policy container my-5">
       <h1>Privacy Policy</h1>
-      
+{/*       
       <p>Effective Date: [Month Day, Year]</p>
-      
+       */}
       <p>
         Welcome to Murray Hill Web Development, L.L.C. ("we," "us," or "our"). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
       </p>
