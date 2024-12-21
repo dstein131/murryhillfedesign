@@ -1,5 +1,3 @@
-// src/pages/LandingPage.jsx
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -21,7 +19,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="landing-page">
+    <div className="landing-page d-flex flex-column">
       {/* SEO Meta Tags */}
       <Helmet>
         <title>Murray Hill Web Development | Home</title>
@@ -60,7 +58,7 @@ const LandingPage = () => {
       </header>
 
       {/* Navigation Sections */}
-      <main className="landing-page__main">
+      <main className="landing-page__main flex-grow-1">
         <div className="dashboard container">
           <div className="row">
             {sections.map((section, index) => (
