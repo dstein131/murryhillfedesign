@@ -91,6 +91,8 @@ html,
 .footer__secondary-text {
   color: var(--secondary-color);
   font-size: 0.85rem;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 /* Animation Styles */
