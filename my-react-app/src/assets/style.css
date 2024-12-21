@@ -31,7 +31,7 @@ body {
   color: var(--text-color);
   background: url('/images/background.png') no-repeat center center fixed;
   background-size: cover; /* Ensure the image covers the entire screen */
-  background-color: var(--background-color); /* Fallback color */
+  background-color: rgba(20, 20, 20, 0.8); /* Darker color with 80% opacity */
 }
 
 
