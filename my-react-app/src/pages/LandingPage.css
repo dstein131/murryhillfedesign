@@ -24,6 +24,7 @@ html,
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-top: 60px; /* Account for fixed navbar */
 }
 
 /* Ensure the landing-page takes full height and uses Flexbox */
