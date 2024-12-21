@@ -1,3 +1,5 @@
+/* src/pages/LandingPage.css */
+
 /* Import Google Fonts for better typography (optional) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -10,17 +12,17 @@
 
 /* Variables for consistent theming */
 :root {
-  --primary-color: #2c3e50;
+  --primary-color: #646cff; /* Desired primary color */
   --secondary-color: #18bc9c;
   --text-color: #34495e;
   --card-bg-color: #ffffff;
   --card-hover-color: #f1f1f1;
   --transition-duration: 0.3s;
-  --footer-border-color: #eaeaea;
-  --footer-background: transparent; /* Changed to transparent */
+  --footer-border-color: transparent; /* Ensures no visible border */
+  --footer-background: transparent; /* Makes the footer background transparent */
   --footer-heading-color: #2c3e50;
   --footer-text-color: #34495e;
-  --footer-link-color: #18bc9c;
+  --footer-link-color: #646cff; /* Using primary color for links */
   --footer-link-hover-color: #2c3e50;
 }
 
@@ -30,7 +32,7 @@ html {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: transparent; /* Changed to transparent */
+  background-color: #ffffff; /* Set a white background */
   color: var(--text-color);
   min-height: 100vh;
 }
@@ -38,8 +40,8 @@ html {
 .landing-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  padding-top: 60px; /* Account for fixed navbar */
+  min-height: calc(100vh - 70px); /* Adjusted for navbar height */
+  padding-top: 70px; /* Offset for fixed navbar */
 }
 
 /* Header Styles */
@@ -63,8 +65,12 @@ html {
   flex: 1;
   width: 100%;
   padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically if space allows */
 }
 
+/* Dashboard Card Styles */
 .dashboard__card {
   background-color: var(--card-bg-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -91,35 +97,40 @@ html {
 
 /* Redesigned Footer Styles */
 .landing-page__footer {
-  background-color: var(--footer-background);
-  padding: 10px 20px; /* Reduced padding to minimize height */
-  border-top: 1px solid var(--footer-border-color);
-  height: 80px; /* Maximum height constraint */
+  background-color: var(--footer-background); /* Transparent background */
+  padding: 20px 0; /* Increased padding for better spacing */
+  border-top: 1px solid var(--footer-border-color); /* Transparent border */
   display: flex;
   align-items: center;
-  margin-top: auto; /* Push footer to the bottom */
+  margin-top: auto; /* Keeps footer at the bottom */
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.footer__company {
-  font-size: 0.85rem;
-  color: var(--footer-text-color);
+.footer__company-name {
+  font-size: 0.85rem; /* Same as phone and privacy policy */
+  color: #646cff; /* Applied the desired primary color directly */
+  font-weight: bold; /* Ensures the text is bold */
 }
 
-.footer__company a {
+.footer__company-name a {
   color: var(--footer-link-color);
   text-decoration: none;
 }
 
-.footer__company a:hover {
+.footer__company-name a:hover {
   color: var(--footer-link-hover-color);
 }
 
 .footer__phone {
+  font-size: 0.85rem; /* Same as company name */
   margin-left: 0.5rem;
+  color: var(--footer-text-color);
 }
 
 .footer__privacy {
+  font-size: 0.85rem; /* Same as company name */
   margin-left: 0.5rem;
+  color: var(--footer-text-color);
 }
 
 .footer__privacy a {
@@ -132,24 +143,29 @@ html {
   text-decoration: underline;
 }
 
-.footer__social a {
-  display: inline-block;
-  transition: transform var(--transition-duration), fill var(--transition-duration);
+.footer__social-link {
+  color: var(--footer-link-color);
+  text-decoration: none;
+  transition: color var(--transition-duration);
 }
 
-.footer__social a:hover .facebook-icon,
-.footer__social a:hover .instagram-icon {
-  transform: scale(1.1);
-  fill: var(--footer-link-hover-color);
+.footer__social-link:hover {
+  color: var(--footer-link-hover-color);
 }
 
 .facebook-icon,
 .instagram-icon {
   width: 24px;
   height: 24px;
-  fill: var(--footer-link-color);
+  fill: currentColor; /* Use current text color */
   transition: transform var(--transition-duration), fill var(--transition-duration);
   vertical-align: middle;
+}
+
+.footer__social-link:hover .facebook-icon,
+.footer__social-link:hover .instagram-icon {
+  transform: scale(1.1);
+  fill: var(--footer-link-hover-color);
 }
 
 .instagram-icon {
@@ -180,8 +196,8 @@ html {
 
 /* Responsive Styles */
 @media (max-width: 991.98px) {
-  .footer__social a .facebook-icon,
-  .footer__social a .instagram-icon {
+  .footer__social-link .facebook-icon,
+  .footer__social-link .instagram-icon {
     width: 20px;
     height: 20px;
   }
@@ -200,12 +216,14 @@ html {
     height: 90px;
   }
 
-  .footer__company {
-    font-size: 0.75rem;
+  .footer__company-name,
+  .footer__phone,
+  .footer__privacy {
+    font-size: 0.75rem; /* Adjusted for smaller screens */
   }
 
-  .footer__social a .facebook-icon,
-  .footer__social a .instagram-icon {
+  .footer__social-link .facebook-icon,
+  .footer__social-link .instagram-icon {
     width: 20px;
     height: 20px;
   }
@@ -217,16 +235,17 @@ html {
   }
 
   .landing-page__footer {
-    padding: 5px 10px; /* Further reduced padding for very small screens */
-    height: 80px; /* Maintain height constraint */
+    padding: 10px 0; /* Adjusted padding for very small screens */
   }
 
-  .footer__company {
-    font-size: 0.65rem;
+  .footer__company-name,
+  .footer__phone,
+  .footer__privacy {
+    font-size: 0.65rem; /* Further adjustment for very small screens */
   }
 
-  .footer__social a .facebook-icon,
-  .footer__social a .instagram-icon {
+  .footer__social-link .facebook-icon,
+  .footer__social-link .instagram-icon {
     width: 18px;
     height: 18px;
   }
