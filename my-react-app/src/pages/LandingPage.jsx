@@ -79,36 +79,30 @@ const LandingPage = () => {
         </div>
       </main>
 
-      {/* Technology Description Section as Footer */}
+      {/* Redesigned Footer */}
       <footer className="landing-page__footer mt-4">
-        <div className="container text-center">
-          <div style={{ marginBottom: '0.5rem' }}>
-            <p>
-              <strong>Front End:</strong> React, Redux, Node.js, React Router Dom, Bcrypt, JWT, Stripe, React Bootstrap, Axios, Google OAuth Identity
-              Provider Login
-              <br />
-              <span className="footer__secondary-text">
-                Hosted on Netlify with CI/CD pipeline
-              </span>
-            </p>
+        <div className="container d-flex justify-content-between align-items-center">
+          {/* Business Information */}
+          <div className="footer__company">
+            <strong>Murray Hill Web Development, L.L.C.</strong>
+            <span className="footer__phone"> | 📞 <a href="tel:9043839688">904.383.9688</a></span>
           </div>
-          <div style={{ marginBottom: '0.5rem' }}>
-            <p>
-              <strong>Back End:</strong> Node.js, Express, MySQL, Sequelize, Bcrypt, Stripe, JWT, Axios, Custom APIs and Middleware
-              <br />
-              <span className="footer__secondary-text">
-                Hosted on Azure with CI/CD pipeline
-              </span>
-            </p>
-          </div>
-          <div>
-            <p>
-              <strong>Database:</strong> MySQL
-              <br />
-              <span className="footer__secondary-text">
-                Hosted on Azure MySQL Flexible Server
-              </span>
-            </p>
+
+          {/* Social Media */}
+          <div className="footer__social">
+            <a href="https://www.facebook.com/people/Murray-Hill-Web-Development/61570886608543/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              {/* Facebook SVG Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="var(--footer-link-color)"
+                className="facebook-icon"
+              >
+                <path d="M22.675 0h-21.35C.596 0 0 .597 0 1.333v21.333C0 23.403.596 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.716-1.796 1.764v2.312h3.587l-.467 3.622h-3.12V24h6.116C23.404 24 24 23.403 24 22.667V1.333C24 .597 23.404 0 22.675 0z" />
+              </svg>
+            </a>
           </div>
         </div>
       </footer>

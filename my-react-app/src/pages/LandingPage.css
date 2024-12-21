@@ -10,28 +10,29 @@
   --card-hover-color: #f1f1f1;
   --transition-duration: 0.3s;
   --footer-border-color: #eaeaea;
+  --footer-background: transparent; /* Changed to transparent */
+  --footer-heading-color: #2c3e50;
+  --footer-text-color: #34495e;
+  --footer-link-color: #18bc9c;
+  --footer-link-hover-color: #2c3e50;
 }
 
 /* Reset and Base Styles */
 body,
-html,
-.landing-page {
+html {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: transparent; /* Changed to transparent */
   color: var(--text-color);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin-top: 60px; /* Account for fixed navbar */
 }
 
-/* Ensure the landing-page takes full height and uses Flexbox */
 .landing-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-top: 60px; /* Account for fixed navbar */
 }
 
 /* Header Styles */
@@ -81,18 +82,52 @@ html,
   color: var(--text-color);
 }
 
-/* Footer Styles */
+/* Redesigned Footer Styles */
 .landing-page__footer {
-  background-color: transparent; /* Changed to transparent */
-  padding: 1.5rem 1rem;
+  background-color: var(--footer-background);
+  padding: 10px 20px; /* Reduced padding to minimize height */
   border-top: 1px solid var(--footer-border-color);
+  height: 80px; /* Maximum height constraint */
+  display: flex;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
 }
 
-.footer__secondary-text {
-  color: var(--secondary-color);
+.footer__company {
   font-size: 0.85rem;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: var(--footer-text-color);
+}
 
+.footer__company a {
+  color: var(--footer-link-color);
+  text-decoration: none;
+}
+
+.footer__company a:hover {
+  color: var(--footer-link-hover-color);
+}
+
+.footer__phone {
+  margin-left: 0.5rem;
+}
+
+.footer__social a {
+  display: inline-block;
+  transition: transform var(--transition-duration), fill var(--transition-duration);
+}
+
+.footer__social a:hover .facebook-icon {
+  transform: scale(1.1);
+  fill: var(--footer-link-hover-color);
+}
+
+.facebook-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--footer-link-color);
+  transition: transform var(--transition-duration), fill var(--transition-duration);
 }
 
 /* Animation Styles */
@@ -118,6 +153,13 @@ html,
 }
 
 /* Responsive Styles */
+@media (max-width: 991.98px) {
+  .footer__social a .facebook-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 @media (max-width: 767.98px) {
   .dashboard__card-title {
     font-size: 1.25rem;
@@ -130,6 +172,15 @@ html,
   .landing-page__logo {
     height: 90px;
   }
+
+  .footer__company {
+    font-size: 0.75rem;
+  }
+
+  .footer__social a .facebook-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -137,7 +188,17 @@ html,
     padding: 1.5rem;
   }
 
-  .landing-page__footer p {
-    font-size: 0.85rem;
+  .landing-page__footer {
+    padding: 5px 10px; /* Further reduced padding for very small screens */
+    height: 80px; /* Maintain height constraint */
+  }
+
+  .footer__company {
+    font-size: 0.65rem;
+  }
+
+  .footer__social a .facebook-icon {
+    width: 18px;
+    height: 18px;
   }
 }
