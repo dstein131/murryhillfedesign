@@ -254,6 +254,7 @@ input:focus {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .contact-form__submit:hover {
@@ -278,6 +279,8 @@ input:focus {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: var(--text-color);
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin-bottom: .5rem;
 }
 
 /* Make the contact link a button */
@@ -291,6 +294,7 @@ input:focus {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .contact-info__call-button:hover {

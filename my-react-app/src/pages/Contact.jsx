@@ -73,7 +73,7 @@ const Contact = () => {
             <main className="contact-page__main">
                 <div className="contact-info">
                     <p className="contact-info__phone">
-                        <strong>Phone:</strong> (904) 383-9688
+                        Phone: 904.383.9688
                     </p>
                     <a href="tel:9043839688" className="contact-info__call-button">
                         Call Now
