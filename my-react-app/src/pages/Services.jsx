@@ -8,29 +8,69 @@ import { addItemToCart, fetchCart } from '../redux/cartSlice'; // Import cart ac
 import Login from './Login'; // Import Login Modal
 import './Services.css'; // Ensure this file is correctly imported
 
+const MAX_FEATURES_VISIBLE = 3;
+const MAX_ADDONS_VISIBLE = 3;
+
 const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) => {
+  const [showAllFeatures, setShowAllFeatures] = useState(false);
+  const [showAllAddons, setShowAllAddons] = useState(false);
+
   const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
+  const addons = pkg.addons || [];
+
+  const visibleFeatures = showAllFeatures ? features : features.slice(0, MAX_FEATURES_VISIBLE);
+  const visibleAddons = showAllAddons ? addons : addons.slice(0, MAX_ADDONS_VISIBLE);
+
+  const hasMoreFeatures = features.length > MAX_FEATURES_VISIBLE;
+  const hasMoreAddons = addons.length > MAX_ADDONS_VISIBLE;
 
   return (
     <div className="service-card">
       <div className="service-card__content">
         <h3 className="service-card__title">{pkg.title}</h3>
-        {pkg.price && <p className="service-card__price">${pkg.price}</p>}
+        {pkg.price !== null && <p className="service-card__price">${pkg.price}</p>}
+
+        {/* Features Section */}
         {features.length > 0 && (
-          <ul className="service-card__features">
-            {features.map((feature, index) => (
-              <li key={`feature-${index}`}>{feature}</li>
-            ))}
-          </ul>
+          <div className="service-card__section">
+            <h4 className="section-title">Features:</h4>
+            <ul className="service-card__features">
+              {visibleFeatures.map((feature, index) => (
+                <li key={`feature-${index}`}>{feature}</li>
+              ))}
+            </ul>
+            {hasMoreFeatures && (
+              <button
+                className="toggle-button"
+                onClick={() => setShowAllFeatures(!showAllFeatures)}
+                aria-expanded={showAllFeatures}
+                aria-controls={`features-${pkg.service_id}`}
+              >
+                {showAllFeatures ? 'Show Less' : 'Show More'}
+              </button>
+            )}
+          </div>
         )}
-        {pkg.addons && pkg.addons.length > 0 && (
-          <div className="service-card__addons">
-            <h4>Add-Ons:</h4>
-            <ul>
-              {pkg.addons.map((addon, idx) => (
+
+        {/* Add-ons Section */}
+        {addons.length > 0 && (
+          <div className="service-card__section">
+            <h4 className="section-title">Add-Ons:</h4>
+            <ul className="service-card__addons">
+              {visibleAddons.map((addon, idx) => (
                 <li key={`addon-${idx}`}>{addon}</li>
               ))}
             </ul>
+            {hasMoreAddons && (
+              <button
+                className="toggle-button"
+                onClick={() => setShowAllAddons(!showAllAddons)}
+                aria-expanded={showAllAddons}
+                aria-controls={`addons-${pkg.service_id}`}
+              >
+                {showAllAddons ? 'Show Less' : 'Show More'}
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -40,28 +80,29 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
           onClick={() => onContact(pkg.title)}
           aria-label={`Contact about ${pkg.title}`}
         >
-          <i className="bi bi-envelope-fill" style={{ marginRight: '1rem' }}></i>
-          Contact Me
+          <i className="bi bi-envelope-fill" aria-hidden="true"></i>
+          <span className="button-text">Contact Me</span>
         </button>
 
         {/* Conditional Add to Cart or Login/Register buttons */}
-        {pkg.price && (
+        {pkg.price !== null && (
           isAuthenticated ? (
             <button
               className="service-card__button btn btn-success"
               onClick={() => onAddToCart(pkg.service_id)}
+              aria-label={`Add ${pkg.title} to Cart`}
             >
-              <i className="bi bi-cart-plus-fill" style={{ marginRight: '1rem' }}></i>
-              Add to Cart
+              <i className="bi bi-cart-plus-fill" aria-hidden="true"></i>
+              <span className="button-text">Add to Cart</span>
             </button>
           ) : (
             <button
               className="service-card__button btn btn-dark"
-              onClick={onLogin}
+              onClick={() => onLogin(pkg.service_id)}
               aria-label="Login to Add to Cart"
             >
-              <i className="bi bi-box-arrow-in-right" style={{ marginRight: '1rem' }}></i>
-              Login to Add to Cart
+              <i className="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+              <span className="button-text">Login to Add to Cart</span>
             </button>
           )
         )}
@@ -139,7 +180,7 @@ const Services = () => {
   return (
     <div className="services-page">
       <header className="services-page__header">
-        <h1 className="services-page__title">Services</h1>
+        <h1 className="services-page__title">Our Services</h1>
         <p className="services-page__subtitle">
           Choose the package that best fits your needs and let’s build something great together!
         </p>
@@ -147,15 +188,14 @@ const Services = () => {
 
       <main className="services-page__main">
         <section className="services-page__section">
-         
           <div className="services-page__packages">
             {processedServices.map((pkg, pkgIdx) => (
               <PackageCard
-                key={`package-${pkgIdx}`}
+                key={`package-${pkg.service_id || pkgIdx}`}
                 pkg={pkg}
                 onContact={handleContact}
                 onAddToCart={handleAddToCart}
-                onLogin={() => handleLoginPrompt(pkg.service_id)}
+                onLogin={handleLoginPrompt}
                 isAuthenticated={isAuthenticated}
               />
             ))}
@@ -164,14 +204,16 @@ const Services = () => {
       </main>
 
       {/* Login/Register Modal */}
-      <Login
-        show={showLogin}
-        handleClose={() => {
-          setShowLogin(false);
-          setPendingServiceId(null);
-        }}
-        onSuccess={handleLoginSuccess}
-      />
+      {showLogin && (
+        <Login
+          show={showLogin}
+          handleClose={() => {
+            setShowLogin(false);
+            setPendingServiceId(null);
+          }}
+          onSuccess={handleLoginSuccess}
+        />
+      )}
     </div>
   );
 };

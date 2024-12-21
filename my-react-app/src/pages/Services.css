@@ -1,14 +1,14 @@
-/* Services.css */
+/* src/pages/Services.css */
 
 /* Root Variables for Consistent Theming */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   /* Color Scheme */
   --text-color: rgba(255, 255, 255, 0.87);
-  --background-color: rgba(36, 36, 36, 0.9); /* Adjust the alpha (opacity) value as needed */
+  --background-color: rgba(36, 36, 36, 0.95); /* Slightly increased opacity for better contrast */
   --card-background-color: #1a1a1a;
   --primary-color: #646cff;
   --primary-hover: #535bf2;
@@ -18,9 +18,32 @@
   /* Input Colors */
   --input-bg: #242424;
   --input-border: #646cff;
+
+  /* Spacing */
+  --section-padding: 2rem;
+  --card-padding: 1.5rem;
+  --button-padding: 0.8rem 1rem;
+
+  /* Font Sizes */
+  --title-font-size: 2.5rem;
+  --subtitle-font-size: 1.2rem;
+  --card-title-font-size: 1.5rem;
+  --card-price-font-size: 1.2rem;
+  --feature-font-size: 0.95rem;
+  --button-font-size: 1rem;
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
 }
 
-/* Global body/html tweaks */
+/* Reset and Global Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -30,20 +53,18 @@ html, body {
 
 body {
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS Safari */
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Main container */
 .services-page {
-  position: relative;
-  z-index: 0;
-  padding: 2rem;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  padding: var(--section-padding);
   margin-top: 60px; /* Account for fixed navbar */
   min-height: 100vh;
-  overflow-x: hidden; /* Prevent horizontal overflow on mobile */
-  -webkit-transform: translateZ(0); /* Force hardware acceleration */
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Header styling */
@@ -53,24 +74,23 @@ body {
 }
 
 .services-page__title {
-  font-size: 2.5rem;
+  font-size: var(--title-font-size);
   color: var(--primary-color);
   margin-bottom: 0.5rem;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .services-page__subtitle {
-  font-size: 1.2rem;
+  font-size: var(--subtitle-font-size);
   max-width: 700px;
   margin: 0 auto;
   color: var(--text-color);
- 
 }
 
 /* Main content area */
 .services-page__main {
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
 }
@@ -80,28 +100,13 @@ body {
   margin-bottom: 3rem;
 }
 
-.services-page__section-title {
-  font-size: 2rem;
-  color: var(--primary-color);
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.services-page__section-description {
-  font-size: 1rem;
-  color: var(--text-color);
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
 /* Packages container */
 .services-page__packages {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
-  position: relative;
-  z-index: 1;
+  align-items: stretch; /* Ensures all cards stretch to the same height */
 }
 
 /* Individual package card */
@@ -109,100 +114,171 @@ body {
   background-color: var(--card-background-color);
   border: 1px solid var(--primary-color);
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: var(--card-padding);
   width: 100%;
   max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  word-wrap: break-word;
-  box-shadow: none; /* Remove hover transitions that might cause repaint issues */
-  position: relative;
-  z-index: 2;
-  -webkit-transform: translateZ(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 300px; /* Allows cards to grow and shrink, maintaining uniformity */
 }
 
 .service-card:hover {
-  /* Remove transform hover effect */
-  /* To avoid potential flicker on mobile */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Card content */
 .service-card__content {
-  flex-grow: 1;
+  flex-grow: 1; /* Ensures content area takes up available space */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Card title */
 .service-card__title {
-  font-size: 1.5rem;
+  font-size: var(--card-title-font-size);
   color: var(--primary-color);
   margin-bottom: 0.5rem;
   text-align: center;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
- 
+  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* Card price */
 .service-card__price {
-  font-size: 1.2rem;
+  font-size: var(--card-price-font-size);
   color: var(--secondary-color);
   margin-bottom: 1rem;
   text-align: center;
 }
 
-/* Features list */
-.service-card__features {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  color: var(--text-color);
+/* Features and Add-ons Sections */
+.service-card__section {
+  margin-bottom: 1rem;
 }
 
-.service-card__subfeatures {
-  list-style-type: circle;
-  padding-left: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-/* Add-ons section within card */
-.service-card__addons {
-  margin-top: 1rem;
-}
-
-.service-card__addons h4 {
+/* Section Titles */
+.section-title {
   font-size: 1rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
-.service-card__addons ul {
+/* Lists */
+.service-card__features,
+.service-card__addons {
   list-style-type: disc;
   padding-left: 1.5rem;
-  font-size: 0.95rem;
+  margin: 0;
+  font-size: var(--feature-font-size);
   color: var(--text-color);
 }
 
-/* Contact button */
-.service-card__button {
+/* Toggle Buttons */
+.toggle-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: var(--button-font-size);
+  padding: 0.3rem 0;
+  text-align: left;
   width: 100%;
-  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-button:focus {
+  outline: 2px solid var(--secondary-color);
+}
+
+/* Toggle Button Icons */
+.toggle-button::after {
+  content: '▼';
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Contact and Action Buttons */
+.service-card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.service-card__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--button-padding);
   background-color: var(--secondary-color);
   color: #ffffff;
   border: none;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 1rem;
+  font-size: var(--button-font-size);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.service-card__button .bi {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.service-card__button .button-text {
+  flex: 1;
   text-align: center;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  /* Remove hover transitions to avoid repaint issues on mobile */
+}
+
+.service-card__button.btn-primary {
+  background-color: var(--primary-color);
+}
+
+.service-card__button.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.service-card__button.btn-success {
+  background-color: #28a745;
+}
+
+.service-card__button.btn-success:hover {
+  background-color: #218838;
+}
+
+.service-card__button.btn-dark {
+  background-color: #343a40;
+}
+
+.service-card__button.btn-dark:hover {
+  background-color: #23272b;
 }
 
 /* Responsive Styles */
 
-/* Ensure that service cards scale properly on small screens */
-@media (max-width: 576px) {
+/* Small Devices (Phones, 576px and down) */
+@media (max-width: var(--breakpoint-sm)) {
+  :root {
+    --title-font-size: 2rem;
+    --subtitle-font-size: 1rem;
+    --card-title-font-size: 1.3rem;
+    --card-price-font-size: 1rem;
+    --feature-font-size: 0.9rem;
+    --button-font-size: 0.9rem;
+    --button-padding: 0.6rem 0.8rem;
+  }
+
   .services-page__packages {
     flex-direction: column;
     align-items: center;
@@ -210,15 +286,29 @@ body {
   }
 
   .service-card {
-    width: 100%;
     max-width: 100%;
-    box-sizing: border-box;
-    margin: 0;
+    padding: 1rem;
+    flex: 1 1 100%; /* Ensure cards take full width on small screens */
   }
 
-  .service-card__button {
-    width: 100%;
-    font-size: 0.9rem;
-    padding: 0.6rem;
+  .service-card__button .bi {
+    margin-right: 0.3rem;
+    font-size: 1rem;
+  }
+
+  .toggle-button::after {
+    font-size: 0.7rem;
+  }
+}
+
+/* Medium Devices (Tablets, 768px and down) */
+@media (max-width: var(--breakpoint-md)) {
+  :root {
+    --title-font-size: 2.2rem;
+    --subtitle-font-size: 1.1rem;
+    --card-title-font-size: 1.4rem;
+    --card-price-font-size: 1.1rem;
+    --feature-font-size: 1rem;
+    --button-font-size: 0.95rem;
   }
 }
