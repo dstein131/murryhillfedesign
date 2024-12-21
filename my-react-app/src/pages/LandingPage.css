@@ -195,6 +195,18 @@ html {
 }
 
 /* Responsive Styles */
+
+/* Adjust dashboard card positioning on desktop screens */
+@media (min-width: 992px) {
+  .landing-page__main {
+    justify-content: flex-start; /* Align items to the top */
+  }
+
+  .dashboard.container {
+    margin-top: 2rem; /* Add top margin to raise the dashboard cards */
+  }
+}
+
 @media (max-width: 991.98px) {
   .footer__social-link .facebook-icon,
   .footer__social-link .instagram-icon {
