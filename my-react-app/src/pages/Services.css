@@ -195,6 +195,7 @@ body {
   cursor: pointer;
   margin-top: 1rem;
   text-align: center;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   /* Remove hover transitions to avoid repaint issues on mobile */
 }
 
