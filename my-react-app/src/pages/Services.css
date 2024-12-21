@@ -229,6 +229,7 @@ body {
   font-size: var(--button-font-size);
   transition: background-color 0.3s ease;
   text-decoration: none;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .service-card__button .bi {
