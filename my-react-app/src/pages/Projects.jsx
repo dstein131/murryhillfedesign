@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import './Projects.css';
+import { FaGithub, FaExternalLinkAlt, FaImages } from 'react-icons/fa';
 
 const devProjects = [
   {
@@ -34,7 +35,7 @@ const devProjects = [
       'Implementing a RESTful API for the frontend to consume.',
       'Securing the API with JWT authentication and authorization.',
       'Setting up a MySQL database and hosting it on AWS RDS.',
-      'Settting up cart, order, and payment systems.',
+      'Setting up cart, order, and payment systems.',
       'Creating a method to allow users to purchase services.',
     ],
     solutions: [
@@ -167,6 +168,7 @@ const ProjectCard = ({ project, section, openModal }) => {
           onClick={() => openModal(screenshots, title)}
           aria-label={`View screenshots of ${title}`}
         >
+          <FaImages className="project-card__icon" />
           View Screenshots
         </button>
       )}
@@ -181,6 +183,7 @@ const ProjectCard = ({ project, section, openModal }) => {
               className="project-card__link"
               aria-label={`View ${title} on GitHub`}
             >
+              <FaGithub className="project-card__icon" />
               GitHub
             </a>
           )}
@@ -192,6 +195,7 @@ const ProjectCard = ({ project, section, openModal }) => {
               className="project-card__link"
               aria-label={`View live demo of ${title}`}
             >
+              <FaExternalLinkAlt className="project-card__icon" />
               Live Demo
             </a>
           )}
@@ -232,7 +236,7 @@ const Projects = () => {
             }`}
             aria-pressed={currentSection === 'development'}
           >
-            Development Projects
+            Development
           </button>
           <button
             onClick={() => setCurrentSection('ux')}
@@ -241,25 +245,32 @@ const Projects = () => {
             }`}
             aria-pressed={currentSection === 'ux'}
           >
-            UX/UI Projects
+            UX/UI
           </button>
         </div>
       </header>
 
       <main className="projects-page__main">
-        {projectsToDisplay.map((project, index) => (
-          <ProjectCard
-            key={`project-${index}`}
-            project={project}
-            section={currentSection}
-            openModal={openModal}
-          />
-        ))}
+        <div className="projects-page__grid">
+          {projectsToDisplay.map((project, index) => (
+            <ProjectCard
+              key={`project-${index}`}
+              project={project}
+              section={currentSection}
+              openModal={openModal}
+            />
+          ))}
+        </div>
       </main>
 
       {modalData.title && modalData.screenshots.length > 0 && (
-        <div className={`modal ${modalData.screenshots.length > 0 ? 'modal--visible' : ''}`}>
-          <div className="modal__overlay" onClick={closeModal}></div>
+        <div
+          className={`modal ${modalData.screenshots.length > 0 ? 'modal--visible' : ''}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div className="modal__overlay" onClick={closeModal} aria-hidden="true"></div>
           <div className="modal__content">
             <button
               className="modal__close"
@@ -268,8 +279,10 @@ const Projects = () => {
             >
               &times;
             </button>
-            <h3 className="modal__title">{modalData.title} Screenshots</h3>
-            <div className="modal__images">
+            <h3 className="modal__title" id="modal-title">
+              {modalData.title} Screenshots
+            </h3>
+            <div className="modal__carousel">
               {modalData.screenshots.map((screenshot, idx) => (
                 <img
                   key={`modal-screenshot-${idx}`}
