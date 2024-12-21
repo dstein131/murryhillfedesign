@@ -20,7 +20,6 @@
 
 
 /* Base Typography */
-/* Base Typography */
 body {
   font-family: var(--font-family);
   margin: 0;
@@ -30,13 +29,9 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--text-color);
-  background: 
-    linear-gradient(
-      rgba(20, 20, 20, 0.8),
-      rgba(20, 20, 20, 0.6)
-    ), 
-    url('/images/smallerbg.png') no-repeat center center fixed;
+  background: url('/images/smallerbg.png') no-repeat center center fixed;
   background-size: cover; /* Ensure the image covers the entire screen */
+  background-color: rgba(20, 20, 20, 0.8); /* Darker color with 80% opacity */
 }
 
 
