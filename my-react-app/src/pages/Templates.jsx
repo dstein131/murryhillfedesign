@@ -46,9 +46,6 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/',
     },
-    
-    
-
   ];
 
   return (
@@ -113,6 +110,17 @@ const Templates = () => {
                         aria-label={`View ${template.title}`}
                       >
                         Live Preview
+                        {/* Inline SVG Icon */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="button-icon"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path d="M14 3h7v7h-2V6.414l-9.293 9.293-1.414-1.414L18.586 5H14V3z" />
+                          <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
+                        </svg>
                       </Button>
                     </div>
                   </Card.Body>
