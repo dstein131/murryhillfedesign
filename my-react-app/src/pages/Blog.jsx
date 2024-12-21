@@ -9,6 +9,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import React Quill styles
 import AddCategoryModal from './AddCategoryModal';
 import AddTagModal from './AddTagModal';
+import {
+  MdAdd,
+  MdClose,
+  MdFilterList,
+  MdLocalOffer,
+  MdCategory,
+  MdComment,
+} from 'react-icons/md';
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -31,8 +39,6 @@ const Blog = () => {
   const [loading, setLoading] = useState(false);
   const [creatingPost, setCreatingPost] = useState(false);
   const [allPosts, setAllPosts] = useState([]); // All posts fetched initially
-
-
 
   // State for modals
   const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
@@ -57,40 +63,9 @@ const Blog = () => {
         setLoading(false);
       }
     };
-  
+
     fetchPosts();
   }, []);
-  
-  const filterPosts = () => {
-    let filteredPosts = [...allPosts]; // Start with all posts
-  
-    if (selectedCategory) {
-      filteredPosts = filteredPosts.filter((post) =>
-        post.categories.some((category) => category.id === selectedCategory)
-      );
-    }
-  
-    if (selectedTag) {
-      filteredPosts = filteredPosts.filter((post) =>
-        post.tags.some((tag) => tag.id === selectedTag)
-      );
-    }
-  
-    setPosts(filteredPosts); // Update the displayed posts
-  };
-
-  useEffect(() => {
-    filterPosts();
-  }, [selectedCategory, selectedTag]);
-
-  const clearFilters = () => {
-    setSelectedCategory(null);
-    setSelectedTag(null);
-    setPosts(allPosts); // Reset to show all posts
-  };
-  
-  
-  
 
   // Fetch categories and tags on component mount
   useEffect(() => {
@@ -290,66 +265,99 @@ const Blog = () => {
     setTags([...tags, { id: tagId, name: tagName }]);
   };
 
+  // Filter posts based on selected category and tag
+  useEffect(() => {
+    let filteredPosts = [...allPosts]; // Start with all posts
+
+    if (selectedCategory) {
+      filteredPosts = filteredPosts.filter((post) =>
+        post.categories.some((category) => category.id === selectedCategory)
+      );
+    }
+
+    if (selectedTag) {
+      filteredPosts = filteredPosts.filter((post) =>
+        post.tags.some((tag) => tag.id === selectedTag)
+      );
+    }
+
+    setPosts(filteredPosts); // Update the displayed posts
+  }, [selectedCategory, selectedTag, allPosts]);
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSelectedCategory(null);
+    setSelectedTag(null);
+    setPosts(allPosts); // Reset to show all posts
+  };
+
   return (
     <div className="blog-page">
       <header className="blog-page__header">
         <h1 className="blog-page__title">Blog</h1>
         <p className="blog-page__subtitle">Read my latest articles on development, design, and more.</p>
-        {!isAuthenticated && (
-            <p className="blog-page__subtext">
-            Please login or register to create a new post.
-            </p>
-        )}
+
         {/* Filter Section */}
         <div className="blog-page__filters">
           <div className="blog-page__filter">
-            <h3>Filter by Category:</h3>
+            <h3><MdCategory className="filter-icon" /> Filter by Category:</h3>
             <div className="blog-page__filter-options">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   className={`filter-button ${selectedCategory === category.id ? 'active' : ''}`}
                   onClick={() => handleFilterByCategory(category.id)}
+                  aria-pressed={selectedCategory === category.id}
                 >
                   {category.name}
                 </button>
               ))}
               {selectedCategory && (
                 <button className="filter-clear" onClick={() => setSelectedCategory(null)}>
-                  Clear
+                  <MdClose /> Clear
                 </button>
               )}
             </div>
           </div>
           <div className="blog-page__filter">
-            <h3>Filter by Tag:</h3>
+            <h3><MdLocalOffer className="filter-icon" /> Filter by Tag:</h3>
             <div className="blog-page__filter-options">
               {tags.map((tag) => (
                 <button
                   key={tag.id}
                   className={`filter-button ${selectedTag === tag.id ? 'active' : ''}`}
                   onClick={() => handleFilterByTag(tag.id)}
+                  aria-pressed={selectedTag === tag.id}
                 >
                   {tag.name}
                 </button>
               ))}
               {selectedTag && (
                 <button className="filter-clear" onClick={() => setSelectedTag(null)}>
-                  Clear
+                  <MdClose /> Clear
                 </button>
               )}
             </div>
           </div>
         </div>
 
-        {/* Buttons to Add Category and Tag */}
+        {/* Clear All Filters Button */}
+        {(selectedCategory || selectedTag) && (
+          <div className="blog-page__clear-filters">
+            <button className="clear-filters-button" onClick={clearFilters}>
+              <MdFilterList /> Clear All Filters
+            </button>
+          </div>
+        )}
+
+        {/* Manage Categories and Tags Buttons */}
         {isAuthenticated && (
           <div className="blog-page__manage-tags-categories">
             <button onClick={() => setIsAddCategoryModalOpen(true)} className="manage-button">
-              Add Category
+              <MdAdd /> Add Category
             </button>
             <button onClick={() => setIsAddTagModalOpen(true)} className="manage-button">
-              Add Tag
+              <MdAdd /> Add Tag
             </button>
           </div>
         )}
@@ -360,8 +368,9 @@ const Blog = () => {
             <button
               className="toggle-button"
               onClick={() => setIsNewPostCollapsed(!isNewPostCollapsed)}
+              aria-expanded={!isNewPostCollapsed}
             >
-              {isNewPostCollapsed ? 'Create a New Post' : 'Hide New Post Form'}
+              {isNewPostCollapsed ? <MdAdd /> : <MdClose />} {isNewPostCollapsed ? 'Create a New Post' : 'Hide New Post Form'}
             </button>
           </div>
         )}
@@ -441,7 +450,7 @@ const Blog = () => {
               </div>
 
               <button type="submit" className="blog-page__submit" disabled={creatingPost}>
-                {creatingPost ? 'Publishing...' : 'Publish Post'}
+                {creatingPost ? 'Publishing...' : <MdAdd /> + ' Publish Post'}
               </button>
             </form>
           </div>
@@ -457,7 +466,17 @@ const Blog = () => {
         ) : (
           <div className="blog-page__posts">
             {posts.map((post) => (
-              <div key={post.id} className="blog-page__post-card" onClick={() => handleSelectPost(post)}>
+              <div
+                key={post.id}
+                className="blog-page__post-card"
+                onClick={() => handleSelectPost(post)}
+                tabIndex={0}
+                role="button"
+                aria-pressed="false"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') handleSelectPost(post);
+                }}
+              >
                 <h2 className="blog-page__post-title">{post.title}</h2>
                 <p className="blog-page__post-date">Published on {new Date(post.created_at).toLocaleDateString()}</p>
                 <p className="blog-page__post-author"><strong>Author:</strong> {post.author}</p>
@@ -479,6 +498,15 @@ const Blog = () => {
                             e.stopPropagation();
                             handleFilterByCategory(category.id);
                           }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Filter by category ${category.name}`}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              e.stopPropagation();
+                              handleFilterByCategory(category.id);
+                            }
+                          }}
                         >
                           {category.name}
                         </span>
@@ -499,6 +527,15 @@ const Blog = () => {
                             e.stopPropagation();
                             handleFilterByTag(tag.id);
                           }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Filter by tag ${tag.name}`}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              e.stopPropagation();
+                              handleFilterByTag(tag.id);
+                            }
+                          }}
                         >
                           {tag.name}
                         </span>
@@ -516,13 +553,18 @@ const Blog = () => {
 
       {/* Post Details Modal */}
       {showPostModal && selectedPost && (
-        <div className={`modal ${showPostModal ? 'modal--visible' : ''} blog-page__modal`} id={`post-modal-${selectedPost.id}`}>
-          <div className="modal__overlay" onClick={handleClosePostModal}></div>
+        <div
+          className={`modal ${showPostModal ? 'modal--visible' : ''}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div className="modal__overlay" onClick={handleClosePostModal} aria-hidden="true"></div>
           <div className="modal__content">
-            <button className="modal__close" onClick={handleClosePostModal}>
-              &times;
+            <button className="modal__close" onClick={handleClosePostModal} aria-label="Close modal">
+              <MdClose />
             </button>
-            <h2 className="modal__title">{selectedPost.title}</h2>
+            <h2 className="modal__title" id="modal-title">{selectedPost.title}</h2>
             <p className="modal__date">Published on {new Date(selectedPost.created_at).toLocaleDateString()}</p>
             <p className="modal__author"><strong>Author:</strong> {selectedPost.author}</p>
             <div className="modal__body">
@@ -539,6 +581,15 @@ const Blog = () => {
                         onClick={() => {
                           handleFilterByCategory(category.id);
                           handleClosePostModal();
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Filter by category ${category.name}`}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleFilterByCategory(category.id);
+                            handleClosePostModal();
+                          }
                         }}
                       >
                         {category.name}
@@ -559,6 +610,15 @@ const Blog = () => {
                         onClick={() => {
                           handleFilterByTag(tag.id);
                           handleClosePostModal();
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Filter by tag ${tag.name}`}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleFilterByTag(tag.id);
+                            handleClosePostModal();
+                          }
                         }}
                       >
                         {tag.name}
@@ -592,9 +652,10 @@ const Blog = () => {
                 onChange={(e) => setNewComment(e.target.value)}
                 required
                 className="modal__textarea"
+                aria-label="Add a comment"
               ></textarea>
               <button type="submit" className="modal__submit">
-                Submit Comment
+                <MdComment /> Submit Comment
               </button>
             </form>
           </div>
