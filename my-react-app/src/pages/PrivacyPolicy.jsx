@@ -89,7 +89,7 @@ const PrivacyPolicy = () => {
       <ul>
         <li>By email: <a href="mailto:info@murrayhillwebdevelopment.com">david@murrayhillwebdevelopment.com</a></li>
         <li>By phone: <a href="tel:9043839688">904.383.9688</a></li>
-        <li>By mail: Murray Hill Web Development, L.L.C.</li>
+        {/* <li>By mail: Murray Hill Web Development, L.L.C.</li> */}
       </ul>
     </div>
   );
