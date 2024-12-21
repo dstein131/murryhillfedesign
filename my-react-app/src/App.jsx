@@ -27,6 +27,7 @@ import Checkout from './pages/Checkout';
 import Templates from './pages/Templates';
 import Orders from './pages/Orders';
 import OrderDetails from './pages/OrderDetails';
+import DirectMessagingPage from './pages/DirectMessagingPage';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import SuperAdminRoute from './components/SuperAdminRoute';
@@ -37,10 +38,12 @@ const App = () => {
     const location = useLocation();
     const { isAuthenticated, loading } = useSelector((state) => state.user);
 
+    // Verify the JWT token on component mount
     useEffect(() => {
         dispatch(verifyToken());
     }, [dispatch]);
 
+    // Initialize Google Analytics
     useEffect(() => {
         const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
@@ -62,6 +65,7 @@ const App = () => {
         }
     }, []);
 
+    // Track page views for Google Analytics
     useEffect(() => {
         const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
         if (window.gtag && gaId) {
@@ -74,11 +78,14 @@ const App = () => {
     return (
         <HelmetProvider>
             <div id="app">
+                {/* Header Section */}
                 <header>
                     <NavBar />
                 </header>
+                {/* Main Application Routes */}
                 <main className="app-main">
                     <Routes>
+                        {/* Public Routes */}
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
@@ -102,6 +109,11 @@ const App = () => {
                             }
                         />
                         <Route path="/payment-success" element={<PaymentSuccess />} />
+
+                        {/* Direct Messaging */}
+                        <Route path="/direct-message" element={<DirectMessagingPage />} />
+
+                        {/* Protected Routes */}
                         <Route
                             path="/admin"
                             element={
@@ -126,6 +138,8 @@ const App = () => {
                                 </SuperAdminRoute>
                             }
                         />
+
+                        {/* Fallback for undefined routes */}
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </main>

@@ -17,6 +17,7 @@ const LandingPage = () => {
     { title: 'Projects', description: 'Explore the apps and projects I’ve worked on.', route: '/projects' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
+    // { title: 'Message Me Directly', description: 'Send me a message directly.', route: '/direct-message' },
   ];
 
   return (

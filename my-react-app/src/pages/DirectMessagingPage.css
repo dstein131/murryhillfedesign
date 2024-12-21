@@ -1,0 +1,197 @@
+/* Root Variables for Consistent Theming */
+:root {
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  
+    /* Color Scheme */
+    --text-color: rgba(255, 255, 255, 0.87);
+    --background-color: rgba(20, 20, 20, 0.8);
+    --card-background-color: #1a1a1a;
+    --primary-color: #646cff;
+    --primary-hover: #535bf2;
+    --secondary-color: #535bf2;
+    --secondary-hover: #4444e2;
+  
+    /* Input Colors */
+    --input-bg: #242424;
+    --input-border: #646cff;
+}
+  
+/* Direct Messaging Page */
+.direct-messaging-page {
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+/* Header */
+.direct-messaging-page__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+  
+.direct-messaging-page__header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+  
+.direct-messaging-page__header p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+  
+/* Chatbox */
+.direct-messaging-page__chatbox {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+  
+/* Message History */
+.direct-messaging-page__history {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+  
+.direct-messaging-page__empty {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+  
+.direct-messaging-page__entry {
+    margin-bottom: 1rem;
+}
+  
+.direct-messaging-page__user {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+  
+.direct-messaging-page__timestamp {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+  
+/* Error and Success Messages */
+.direct-messaging-page__error,
+.direct-messaging-page__success {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+  
+.direct-messaging-page__error {
+    color: #ff6b6b;
+}
+  
+.direct-messaging-page__success {
+    color: #4caf50;
+}
+  
+/* Form */
+.direct-messaging-page__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+.direct-messaging-page__textarea {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 100px;
+}
+  
+.direct-messaging-page__input {
+    padding: 0.8rem;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+}
+  
+.direct-messaging-page__input:focus,
+.direct-messaging-page__textarea:focus {
+    border-color: var(--primary-hover);
+    outline: none;
+}
+  
+/* Send Button */
+.direct-messaging-page__send {
+    align-self: center;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.direct-messaging-page__send:hover {
+    background-color: var(--primary-hover);
+}
+  
+.direct-messaging-page__send:disabled {
+    background-color: rgba(100, 108, 255, 0.5);
+    cursor: not-allowed;
+}
+  
+/* Scrollbar Styles */
+.direct-messaging-page__history::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.direct-messaging-page__history::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 8px;
+}
+  
+.direct-messaging-page__history::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+  
+/* Responsive Design */
+@media (max-width: 768px) {
+    .direct-messaging-page {
+        padding: 1rem;
+    }
+  
+    .direct-messaging-page__header h1 {
+        font-size: 2rem;
+    }
+  
+    .direct-messaging-page__header p {
+        font-size: 1rem;
+    }
+  
+    .direct-messaging-page__chatbox {
+        padding: 1rem;
+    }
+  
+    .direct-messaging-page__textarea {
+        min-height: 80px;
+    }
+}
