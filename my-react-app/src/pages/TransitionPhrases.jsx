@@ -24,7 +24,7 @@ const TransitionPhrases = () => {
         );
         setFadeProp({ fade: 'fade-in' });
       }, 1000); // Duration of fade-out before switching phrase
-    }, 4000); // Total time each phrase is displayed
+    }, 5000); // Total time each phrase is displayed
 
     return () => clearInterval(timeout);
   }, []);
