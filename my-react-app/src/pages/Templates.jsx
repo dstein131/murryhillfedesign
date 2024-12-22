@@ -12,6 +12,13 @@ const Templates = () => {
   // Sample data for templates
   const templates = [
     {
+      id: 10,
+      title: 'CoffeHouse',
+      description: 'This is an in-house designed template that incorporates Google Firebase for services like authentication, and database storage. It is a simple and elegant design that is perfect for a coffee shop or cafe website.',
+      imageUrl: '/images/templates/coffeehouse.png',
+      link: 'https://quiet-hamster-3dd212.netlify.app/',
+    },
+    {
       id: 7,
       title: 'Flat',
       description: 'This amazing template is designed for agency, startup, and business websites. Also, Flat comes with a clean, modern, and high-quality design for building an amazing template. This template is versatile, too, as it comes with all the common elements a website needs.',
