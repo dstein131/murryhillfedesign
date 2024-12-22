@@ -198,7 +198,7 @@ input:focus {
 .contact-page {
   padding: 2rem;
   color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: transparent;
   margin-top: 60px;
 }
 
