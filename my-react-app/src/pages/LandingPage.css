@@ -76,6 +76,7 @@ html {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform var(--transition-duration), box-shadow var(--transition-duration);
   will-change: transform, box-shadow;
+  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .dashboard__card:hover {
