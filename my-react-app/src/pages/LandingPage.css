@@ -62,13 +62,15 @@ html {
 
 /* Main Content Styles */
 .landing-page__main {
+  position: relative; /* Make this the positioned parent */
   flex: 1;
   width: 100%;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically if space allows */
+  justify-content: center;
 }
+
 
 /* Dashboard Card Styles */
 .dashboard__card {

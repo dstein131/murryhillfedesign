@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LandingPage.css';
 import TransitionPhrases from './TransitionPhrases';
+import SecondTransition from './SecondTransition';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -82,9 +83,12 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </main>
-
+           {/* Second Transition */}
+      {/* <SecondTransition /> */}
       
+      </main>
+      
+   
 
       {/* Redesigned Footer */}
       <footer className="landing-page__footer mt-auto">
