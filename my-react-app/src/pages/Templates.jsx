@@ -11,6 +11,13 @@ const Templates = () => {
 
   // Sample data for templates
   const templates = [
+    {
+      id: 7,
+      title: 'Flat',
+      description: 'This amazing template is designed for agency, startup, and business websites. Also, Flat comes with a clean, modern, and high-quality design for building an amazing template. This template is versatile, too, as it comes with all the common elements a website needs.',
+      imageUrl: '/images/templates/flat.png',
+      link: 'https://whimsical-ganache-804813.netlify.app/',
+    },
     { 
         id: 5,
            title: 'MXapp',
@@ -53,6 +60,7 @@ const Templates = () => {
       imageUrl: '/images/templates/base.png',
       link: 'https://melodious-selkie-ec220a.netlify.app/',
     },
+   
   ];
 
   return (
