@@ -46,6 +46,13 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/',
     },
+    {
+      id: 6,
+      title: 'Base',
+      description: 'The base is a high-quality free and premium Tailwind CSS template specially crafted for - startups, Businesses, and Digital agencies. It is perfect for most businesses who want to create a new website quickly, as it comes with all the essential sections and features needed to create a complete website for a business, agency, or startup.',
+      imageUrl: '/images/templates/base.png',
+      link: 'https://melodious-selkie-ec220a.netlify.app/',
+    },
   ];
 
   return (
