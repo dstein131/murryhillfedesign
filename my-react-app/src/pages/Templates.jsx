@@ -18,6 +18,13 @@ const Templates = () => {
       imageUrl: '/images/templates/flat.png',
       link: 'https://whimsical-ganache-804813.netlify.app/',
     },
+    {
+      id: 8,
+      title: 'Fancy-Lite',
+      description: 'Fancy is a one-page Bootstrap 5 template designed for Business, Agency, Corporate, and Startup websites. It comes with a clean, modern design and all essential business sections/elements powered by the mighty Bootstrap 5.',
+      imageUrl: '/images/templates/fancy-lite.png',
+      link: 'https://golden-jalebi-135f94.netlify.app/',
+    },
     { 
         id: 5,
            title: 'MXapp',
@@ -60,6 +67,7 @@ const Templates = () => {
       imageUrl: '/images/templates/base.png',
       link: 'https://melodious-selkie-ec220a.netlify.app/',
     },
+    
    
   ];
 
