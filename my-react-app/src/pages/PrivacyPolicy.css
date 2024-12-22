@@ -36,7 +36,7 @@ html {
 
 /* Container Styles */
 .privacy-policy {
-  background-color: var(--background-color); /* Transparent background */
+  background-color: transparent; /* Transparent background */
   padding: 2rem 1rem; /* Consistent padding */
   color: var(--text-color);
   font-family: var(--body-font);
