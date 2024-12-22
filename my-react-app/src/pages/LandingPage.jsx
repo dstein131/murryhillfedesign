@@ -60,7 +60,7 @@ const LandingPage = () => {
           className="landing-page__logo mb-4"
         />
         {/* Transitioning Phrases Section */}
-      <TransitionPhrases />
+        <TransitionPhrases />
       </header>
 
       {/* Navigation Sections */}
@@ -83,12 +83,9 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-           {/* Second Transition */}
-      {/* <SecondTransition /> */}
-      
+        {/* Second Transition */}
+        {/* <SecondTransition /> */}
       </main>
-      
-   
 
       {/* Redesigned Footer */}
       <footer className="landing-page__footer mt-auto">

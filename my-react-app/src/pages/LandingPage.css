@@ -24,6 +24,8 @@
   --footer-text-color: #34495e;
   --footer-link-color: #646cff; /* Using primary color for links */
   --footer-link-hover-color: #2c3e50;
+  /* Base font size for REM calculations */
+  font-size: 16px;
 }
 
 /* Reset and Base Styles */
@@ -35,23 +37,24 @@ html {
   background-color: #ffffff; /* Set a white background */
   color: var(--text-color);
   min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .landing-page {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 70px); /* Adjusted for navbar height */
-  padding-top: 70px; /* Offset for fixed navbar */
+  min-height: calc(100vh - 4.375rem); /* Adjusted for navbar height (70px = 4.375rem) */
+  padding-top: 4.375rem; /* Offset for fixed navbar */
 }
 
 /* Header Styles */
 .landing-page__header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* Reduced from 2rem to 1.5rem */
 }
 
 .landing-page__logo {
-  height: 120px;
+  height: 7.5rem; /* 120px → 7.5rem */
   width: auto;
   transition: transform var(--transition-duration);
 }
@@ -60,30 +63,41 @@ html {
   transform: scale(1.05);
 }
 
+/* Transitioning Phrases Styles */
+.transition-phrases {
+  margin-bottom: 1rem; /* Adjust as needed to reduce gap */
+  font-size: 1.25rem; /* Example font size */
+  /* Add any other styles as necessary */
+}
+
 /* Main Content Styles */
 .landing-page__main {
   position: relative; /* Make this the positioned parent */
   flex: 1;
   width: 100%;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem; /* Reduced top and bottom padding from 2rem to 1.5rem */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+/* Dashboard Container */
+.dashboard.container {
+  /* If any additional styles needed, add here */
+}
 
 /* Dashboard Card Styles */
 .dashboard__card {
   background-color: var(--card-bg-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
   transition: transform var(--transition-duration), box-shadow var(--transition-duration);
   will-change: transform, box-shadow;
   font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .dashboard__card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-0.3125rem); /* -5px → -0.3125rem */
+  box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2); /* 8px 12px */
 }
 
 .dashboard__card-title {
@@ -101,8 +115,8 @@ html {
 /* Redesigned Footer Styles */
 .landing-page__footer {
   background-color: var(--footer-background); /* Transparent background */
-  padding: 20px 0; /* Increased padding for better spacing */
-  border-top: 1px solid var(--footer-border-color); /* Transparent border */
+  padding: 1.25rem 0; /* 20px → 1.25rem */
+  border-top: 0.0625rem solid var(--footer-border-color); /* 1px → 0.0625rem */
   display: flex;
   align-items: center;
   margin-top: auto; /* Keeps footer at the bottom */
@@ -110,9 +124,9 @@ html {
 }
 
 .footer__company-name {
-  font-size: 0.85rem; /* Same as phone and privacy policy */
-  color: #646cff; /* Applied the desired primary color directly */
-  font-weight: bold; /* Ensures the text is bold */
+  font-size: 0.85rem;
+  color: var(--primary-color);
+  font-weight: bold;
 }
 
 .footer__company-name a {
@@ -125,13 +139,13 @@ html {
 }
 
 .footer__phone {
-  font-size: 0.85rem; /* Same as company name */
+  font-size: 0.85rem;
   margin-left: 0.5rem;
   color: var(--footer-text-color);
 }
 
 .footer__privacy {
-  font-size: 0.85rem; /* Same as company name */
+  font-size: 0.85rem;
   margin-left: 0.5rem;
   color: var(--footer-text-color);
 }
@@ -158,8 +172,8 @@ html {
 
 .facebook-icon,
 .instagram-icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem; /* 24px → 1.5rem */
+  height: 1.5rem;
   fill: currentColor; /* Use current text color */
   transition: transform var(--transition-duration), fill var(--transition-duration);
   vertical-align: middle;
@@ -172,14 +186,14 @@ html {
 }
 
 .instagram-icon {
-  margin-left: 10px; /* Space between Facebook and Instagram icons */
+  margin-left: 0.625rem; /* 10px → 0.625rem */
 }
 
 /* Animation Styles */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 40px, 0);
+    transform: translate3d(0, 2.5rem, 0); /* 40px → 2.5rem */
   }
 
   to {
@@ -200,25 +214,25 @@ html {
 /* Responsive Styles */
 
 /* Adjust dashboard card positioning on desktop screens */
-@media (min-width: 992px) {
+@media (min-width: 62rem) { /* 992px → 62rem */
   .landing-page__main {
     justify-content: flex-start; /* Align items to the top */
   }
 
   .dashboard.container {
-    margin-top: 2rem; /* Add top margin to raise the dashboard cards */
+    margin-top: 2rem; /* 32px → 2rem */
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 58.999rem) { /* 991.98px → 58.999rem */
   .footer__social-link .facebook-icon,
   .footer__social-link .instagram-icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem; /* 20px → 1.25rem */
+    height: 1.25rem;
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 47.999rem) { /* 767.98px → 47.999rem */
   .dashboard__card-title {
     font-size: 1.25rem;
   }
@@ -228,7 +242,7 @@ html {
   }
 
   .landing-page__logo {
-    height: 90px;
+    height: 5.625rem; /* 90px → 5.625rem */
   }
 
   .footer__company-name,
@@ -239,18 +253,18 @@ html {
 
   .footer__social-link .facebook-icon,
   .footer__social-link .instagram-icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 35.999rem) { /* 575.98px → 35.999rem */
   .dashboard__card {
     padding: 1.5rem;
   }
 
   .landing-page__footer {
-    padding: 10px 0; /* Adjusted padding for very small screens */
+    padding: 0.625rem 0; /* 10px → 0.625rem */
   }
 
   .footer__company-name,
@@ -261,7 +275,7 @@ html {
 
   .footer__social-link .facebook-icon,
   .footer__social-link .instagram-icon {
-    width: 18px;
-    height: 18px;
+    width: 1.125rem; /* 18px → 1.125rem */
+    height: 1.125rem;
   }
 }
