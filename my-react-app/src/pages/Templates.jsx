@@ -25,14 +25,14 @@ const Templates = () => {
       imageUrl: '/images/templates/fancy-lite.png',
       link: 'https://golden-jalebi-135f94.netlify.app/',
     },
-    { 
-        id: 5,
-           title: 'MXapp',
-           description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. ',
-           imageUrl: '/images/templates/mxapp.png',
-           link: 'https://startling-palmier-5d995d.netlify.app/',
-       },
     {
+      id: 9,
+      title: 'Simple',
+      description: 'Simple is a Bootstrap template based on the latest version of Bootstrap 5. It is a simple yet complete website template that can be used for any business website. We named it simple because it is simple only with essential elements and features.',
+      imageUrl: '/images/templates/simple.png',
+      link: 'https://taupe-licorice-bf69ff.netlify.app/',
+    },
+        {
         id: 4,
         title: 'Upcover',
         description: 'Upcover is a fully responsive, clean, and modern high-converting Next js landing page template. It is a beautifully handcrafted, pixel-perfect Next js landing page template based on the Next 14.x, React 18.x & Tailwind CSS V3.4.1.',
@@ -60,6 +60,13 @@ const Templates = () => {
       imageUrl: '/images/templates/material.png',
       link: 'https://soft-caramel-31dd34.netlify.app/',
     },
+    { 
+      id: 5,
+         title: 'MXapp',
+         description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. ',
+         imageUrl: '/images/templates/mxapp.png',
+         link: 'https://startling-palmier-5d995d.netlify.app/',
+     },
     {
       id: 6,
       title: 'Base',
@@ -67,6 +74,7 @@ const Templates = () => {
       imageUrl: '/images/templates/base.png',
       link: 'https://melodious-selkie-ec220a.netlify.app/',
     },
+    
     
    
   ];
