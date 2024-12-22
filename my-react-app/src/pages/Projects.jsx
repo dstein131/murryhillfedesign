@@ -50,17 +50,19 @@ const devProjects = [
     demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net',
   },
   {
-    title: 'Google Firebase Serveless Authentication and User Storage',
+    title: 'CoffeHouse',
     description: 'A Google Firebase project to handle user authentication and storage that does not require a backend.',
     difficulties: [
       'Creating a user-friendly interface for non-technical users.',
       'Implementing a secure authentication system that does not require a backend.',
       'Creating a method to store user data securely.',
+      'Creating a dashboard for logged-in users to interact with the site.',
     ],
     solutions: [
       'Designed a user-friendly interface with React and Material-UI.',
       'Utilized Firebase Authentication to handle user sign-in and sign-up.',
       'Utilized Firebase Firestore to store user data securely.',
+      'Designed a dashboard with React and Redux for state management and protected routes.',
     ],
     github: 'https://github.com/dstein131/firebase-netlify-app',
     demo: 'https://mhwdfirebaseserverless.netlify.app/',
