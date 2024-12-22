@@ -50,6 +50,7 @@
     text-decoration: none;
     border-radius: 8px;
     transition: background-color 0.3s;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   }
   
   .about-page__cta-link:hover {
