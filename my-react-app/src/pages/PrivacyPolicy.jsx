@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <p>Effective Date: [Month Day, Year]</p>
        */}
       <p>
-        Welcome to Murray Hill Web Development, L.L.C. ("we," "us," or "our"). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
+        Welcome to Murray Hill Web Development, L.L.C.. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
       </p>
       
       <h2>1. Information We Collect</h2>
