@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LandingPage.css';
+import TransitionPhrases from './TransitionPhrases';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -57,6 +58,8 @@ const LandingPage = () => {
           alt="Murray Hill Web Development Logo"
           className="landing-page__logo mb-4"
         />
+        {/* Transitioning Phrases Section */}
+      <TransitionPhrases />
       </header>
 
       {/* Navigation Sections */}
@@ -80,6 +83,8 @@ const LandingPage = () => {
           </div>
         </div>
       </main>
+
+      
 
       {/* Redesigned Footer */}
       <footer className="landing-page__footer mt-auto">

@@ -1,0 +1,42 @@
+.transition-phrases-container {
+    background-color: transparent;
+    color: #646cff;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    overflow: hidden;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  .transition-phrase {
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    margin: 0;
+  }
+  
+  .fade-in {
+    opacity: 1;
+  }
+  
+  .fade-out {
+    opacity: 0;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 767.98px) {
+    .transition-phrases-container {
+      font-size: 1rem;
+      padding: 1.5rem 1rem;
+    }
+  }
+  
+  @media (max-width: 575.98px) {
+    .transition-phrases-container {
+      font-size: 0.9rem;
+      padding: 1rem 0.5rem;
+    }
+  }
+  
