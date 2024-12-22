@@ -59,7 +59,7 @@ body {
   position: relative;
   z-index: 0;
   padding: var(--section-padding);
-  background-color: var(--background-color);
+  background-color: transparent; /* Transparent background */
   color: var(--text-color);
   margin-top: 60px; /* Account for fixed navbar */
   min-height: 100vh;

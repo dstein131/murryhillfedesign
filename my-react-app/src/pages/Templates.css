@@ -19,7 +19,7 @@
 /* Main container */
 .templates-page {
   padding: 2rem;
-  background-color: var(--background-color);
+  background-color: transparent; /* Transparent background */
   color: var(--text-color);
   margin-top: 60px; /* Account for fixed navbar */
   border-radius: 10px;
