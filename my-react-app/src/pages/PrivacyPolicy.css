@@ -19,7 +19,7 @@
   --link-color: #646cff; /* Using primary color for links */
   --link-hover-color: #2c3e50;
   --heading-font: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --body-font: 'Roboto', sans-serif;
+  --body-font: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   --transition-duration: 0.3s;
 }
 
