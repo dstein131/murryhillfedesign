@@ -16,7 +16,7 @@ const Templates = () => {
       title: 'CoffeHouse',
       description: 'This is an in-house designed template that incorporates Google Firebase for services like authentication, and database storage. It is a simple and elegant design that is perfect for a coffee shop or cafe website. This can also be modified for other business types easily.', 
       imageUrl: '/images/templates/coffehouse2.png',
-      link: 'https://quiet-hamster-3dd212.netlify.app/',
+      link: 'https://mhwdfirebaseserverless.netlify.app/',
     },
     {
       id: 11,
