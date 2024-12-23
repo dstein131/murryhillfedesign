@@ -15,7 +15,7 @@ const Templates = () => {
       id: 10,
       title: 'CoffeHouse',
       description: 'This is an in-house designed template that incorporates Google Firebase for services like authentication, and database storage. It is a simple and elegant design that is perfect for a coffee shop or cafe website. This can also be modified for other business types easily.', 
-      imageUrl: '/images/templates/coffeehousenew.png',
+      imageUrl: '/images/templates/coffehouse2.png',
       link: 'https://quiet-hamster-3dd212.netlify.app/',
     },
     {
@@ -39,13 +39,13 @@ const Templates = () => {
       imageUrl: '/images/templates/simple.png',
       link: 'https://taupe-licorice-bf69ff.netlify.app/',
     },
-        {
-        id: 4,
-        title: 'Upcover',
-        description: 'Upcover is a fully responsive, clean, and modern high-converting Next js landing page template. It is a beautifully handcrafted, pixel-perfect Next js landing page template based on the Next 14.x, React 18.x & Tailwind CSS V3.4.1.',
-        imageUrl: '/images/templates/upcover.png',
-        link: 'https://lambent-lokum-7d6403.netlify.app/',
-      },
+    {
+      id: 4,
+      title: 'Upcover',
+      description: 'Upcover is a fully responsive, clean, and modern high-converting Next js landing page template. It is a beautifully handcrafted, pixel-perfect Next js landing page template based on the Next 14.x, React 18.x & Tailwind CSS V3.4.1.',
+      imageUrl: '/images/templates/upcover.png',
+      link: 'https://lambent-lokum-7d6403.netlify.app/',
+    },
     {
       id: 1,
       title: 'Startup',
@@ -69,11 +69,11 @@ const Templates = () => {
     },
     { 
       id: 5,
-         title: 'MXapp',
-         description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. ',
-         imageUrl: '/images/templates/mxapp.png',
-         link: 'https://startling-palmier-5d995d.netlify.app/',
-     },
+      title: 'MXapp',
+      description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. ',
+      imageUrl: '/images/templates/mxapp.png',
+      link: 'https://startling-palmier-5d995d.netlify.app/',
+    },
     {
       id: 6,
       title: 'Base',
@@ -81,9 +81,6 @@ const Templates = () => {
       imageUrl: '/images/templates/base.png',
       link: 'https://melodious-selkie-ec220a.netlify.app/',
     },
-    
-    
-   
   ];
 
   return (
@@ -124,10 +121,10 @@ const Templates = () => {
       </header>
 
       <main className="templates-page__main">
-        <Container>
-          <Row>
+        <Container fluid>
+          <Row className="gx-0 gy-4">
             {templates.map((template) => (
-              <Col key={template.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+              <Col key={template.id} xs={12} sm={6} md={4} lg={3}>
                 <Card className="template-card h-100">
                   <Card.Img
                     variant="top"
@@ -170,6 +167,7 @@ const Templates = () => {
       </main>
 
       {/* Technology Description Section as Footer */}
+      {/* Uncomment the footer section if you need it */}
       {/* <footer
         className="templates-page__footer mt-4"
         style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}
