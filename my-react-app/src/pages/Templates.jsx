@@ -19,6 +19,13 @@ const Templates = () => {
       link: 'https://quiet-hamster-3dd212.netlify.app/',
     },
     {
+      id: 11,
+      title: 'HealthCare',
+      description: 'Designed in house. This is a React Tailwind CSS template that is perfect for a health care provider. It is a simple and elegant design that is perfect for a health care provider website.',
+      imageUrl: '/images/templates/healthcare.jpg',
+      link: 'https://heroic-pegasus-b45b32.netlify.app/',
+    },
+    {
       id: 7,
       title: 'Flat',
       description: 'This amazing template is designed for agency, startup, and business websites. Also, Flat comes with a clean, modern, and high-quality design for building an amazing template. This template is versatile, too, as it comes with all the common elements a website needs.',
