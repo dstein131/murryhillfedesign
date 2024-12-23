@@ -21,7 +21,7 @@ const Templates = () => {
     {
       id: 11,
       title: 'HealthCare',
-      description: 'Designed in house. This is a React Tailwind CSS template that is perfect for a health care provider. It is a simple and elegant design that is perfect for a health care provider website.',
+      description: 'Designed in house. This is a React Tailwind CSS template that is perfect for a health care provider. It is a design that is perfect for a health care provider website utilizing calm colors and a clean design.',
       imageUrl: '/images/templates/healthcare.png',
       link: 'https://heroic-pegasus-b45b32.netlify.app/',
     },
