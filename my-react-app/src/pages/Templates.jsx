@@ -12,6 +12,13 @@ const Templates = () => {
   // Sample data for templates
   const templates = [
     {
+      id: 12,
+      title: 'Foodily',
+      description: 'A react and next.js template for food services. Simple and clean.',
+      imageUrl: '/images/templates/foodily.png',
+      link: 'https://steady-phoenix-f34073.netlify.app/',
+    },
+    {
       id: 10,
       title: 'CoffeHouse',
       description: 'This is an in-house designed template that incorporates Google Firebase for services like authentication, and database storage. It is a simple and elegant design that is perfect for a coffee shop or cafe website. This can also be modified for other business types easily.', 
