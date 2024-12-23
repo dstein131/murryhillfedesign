@@ -12,6 +12,13 @@ const Templates = () => {
   // Sample data for templates
   const templates = [
     {
+      id: 13,
+      title: 'Zstal Law',
+      description: 'A React and Next.js template for law firms. This template is a modern responsive design that is perfect for a law firm website.',
+      imageUrl: '/images/templates/zstal-law.png',
+      link: 'https://strong-stroopwafel-fd9377.netlify.app/',
+    },
+    {
       id: 12,
       title: 'Foodily',
       description: 'A react and next.js template for food services. Simple and clean.',
