@@ -21,7 +21,7 @@ const Templates = () => {
     {
       id: 12,
       title: 'Foodily',
-      description: 'A react and next.js template for food services. Simple and clean.',
+      description: 'A react and next.js template for food services. Simple and clean and can be tailored to any style of food service business.',
       imageUrl: '/images/templates/foodily.png',
       link: 'https://steady-phoenix-f34073.netlify.app/',
     },
