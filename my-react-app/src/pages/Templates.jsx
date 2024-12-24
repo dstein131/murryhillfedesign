@@ -22,7 +22,7 @@ const Templates = () => {
       id: 15,
       title: 'MHWD Basic Services Template',
       description: 'A basic services template for a variety of businesses. This template is a modern responsive design that is veristile and can be tailored to any business.',
-      imageUrl: '/images/templates/MHWD_Services.png',
+      imageUrl: '/images/templates/plumberweb.png',
       link: 'https://harmonious-madeleine-1f69a2.netlify.app/',
     },
     {
