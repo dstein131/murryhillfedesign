@@ -10,6 +10,7 @@ const phrases = [
   "Innovative Development for Scalable Applications.",
   "Local Web Development Services in Jacksonville, FL.",
   "Affordable Web Solutions for Small Businesses.",
+  "Veteran-Owned.",
 ];
 
 const TransitionPhrases = () => {
