@@ -33,6 +33,13 @@ const Templates = () => {
       link: 'https://mhwdfirebaseserverless.netlify.app/',
     },
     {
+      id: 14,
+      title: 'RestFast',
+      description: 'A React and Next.js template for a restaurant. This template is a modern responsive design that is perfect for a restaurant website.',
+      imageUrl: '/images/templates/restfast.png',
+      link: 'https://euphonious-semolina-eedee2.netlify.app/',
+    },
+    {
       id: 11,
       title: 'HealthCare',
       description: 'Designed in house. This is a React Tailwind CSS template that is perfect for a health care provider. It is a design that is perfect for a health care provider website utilizing calm colors and a clean design.',
