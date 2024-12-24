@@ -19,6 +19,13 @@ const Templates = () => {
       link: 'https://strong-stroopwafel-fd9377.netlify.app/',
     },
     {
+      id: 15,
+      title: 'MHWD Basic Services Template',
+      description: 'A basic services template for a variety of businesses. This template is a modern responsive design that is veristile and can be tailored to any business.',
+      imageUrl: '/images/templates/MHWD_Services.png',
+      link: 'https://mhwd-basic-services.netlify.app/',
+    },
+    {
       id: 12,
       title: 'Foodily',
       description: 'A react and next.js template for food services. Simple and clean and can be tailored to any style of food service business.',
