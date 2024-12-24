@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 500 350" width="500" height="350" role="img" aria-label="Veteran-Owned Business">
+  <style>
+    .cls-1 { fill: #646cff; } /* Primary Color */
+    .cls-2 { fill: #535bf2; } /* Secondary Color */
+    .cls-3 { fill: #535bf2; } /* Primary Hover */
+    .cls-4 { fill: #4444e2; } /* Secondary Hover */
+    .cls-5 { fill: #ffffff; } /* White for Text and Background */
+    .cls-6 { fill: #000000; } /* Black for Text */
+  </style>
+
+  <!-- Outer Shield -->
+  <path class="cls-1" d="M250 0 L100 75 L100 275 L250 350 L400 275 L400 75 Z" />
+
+  <!-- Inner Shield -->
+  <path class="cls-2" d="M250 30 L120 90 L120 260 L250 320 L380 260 L380 90 Z" />
+
+  <!-- Star and Text Background -->
+  <circle class="cls-3" cx="250" cy="175" r="75" />
+  <circle class="cls-5" cx="250" cy="175" r="60" />
+
+  <!-- Stars -->
+  <polygon class="cls-1" points="250,110 260,140 290,140 265,155 275,185 250,165 225,185 235,155 210,140 240,140" />
+  <polygon class="cls-1" points="250,220 260,250 290,250 265,265 275,295 250,275 225,295 235,265 210,250 240,250" />
+
+  <!-- Text -->
+  <text x="50%" y="52%" class="cls-6" font-family="Arial, sans-serif" font-weight="bold" font-size="16" text-anchor="middle">VETERAN</text>
+  <text x="50%" y="62%" class="cls-6" font-family="Arial, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">OWNED</text>
+  <text x="50%" y="72%" class="cls-6" font-family="Arial, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">BUSINESS</text>
+</svg>

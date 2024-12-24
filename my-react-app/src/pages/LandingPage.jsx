@@ -1,25 +1,26 @@
-// src/pages/LandingPage.jsx
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LandingPage.css';
 import TransitionPhrases from './TransitionPhrases';
-import SecondTransition from './SecondTransition';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [badgeVisible, setBadgeVisible] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setBadgeVisible(true), 500); // Delay for transition
+    return () => clearTimeout(timeout); // Cleanup on unmount
+  }, []);
 
   const sections = [
     { title: 'About Me', description: 'Learn more about who I am and what I do.', route: '/about' },
     { title: 'Services', description: 'Learn about the services I offer.', route: '/services' },
     { title: 'Templates', description: 'View our collection of templates for your site.', route: '/templates' },
-    // { title: 'CV', description: 'View my professional experience and skills.', route: '/resume' },
     { title: 'Projects', description: 'Explore the apps and projects I’ve worked on.', route: '/projects' },
     { title: 'Blog', description: 'Read my thoughts on development, design, and life.', route: '/blog' },
     { title: 'Contact', description: 'Get in touch with me.', route: '/contact' },
-    // { title: 'Message Me Directly', description: 'Send me a message directly.', route: '/direct-message' },
   ];
 
   return (
@@ -83,8 +84,15 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-        {/* Second Transition */}
-        {/* <SecondTransition /> */}
+
+        {/* Badge Section */}
+        <section className="badge-section text-center mt-5">
+          <img
+            src="/images/templates/vetbadge1.png"
+            alt="Veteran Owned Business Badge"
+            className={`badge-image ${badgeVisible ? 'visible' : ''}`}
+          />
+        </section>
       </main>
 
       {/* Redesigned Footer */}
@@ -108,14 +116,7 @@ const LandingPage = () => {
                 className="footer__social-link"
               >
                 {/* Facebook SVG Icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="facebook-icon"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="facebook-icon">
                   <path d="M22.675 0h-21.35C.596 0 0 .597 0 1.333v21.333C0 23.403.596 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.716-1.796 1.764v2.312h3.587l-.467 3.622h-3.12V24h6.116C23.404 24 24 23.403 24 22.667V1.333C24 .597 23.404 0 22.675 0z" />
                 </svg>
               </a>
@@ -127,14 +128,7 @@ const LandingPage = () => {
                 className="footer__social-link ml-3"
               >
                 {/* Instagram SVG Icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="instagram-icon"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="instagram-icon">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.31.975.975 1.248 2.242 1.31 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.31 3.608-.975.975-2.242 1.248-3.608 1.31-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.31-.975-.975-1.248-2.242-1.31-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.31-3.608C4.52 2.497 5.787 2.225 7.153 2.163 8.419 2.105 8.799 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.07 5.765.128 4.604.392 3.603 1.393 2.601 2.395 2.337 3.556 2.28 4.843 2.223 6.123 2.213 6.532 2.213 12s.01 5.877.07 7.157c.057 1.287.321 2.448 1.322 3.449 1.001 1.001 2.162 1.265 3.449 1.322 1.28.06 1.689.07 7.157.07s5.877-.01 7.157-.07c1.287-.057 2.448-.321 3.449-1.322 1.001-1.001 1.265-2.162 1.322-3.449.06-1.28.07-1.689.07-7.157s-.01-5.877-.07-7.157c-.057-1.287-.321-2.448-1.322-3.449C19.448.392 18.287.128 17 .07 15.72.013 15.311 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
                 </svg>
               </a>

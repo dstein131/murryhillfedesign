@@ -279,3 +279,27 @@ html {
     height: 1.125rem;
   }
 }
+
+
+.badge-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.badge-image {
+  width: 8rem; /* Approximately 100px, scaled up */
+  height: 8rem; /* Approximately 100px, scaled up */
+  object-fit: contain; /* Ensure it retains its shape */
+  opacity: 0; /* Initially hidden */
+  transform: scale(0.8); /* Start slightly smaller */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Smooth fade and scale transition */
+}
+
+
+.badge-image.visible {
+  opacity: 1; /* Fade in */
+  transform: scale(1); /* Scale to normal size */
+}

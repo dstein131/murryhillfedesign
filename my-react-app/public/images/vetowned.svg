@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Veteran-Owned Business">
+  <!-- Outer Circle -->
+  <circle cx="100" cy="100" r="95" fill="#003366" stroke="#FFD700" stroke-width="5" />
+  
+  <!-- Stars -->
+  <g fill="#FFD700">
+    <polygon points="100,25 104,37 116,37 106,45 110,57 100,49 90,57 94,45 84,37 96,37" />
+    <polygon points="50,100 54,112 66,112 56,120 60,132 50,124 40,132 44,120 34,112 46,112" />
+    <polygon points="150,100 154,112 166,112 156,120 160,132 150,124 140,132 144,120 134,112 146,112" />
+    <polygon points="100,175 104,187 116,187 106,195 110,207 100,199 90,207 94,195 84,187 96,187" />
+  </g>
+  
+  <!-- Inner Circle -->
+  <circle cx="100" cy="100" r="75" fill="#FFFFFF" />
+
+  <!-- Text -->
+  <text x="50%" y="47%" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#003366" text-anchor="middle">VETERAN</text>
+  <text x="50%" y="55%" font-family="Arial, sans-serif" font-weight="bold" font-size="14" fill="#003366" text-anchor="middle">OWNED</text>
+  <text x="50%" y="65%" font-family="Arial, sans-serif" font-weight="bold" font-size="14" fill="#003366" text-anchor="middle">BUSINESS</text>
+</svg>
