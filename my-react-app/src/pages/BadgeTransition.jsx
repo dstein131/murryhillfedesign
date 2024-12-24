@@ -13,7 +13,7 @@ const BadgeTransition = () => {
   return (
     <div className={`badge-container ${isVisible ? 'fade-in' : 'fade-out'}`}>
       <img
-        src="/images/templates/vetbadge1.png"
+        src="/images/templates/vetbadge2.png"
         alt="Veteran Owned Business Badge"
         className="badge-image"
       />
