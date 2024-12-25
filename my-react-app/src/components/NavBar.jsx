@@ -1,18 +1,19 @@
 // src/components/Navbar.jsx
 
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { FaShoppingCart, FaArrowLeft } from 'react-icons/fa'; // Import FaArrowLeft
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, performLogoutUser } from '../redux/userSlice'; 
 import { fetchCart } from '../redux/cartSlice';
 import Login from '../pages/Login';
-import { FaShoppingCart } from 'react-icons/fa';
-import './NavBar.css'
+import './NavBar.css';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation(); // Get current location
 
   const { user, is_superadmin, applications, roles, isAuthenticated, loading, error } = useSelector((state) => state.user);
   const { items } = useSelector((state) => state.cart);
@@ -21,6 +22,19 @@ const NavBar = () => {
   const cartItemCount = items ? items.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0;
 
   const [showLogin, setShowLogin] = useState(false);
+
+  // Track initial path
+  const initialPathRef = useRef(location.pathname);
+  const [showBackButton, setShowBackButton] = useState(false);
+
+  // Determine whether to show back button
+  useEffect(() => {
+    if (location.pathname !== initialPathRef.current) {
+      setShowBackButton(true);
+    } else {
+      setShowBackButton(false);
+    }
+  }, [location.pathname]);
 
   // Verify token on initial mount
   useEffect(() => {
@@ -54,6 +68,7 @@ const NavBar = () => {
     <>
       <Navbar expand="lg" className="navbar-custom fixed-top">
         <div className="container-fluid">
+          {/* Left Section: Brand */}
           <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
             <img
               src="/images/DEVLOGONOTEXT.svg"
@@ -61,6 +76,35 @@ const NavBar = () => {
               className="navbar-logo"
             />
           </Navbar.Brand>
+
+          {/* Center Section: Back Button */}
+          <div className="navbar-back-button">
+            {showBackButton && (
+              <Button
+              className="back-button"
+              onClick={() => navigate(-1)}
+              title="Go Back"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="custom-back-arrow"
+                style={{ width: '24px', height: '24px' }}
+              >
+                <path d="M19 12H5" />
+                <path d="M12 19l-7-7 7-7" />
+              </svg>
+            </Button>
+            
+            )}
+          </div>
+
+          {/* Toggle and Right Section */}
           <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom">
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>

@@ -28,12 +28,17 @@
   z-index: 3000 !important; /* Ensure navbar above everything */
   background-color: transparent !important;
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
 }
 
+/* Navbar Brand */
 .navbar-brand-custom {
   font-size: 1.5rem;
   color: var(--text-color);
   text-decoration: none;
+  position: relative;
+  z-index: 2; /* Ensure it stays above the back button */
 }
 
 .navbar-brand-custom:hover {
@@ -45,7 +50,36 @@
   width: auto;
 }
 
-/* Navbar links */
+/* Center Back Button */
+.navbar-back-button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  /* Ensure it doesn't interfere with other navbar items */
+  z-index: 1;
+}
+
+/* Back Button Styling */
+.back-button {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: var(--primary-hover);
+}
+
+/* Navbar Links */
 .navbar-custom .navbar-link-custom {
   color: var(--text-color) !important;
   font-weight: bold;
@@ -76,7 +110,7 @@
   transition: background-color 0.3s ease;
 }
 
-/* Create top and bottom lines */
+/* Create top and bottom lines for toggler */
 .navbar-toggler-icon::before,
 .navbar-toggler-icon::after {
   content: '';
@@ -102,6 +136,11 @@
   background-color: var(--primary-hover) !important;
 }
 
+/* Navbar Collapse */
+.navbar-custom .navbar-collapse {
+  justify-content: flex-end;
+}
+
 /* Buttons */
 .custom-button {
   background-color: var(--primary-color);
@@ -117,4 +156,30 @@
   color: white;
 }
 
+/* Cart Icon Styling */
+.navbar-custom .navbar-link-custom .fa-shopping-cart {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
 
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  /* Adjust Back Button Position on Smaller Screens */
+  .navbar-back-button {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+
+  /* Adjust Navbar Brand if needed */
+  .navbar-brand-custom {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Ensure Navbar Links Stack Properly */
+  .navbar-custom .navbar-collapse {
+    padding-top: 0.5rem;
+  }
+}
