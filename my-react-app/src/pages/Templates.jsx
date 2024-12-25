@@ -15,7 +15,7 @@ const Templates = () => {
       id: 13,
       title: 'Zstal Law',
       description: 'A React and Next.js template for law firms. This template is a modern responsive design that is perfect for a law firm website.',
-      imageUrl: '/images/templates/zstal-law.png',
+      imageUrl: '/images/templates/image.png',
       link: 'https://strong-stroopwafel-fd9377.netlify.app/',
     },
     {
