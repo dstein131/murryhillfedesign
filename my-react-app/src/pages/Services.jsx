@@ -53,7 +53,7 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
             <h4 className="section-title">Add-Ons:</h4>
             <ul className="service-card__addons">
               {visibleAddons.map((addon, idx) => (
-                <li key={`addon-${idx}`}>{addon}</li>
+                <li key={`addon-${idx}`}>{addon.name} - ${addon.price}</li>
               ))}
             </ul>
             {hasMoreAddons && (
@@ -155,16 +155,11 @@ const Services = () => {
     }
   };
 
-  const processedServices = services.map(s => {
-    const isAddOn = s.price === null;
-    const features = isAddOn ? [] : (s.description ? s.description.split(',').map(f => f.trim()) : []);
-    const addons = isAddOn ? (s.description ? s.description.split(',').map(a => a.trim()) : []) : [];
-    return {
-      ...s,
-      features,
-      addons,
-    };
-  });
+  const processedServices = services.map(s => ({
+    ...s,
+    features: s.features || [],
+    addons: s.addons || [],
+  }));
 
   if (loading) {
     return <div className="services-page"><p>Loading services...</p></div>;
