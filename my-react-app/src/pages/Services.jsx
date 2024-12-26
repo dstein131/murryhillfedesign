@@ -155,11 +155,15 @@ const Services = () => {
     }
   };
 
-  const processedServices = services.map(s => ({
-    ...s,
-    features: s.description ? s.description.split(',').map(f => f.trim()) : [],
-    addons: s.addons || [],
-  }));
+  const monthlyServices = services.filter(service => service.isMonthly);
+  const nonMonthlyServices = services.filter(service => !service.isMonthly);
+
+  const processedServices = (servicesList) =>
+    servicesList.map(s => ({
+      ...s,
+      features: s.description ? s.description.split(',').map(f => f.trim()) : [],
+      addons: s.addons || [],
+    }));
 
   if (loading) {
     return <div className="services-page"><p>Loading services...</p></div>;
@@ -179,11 +183,30 @@ const Services = () => {
       </header>
 
       <main className="services-page__main">
+        {/* Non-Monthly Services Section */}
         <section className="services-page__section">
+          <h2 className="section-title">One-Time Services</h2>
           <div className="services-page__packages">
-            {processedServices.map((pkg, pkgIdx) => (
+            {processedServices(nonMonthlyServices).map((pkg, pkgIdx) => (
               <PackageCard
                 key={`package-${pkg.service_id || pkgIdx}`}
+                pkg={pkg}
+                onContact={handleContact}
+                onAddToCart={handleAddToCart}
+                onLogin={handleLoginPrompt}
+                isAuthenticated={isAuthenticated}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Monthly Services Section */}
+        <section className="services-page__section">
+          <h2 className="section-title">Monthly Services</h2>
+          <div className="services-page__packages">
+            {processedServices(monthlyServices).map((pkg, pkgIdx) => (
+              <PackageCard
+                key={`monthly-package-${pkg.service_id || pkgIdx}`}
                 pkg={pkg}
                 onContact={handleContact}
                 onAddToCart={handleAddToCart}
