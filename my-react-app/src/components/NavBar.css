@@ -1,5 +1,3 @@
-/* src/components/Navbar.css */
-
 /* Root Variables for Consistent Theming */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -20,12 +18,22 @@
   --input-border: #646cff;
 }
 
+/* Remove text-decoration globally for links */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Fixed Navbar */
 .navbar-custom {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3000 !important; /* Ensure navbar above everything */
+  z-index: 3000 !important; /* Ensure navbar is above everything */
   background-color: transparent !important;
   padding: 0.5rem 1rem;
   display: flex;
@@ -37,58 +45,49 @@
   font-size: 1.5rem;
   color: var(--text-color);
   text-decoration: none;
-  position: relative;
-  z-index: 2; /* Ensure it stays above the back button */
 }
 
 .navbar-brand-custom:hover {
   color: var(--primary-hover);
 }
 
+/* Brand Logo */
 .navbar-logo {
   height: 50px;
   width: auto;
 }
 
-/* Center Back Button */
-.navbar-back-button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+/* Home Button (same style as other buttons) */
+.back-home-button {
   display: flex;
   align-items: center;
-  /* Ensure it doesn't interfere with other navbar items */
-  z-index: 1;
+  background-color: var(--primary-color);
+  color: #fff !important;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* Back Button Styling */
-.back-button {
-  background: transparent;
-  border: none;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.3rem;
-  transition: color 0.3s ease;
-  cursor: pointer;
+.back-home-button:hover {
+  background-color: var(--primary-hover);
+  color: #fff !important;
 }
 
-.back-button:hover {
-  color: var(--primary-hover);
+/* Icon sizing */
+.home-icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* Navbar Links */
-.navbar-custom .navbar-link-custom {
+.navbar-link-custom {
   color: var(--text-color) !important;
   font-weight: bold;
   padding: 0.5rem 1rem;
-  text-decoration: none;
-}
-
-.navbar-custom .navbar-link-custom:hover {
-  color: var(--primary-hover) !important;
 }
 
 /* Toggler Button Customization */
@@ -110,7 +109,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* Create top and bottom lines for toggler */
 .navbar-toggler-icon::before,
 .navbar-toggler-icon::after {
   content: '';
@@ -136,8 +134,8 @@
   background-color: var(--primary-hover) !important;
 }
 
-/* Navbar Collapse */
-.navbar-custom .navbar-collapse {
+/* Collapse content alignment */
+.navbar-collapse {
   justify-content: flex-end;
 }
 
@@ -157,7 +155,7 @@
 }
 
 /* Cart Icon Styling */
-.navbar-custom .navbar-link-custom .fa-shopping-cart {
+.navbar-link-custom .fa-shopping-cart {
   width: 24px;
   height: 24px;
   margin-right: 5px;
@@ -165,21 +163,10 @@
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
-  /* Adjust Back Button Position on Smaller Screens */
-  .navbar-back-button {
-    position: static;
-    transform: none;
-    margin-top: 0.5rem;
-    justify-content: center;
+  .navbar-custom {
+    padding: 0.5rem 1rem;
   }
-
-  /* Adjust Navbar Brand if needed */
   .navbar-brand-custom {
     margin-bottom: 0.5rem;
-  }
-
-  /* Ensure Navbar Links Stack Properly */
-  .navbar-custom .navbar-collapse {
-    padding-top: 0.5rem;
   }
 }

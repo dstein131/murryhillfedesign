@@ -36,6 +36,15 @@ body {
   background-color: rgba(20, 20, 20, 0.95); /* Darker color with 80% opacity */
 }
 
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 /* App Layout */
 #app {
