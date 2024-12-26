@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import './ServiceCard.css'; // Import the service card CSS
 
-const MAX_FEATURES_VISIBLE = 3;
 const MAX_ADDONS_VISIBLE = 3;
 
 const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) => {
-  const [showAllFeatures, setShowAllFeatures] = useState(false);
   const [showAllAddons, setShowAllAddons] = useState(false);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [totalPrice, setTotalPrice] = useState(parseFloat(pkg.price) || 0);
@@ -60,7 +58,6 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
 
   const features = pkg.features || [];
   const addons = pkg.addons || [];
-  const visibleFeatures = showAllFeatures ? features : features.slice(0, MAX_FEATURES_VISIBLE);
   const visibleAddons = showAllAddons ? addons : addons.slice(0, MAX_ADDONS_VISIBLE);
 
   return (
@@ -73,19 +70,11 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
           <div className="service-card__section">
             <h4 className="section-title">Features:</h4>
             <ul className="service-card__features">
-              {visibleFeatures.map((feature, index) => (
+              {features.map((feature, index) => (
                 <li key={`feature-${index}`}>{feature}</li>
               ))}
             </ul>
-            {features.length > MAX_FEATURES_VISIBLE && (
-              <button
-                className="toggle-button"
-                onClick={() => setShowAllFeatures(!showAllFeatures)}
-                aria-expanded={showAllFeatures}
-              >
-                {showAllFeatures ? 'Show Less' : 'Show More'}
-              </button>
-            )}
+            {/* Removed the toggle-button for features */}
           </div>
         )}
 
