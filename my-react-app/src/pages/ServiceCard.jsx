@@ -1,7 +1,7 @@
 // src/components/Services/ServiceCard.jsx
 
 import React, { useState, useEffect } from 'react';
-import './ServiceCard.css'; // Import the service card CSS
+import './ServiceCard.css';
 
 const MAX_ADDONS_VISIBLE = 3;
 
@@ -62,25 +62,31 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
 
   return (
     <div className="service-card">
+      {/* Main Content */}
       <div className="service-card__content">
-        <h3 className="service-card__title">{pkg.title}</h3>
-        <p className="service-card__price">Total Price: ${totalPrice.toFixed(2)}</p>
+        <div className="service-card__header">
+          <h3 className="service-card__title">{pkg.title}</h3>
+          <p className="service-card__price">
+            Total Price: ${totalPrice.toFixed(2)}
+          </p>
+        </div>
 
+        {/* Features Section */}
         {features.length > 0 && (
           <div className="service-card__section">
-            <h4 className="section-title">Features:</h4>
+            <h4 className="section-title">Features</h4>
             <ul className="service-card__features">
               {features.map((feature, index) => (
                 <li key={`feature-${index}`}>{feature}</li>
               ))}
             </ul>
-            {/* Removed the toggle-button for features */}
           </div>
         )}
 
+        {/* Addons Section */}
         {addons.length > 0 && (
           <div className="service-card__section">
-            <h4 className="section-title">Add-Ons:</h4>
+            <h4 className="section-title">Add-Ons</h4>
             <ul className="service-card__addons">
               {visibleAddons.map((addon, idx) => {
                 const selectedAddon = selectedAddons.find(
@@ -110,7 +116,9 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
                         >
                           -
                         </button>
-                        <span className="addon-quantity">{selectedAddon.quantity}</span>
+                        <span className="addon-quantity">
+                          {selectedAddon.quantity}
+                        </span>
                         <button
                           className="quantity-button"
                           onClick={() => increaseAddonQuantity(addon.addon_id)}
@@ -143,6 +151,8 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
           </div>
         )}
       </div>
+
+      {/* Action Buttons */}
       <div className="service-card__buttons">
         <button
           className="service-card__button btn-primary"

@@ -7,10 +7,10 @@
   box-sizing: border-box;
 }
 
-/* Service Card Styling */
+/* Service Card Container */
 .service-card {
-  background-color: rgba(20, 20, 20, 0.8); /* Darker color with 80% opacity */
-  border: 1px solid var(--primary-color); /* Using CSS variable for primary color */
+  background-color: rgba(20, 20, 20, 0.8); /* Maintained color scheme */
+  border: 1px solid var(--primary-color);
   border-radius: 10px;
   padding: 1.5rem;
   display: flex;
@@ -18,26 +18,28 @@
   justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%; /* Ensure all cards have equal height */
-  width: 100%; /* Ensure the card takes full width of grid column */
-  color: rgba(255, 255, 255, 0.87); /* Light text color */
+  height: 100%;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
 }
 
-.service-card__content {
-  flex-grow: 1;
+/* Header: Title & Price */
+.service-card__header {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .service-card__title {
-  font-size: 1.8rem; /* Hardcoded font size */
-  color: var(--primary-color); /* Using CSS variable for primary color */
-  margin-bottom: 0.5rem;
+  font-size: 1.8rem; 
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
   text-align: center;
   font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -46,44 +48,64 @@
 }
 
 .service-card__price {
-  font-size: 1.2rem; /* Hardcoded font size */
-  color: var(--secondary-color); /* Using CSS variable for secondary color */
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  margin-bottom: 0;
   text-align: center;
 }
 
-.service-card__section {
-  margin-bottom: 1rem;
+/* Section Title (Features, Add-Ons) */
+.section-title {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.section-title {
-  font-size: 1.2rem; /* Hardcoded font size */
-  color: var(--primary-color); /* Using CSS variable for primary color */
-  margin-bottom: 0.5rem;
+/* Features & Add-Ons Lists */
+.service-card__section {
+  margin-bottom: 1.5rem;
 }
 
 .service-card__features,
 .service-card__addons {
-  list-style-type: disc;
-  padding-left: 1.5rem;
+  list-style: none; /* Remove bullet points for a cleaner look */
+  padding: 0;
   margin: 0;
-  font-size: 1rem; /* Hardcoded font size */
-  color: rgba(255, 255, 255, 0.87);
 }
 
 .service-card__features li,
 .service-card__addons li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
 }
 
-/* Add-On Toggle Switch */
+/* Add-On Item Layout */
+.addon-item {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 123, 255, 0.1); 
+}
+
+/* First Row: Toggle and Label */
+.addon-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Toggle Switch */
 .switch {
   position: relative;
   display: inline-block;
   width: 40px;
   height: 20px;
   margin-right: 0.5rem;
-  flex-shrink: 0; /* Prevent switch from shrinking */
+  flex-shrink: 0;
 }
 
 .switch input {
@@ -96,7 +118,7 @@
   position: absolute;
   cursor: pointer;
   top: 0;
-  left: 0;
+  left: 0; 
   right: 0;
   bottom: 0;
   background-color: #ccc;
@@ -105,52 +127,38 @@
 }
 
 .slider::before {
-  position: absolute;
   content: "";
+  position: absolute;
   height: 14px;
   width: 14px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
+  background-color: #fff;
   transition: 0.4s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: var(--primary-color); /* Using CSS variable for primary color */
+  background-color: var(--primary-color);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--primary-color); /* Using CSS variable for primary color */
+  box-shadow: 0 0 1px var(--primary-color);
 }
 
 input:checked + .slider::before {
   transform: translateX(20px);
 }
 
-/* Add-On Item Layout */
-.addon-item {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0, 123, 255, 0.1); /* Light blue border */
-}
-
-/* First Row: Toggle and Label */
-.addon-toggle {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
+/* Add-On Name */
 .addon-name {
-  font-size: 1rem; /* Hardcoded font size */
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.87);
   margin-left: 0.5rem;
-  flex: 1; /* Take up remaining space */
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal; /* Allow text to wrap */
+  white-space: normal;
 }
 
 /* Second Row: Quantity Controls */
@@ -162,47 +170,47 @@ input:checked + .slider::before {
 }
 
 .quantity-button {
-  background-color: var(--primary-color); /* Using CSS variable for primary color */
+  background-color: var(--primary-color);
   border: none;
   color: #ffffff;
-  padding: 0.3rem 0.6rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem; /* Hardcoded font size */
+  font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .quantity-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; 
 }
 
 .addon-quantity {
-  min-width: 20px;
+  min-width: 24px;
   text-align: center;
-  font-size: 1rem; /* Hardcoded font size */
+  font-size: 1rem;
   color: #ffffff;
 }
 
 .clear-button {
   background: none;
   border: none;
-  color: #ff4d4f; /* Red color */
-  font-size: 1.2rem; /* Hardcoded font size */
+  color: #ff4d4f; 
+  font-size: 1.1rem;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .clear-button:hover {
-  color: #ff7875; /* Lighter red on hover */
+  color: #ff7875; 
 }
 
-/* Toggle Button Styling */
+/* 'Show More' / 'Show Less' Button */
 .toggle-button {
   background: none;
   border: none;
-  color: var(--primary-color); /* Using CSS variable for primary color */
+  color: var(--primary-color);
   cursor: pointer;
-  font-size: 1rem; /* Hardcoded font size */
+  font-size: 1rem;
   padding: 0.3rem 0;
   text-align: left;
   width: 100%;
@@ -212,7 +220,7 @@ input:checked + .slider::before {
 }
 
 .toggle-button:focus {
-  outline: 2px solid #6c757d; /* Secondary gray color */
+  outline: 2px solid #6c757d; 
 }
 
 .toggle-button::after {
@@ -225,111 +233,110 @@ input:checked + .slider::before {
   transform: rotate(180deg);
 }
 
-/* Service Card Buttons */
+/* Bottom Section: Action Buttons */
 .service-card__buttons {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-top: 1rem;
 }
 
 .service-card__button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.75rem 1.5rem; /* Hardcoded padding */
-  background-color: var(--secondary-color); /* Using CSS variable for secondary color */
+  padding: 0.75rem 1.25rem;
+  background-color: var(--secondary-color);
   color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem; /* Hardcoded font size */
+  font-size: 1rem;
   transition: background-color 0.3s ease;
   text-decoration: none;
   font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .service-card__button.btn-primary {
-  background-color: var(--primary-color); /* Using CSS variable for primary color */
+  background-color: var(--primary-color);
 }
 
 .service-card__button.btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .service-card__button.btn-success {
-  background-color: #28a745; /* Success green color */
+  background-color: #28a745;
 }
 
 .service-card__button.btn-success:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
 }
 
 .service-card__button.btn-dark {
-  background-color: #343a40; /* Dark color */
+  background-color: #343a40;
 }
 
 .service-card__button.btn-dark:hover {
-  background-color: #23272b; /* Darker color on hover */
+  background-color: #23272b;
 }
 
-/* Responsive Enhancements */
+/* Responsive Tweaks */
 @media (max-width: 992px) {
   .service-card__title {
-    font-size: 1.5rem; /* Adjusted font size for medium screens */
+    font-size: 1.5rem;
   }
 
   .service-card__price {
-    font-size: 1.1rem; /* Adjusted font size for medium screens */
+    font-size: 1.1rem;
   }
 
   .section-title {
-    font-size: 1.1rem; /* Adjusted font size for medium screens */
+    font-size: 1.1rem;
   }
 
   .addon-name {
-    font-size: 0.95rem; /* Adjusted font size for medium screens */
+    font-size: 0.95rem;
   }
 
   .quantity-button {
-    padding: 0.25rem 0.5rem; /* Adjusted padding for medium screens */
-    font-size: 0.9rem; /* Adjusted font size for medium screens */
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
   }
 
   .clear-button {
-    font-size: 1rem; /* Adjusted font size for medium screens */
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 600px) {
   .service-card__title {
-    font-size: 1.3rem; /* Adjusted font size for small screens */
+    font-size: 1.3rem;
   }
 
   .service-card__price {
-    font-size: 1rem; /* Adjusted font size for small screens */
+    font-size: 1rem;
   }
 
   .section-title {
-    font-size: 1rem; /* Adjusted font size for small screens */
+    font-size: 1rem;
   }
 
   .addon-name {
-    font-size: 0.9rem; /* Adjusted font size for small screens */
+    font-size: 0.9rem;
   }
 
   .quantity-button {
-    padding: 0.2rem 0.4rem; /* Adjusted padding for small screens */
-    font-size: 0.8rem; /* Adjusted font size for small screens */
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
   }
 
   .clear-button {
-    font-size: 0.9rem; /* Adjusted font size for small screens */
+    font-size: 0.95rem;
   }
 
   .toggle-button {
-    font-size: 0.95rem; /* Adjusted font size for small screens */
+    font-size: 0.95rem;
   }
 }
