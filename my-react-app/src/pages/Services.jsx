@@ -157,7 +157,7 @@ const Services = () => {
 
   const processedServices = services.map(s => ({
     ...s,
-    features: s.features || [],
+    features: s.description ? s.description.split(',').map(f => f.trim()) : [],
     addons: s.addons || [],
   }));
 
