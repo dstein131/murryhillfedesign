@@ -1,5 +1,3 @@
-// src/pages/Services.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,14 +13,11 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
   const [showAllFeatures, setShowAllFeatures] = useState(false);
   const [showAllAddons, setShowAllAddons] = useState(false);
 
-  const features = pkg.description ? pkg.description.split(',').map(f => f.trim()) : [];
-  const addons = pkg.addons || [];
+  const visibleFeatures = showAllFeatures ? pkg.features : pkg.features.slice(0, MAX_FEATURES_VISIBLE);
+  const visibleAddons = showAllAddons ? pkg.addons : pkg.addons.slice(0, MAX_ADDONS_VISIBLE);
 
-  const visibleFeatures = showAllFeatures ? features : features.slice(0, MAX_FEATURES_VISIBLE);
-  const visibleAddons = showAllAddons ? addons : addons.slice(0, MAX_ADDONS_VISIBLE);
-
-  const hasMoreFeatures = features.length > MAX_FEATURES_VISIBLE;
-  const hasMoreAddons = addons.length > MAX_ADDONS_VISIBLE;
+  const hasMoreFeatures = pkg.features.length > MAX_FEATURES_VISIBLE;
+  const hasMoreAddons = pkg.addons.length > MAX_ADDONS_VISIBLE;
 
   return (
     <div className="service-card">
@@ -31,7 +26,7 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
         {pkg.price !== null && <p className="service-card__price">${pkg.price}</p>}
 
         {/* Features Section */}
-        {features.length > 0 && (
+        {pkg.features.length > 0 && (
           <div className="service-card__section">
             <h4 className="section-title">Features:</h4>
             <ul className="service-card__features">
@@ -53,7 +48,7 @@ const PackageCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
         )}
 
         {/* Add-ons Section */}
-        {addons.length > 0 && (
+        {pkg.addons.length > 0 && (
           <div className="service-card__section">
             <h4 className="section-title">Add-Ons:</h4>
             <ul className="service-card__addons">
@@ -118,8 +113,8 @@ const Services = () => {
   const { services, loading, error } = useSelector((state) => state.services);
   const { isAuthenticated } = useSelector((state) => state.user);
 
-  const [showLogin, setShowLogin] = useState(false); // State to manage login modal visibility
-  const [pendingServiceId, setPendingServiceId] = useState(null); // To track which service to add after login
+  const [showLogin, setShowLogin] = useState(false);
+  const [pendingServiceId, setPendingServiceId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -141,7 +136,7 @@ const Services = () => {
   };
 
   const handleLoginPrompt = (serviceId) => {
-    setPendingServiceId(serviceId); // Store the service ID to add after login
+    setPendingServiceId(serviceId);
     setShowLogin(true);
   };
 
@@ -162,10 +157,12 @@ const Services = () => {
 
   const processedServices = services.map(s => {
     const isAddOn = s.price === null;
-    const addons = isAddOn && s.description ? s.description.split(',').map(a => a.trim()) : [];
+    const features = isAddOn ? [] : (s.description ? s.description.split(',').map(f => f.trim()) : []);
+    const addons = isAddOn ? (s.description ? s.description.split(',').map(a => a.trim()) : []) : [];
     return {
       ...s,
-      addons: isAddOn ? addons : [],
+      features,
+      addons,
     };
   });
 
@@ -203,7 +200,6 @@ const Services = () => {
         </section>
       </main>
 
-      {/* Login/Register Modal */}
       {showLogin && (
         <Login
           show={showLogin}
