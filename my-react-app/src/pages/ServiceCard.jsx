@@ -21,8 +21,10 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
   const toggleAddonSelection = (addon) => {
     setSelectedAddons((prevSelected) => {
       if (prevSelected.find((item) => item.addon_id === addon.addon_id)) {
+        // Remove if already selected
         return prevSelected.filter((item) => item.addon_id !== addon.addon_id);
       } else {
+        // Add if not selected
         return [...prevSelected, { ...addon, quantity: 1 }];
       }
     });
@@ -66,9 +68,7 @@ const ServiceCard = ({ pkg, onContact, onAddToCart, onLogin, isAuthenticated }) 
       <div className="service-card__content">
         <div className="service-card__header">
           <h3 className="service-card__title">{pkg.title}</h3>
-          <p className="service-card__price">
-            Total Price: ${totalPrice.toFixed(2)}
-          </p>
+          <p className="service-card__price">Total Price: ${totalPrice.toFixed(2)}</p>
         </div>
 
         {/* Features Section */}

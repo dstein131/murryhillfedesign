@@ -1,219 +1,243 @@
 /* src/pages/Templates.css */
 
-/* Define CSS variables for consistent theming (if not already defined globally) */
-:root {
-  --text-color: rgba(255, 255, 255, 0.87);
-  --background-color: #242424;
-  --card-background-color: #1a1a1a;
-  --primary-color: #646cff;
-  --primary-hover: #535bf2;
-  --secondary-color: #535bf2;
-  --secondary-hover: #4444e2;
-  --input-bg: #242424;
-  --input-border: #646cff;
-  --button-icon-color: #ffffff; /* Icon color inside buttons */
-  --button-icon-size: 16px; /* Icon size */
-  --button-gap: 8px; /* Gap between text and icon */
-  --transition-duration: 0.3s; /* Transition duration for consistency */
-}
-
-/* Main container */
-.templates-page {
-  padding: 2rem;
-  background-color: transparent; /* Transparent background */
-  color: var(--text-color);
-  margin-top: 60px; /* Account for fixed navbar */
-  border-radius: 10px;
-}
-
-/* Header styling */
-.templates-page__header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.templates-page__title {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.templates-page__subtitle {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto;
-  color: var(--text-color);
-  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-/* Main content area */
-.templates-page__main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem; /* Ensure some padding on larger screens */
-}
-
-/* Card styling */
-.template-card {
-  background-color: var(--card-background-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.template-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.template-card__image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-bottom: 1px solid var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.template-card__title {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.template-card__description {
-  font-size: 1rem;
-  color: var(--text-color);
-  margin-bottom: 1rem;
-  text-align: center;
-  flex-grow: 1;
-}
-
-/* Redesigned Button Styles with Icon */
-.template-card__button {
-  width: 100%;
-  padding: 0.6rem 1rem; /* Added horizontal padding for better spacing */
-  background-color: var(--secondary-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  display: flex;
-  align-items: center; /* Align icon and text vertically */
-  justify-content: center; /* Center content horizontally */
-}
-
-.template-card__button:hover {
-  background-color: var(--secondary-hover);
-  transform: translateY(-2px); /* Slight lift on hover */
-}
-
-/* Icon inside the button */
-.template-card__button .button-icon {
-  width: var(--button-icon-size);
-  height: var(--button-icon-size);
-  fill: var(--button-icon-color);
-  margin-left: var(--button-gap); /* Space between text and icon */
-  transition: fill var(--transition-duration) ease, transform var(--transition-duration) ease;
-}
-
-.template-card__button:hover .button-icon {
-  fill: #ffffff; /* Maintain icon color on hover */
-  transform: scale(1.1); /* Slight scale on hover */
-}
-
-/* Responsive Styles */
-
-/* Tablet and below */
-@media (max-width: 992px) {
-  .templates-page__main {
-    padding: 0 1rem;
+/* -----------------------------------------
+   Define CSS variables (if not globally set)
+   ----------------------------------------- */
+   :root {
+    --text-color: rgba(255, 255, 255, 0.87);
+    --background-color: #242424;
+    --card-background-color: #1a1a1a;
+    --primary-color: #646cff;
+    --primary-hover: #535bf2;
+    --secondary-color: #535bf2;
+    --secondary-hover: #4444e2;
+    --input-bg: #242424;
+    --input-border: #646cff;
+    --button-icon-color: #ffffff; /* Icon color inside buttons */
+    --button-icon-size: 16px;     /* Icon size */
+    --button-gap: 8px;           /* Gap between text and icon */
+    --transition-duration: 0.3s; /* Transition duration for consistency */
   }
-
-  .templates-page__title {
-    font-size: 2rem;
+  
+  /* -----------------------------------------
+     Fade-Up Animation Keyframes
+     ----------------------------------------- */
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-
-  .templates-page__subtitle {
-    font-size: 1rem;
-  }
-
-  .template-card__image {
-    height: 150px;
-  }
-
-  .template-card__title {
-    font-size: 1.3rem;
-  }
-
-  .template-card__description {
-    font-size: 0.95rem;
-  }
-
-  .template-card__button {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .template-card__button .button-icon {
-    width: 14px;
-    height: 14px;
-    margin-left: 6px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 576px) {
+  
+  /* Main container */
   .templates-page {
-    padding: 1rem;
+    padding: 2rem;
+    background-color: transparent; /* Transparent background */
+    color: var(--text-color);
+    margin-top: 60px; /* Account for fixed navbar if needed */
+    border-radius: 10px;
   }
-
-  .templates-page__main {
-    padding: 0; /* Remove padding for full width */
+  
+  /* Header styling */
+  .templates-page__header {
+    text-align: center;
+    margin-bottom: 2rem;
   }
-
+  
   .templates-page__title {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
   }
-
+  
   .templates-page__subtitle {
-    font-size: 1rem;
-  }
-
-  .template-card__image {
-    height: 120px;
-  }
-
-  .template-card__title {
     font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-color);
+    font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
   }
-
-  .template-card__description {
-    font-size: 0.9rem;
+  
+  /* Main content area */
+  .templates-page__main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem; /* Some padding for larger screens */
   }
-
-  .template-card__button {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
-  }
-
-  .template-card__button .button-icon {
-    width: 12px;
-    height: 12px;
-    margin-left: 4px;
-  }
-
+  
+  /* Template card styles */
   .template-card {
-    border-radius: 0; /* Optional: Remove border radius on mobile */
+    /* Start fade-up: hidden and moved down */
+    opacity: 0;
+    transform: translateY(20px);
+  
+    /* Animate in */
+    animation: fadeUp 0.5s ease-in-out forwards;
+  
+    background-color: var(--card-background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem;
+    transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-}
+  
+  .template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Card image */
+  .template-card__image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  /* Card title */
+  .template-card__title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  /* Card description */
+  .template-card__description {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
+    flex-grow: 1; /* Push button to bottom */
+  }
+  
+  /* Button */
+  .template-card__button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    justify-content: center; /* Center content horizontally */
+  }
+  
+  .template-card__button:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+  
+  /* Icon inside the button */
+  .template-card__button .button-icon {
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+    fill: var(--button-icon-color);
+    margin-left: var(--button-gap);
+    transition: fill var(--transition-duration) ease, transform var(--transition-duration) ease;
+  }
+  
+  .template-card__button:hover .button-icon {
+    fill: #ffffff; /* Maintain icon color on hover */
+    transform: scale(1.1); /* Slight scale effect on hover */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .templates-page__main {
+      padding: 0 1rem;
+    }
+  
+    .templates-page__title {
+      font-size: 2rem;
+    }
+  
+    .templates-page__subtitle {
+      font-size: 1rem;
+    }
+  
+    .template-card__image {
+      height: 150px;
+    }
+  
+    .template-card__title {
+      font-size: 1.3rem;
+    }
+  
+    .template-card__description {
+      font-size: 0.95rem;
+    }
+  
+    .template-card__button {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+    .template-card__button .button-icon {
+      width: 14px;
+      height: 14px;
+      margin-left: 6px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .templates-page {
+      padding: 1rem;
+    }
+  
+    .templates-page__main {
+      padding: 0; /* Remove padding for full width */
+    }
+  
+    .templates-page__title {
+      font-size: 2rem;
+    }
+  
+    .templates-page__subtitle {
+      font-size: 1rem;
+    }
+  
+    .template-card__image {
+      height: 120px;
+    }
+  
+    .template-card__title {
+      font-size: 1.2rem;
+    }
+  
+    .template-card__description {
+      font-size: 0.9rem;
+    }
+  
+    .template-card__button {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  
+    .template-card__button .button-icon {
+      width: 12px;
+      height: 12px;
+      margin-left: 4px;
+    }
+  
+    .template-card {
+      border-radius: 0; /* Optional: remove corner radius on mobile */
+    }
+  }
+  

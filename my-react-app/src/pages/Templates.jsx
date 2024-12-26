@@ -85,7 +85,7 @@ const Templates = () => {
       id: 1,
       title: 'Startup',
       description: 'Next.js template for startups and SaaS business websites comes with all the essential pages, components, and sections you need to launch a complete business website, built-with Next 13.x and Tailwind CSS.',
-      imageUrl: '/images/templates/startup.png', // Ensure these images are in the public/images/templates/ directory
+      imageUrl: '/images/templates/startup.png',
       link: 'https://startupdemo.netlify.app/',
     },
     {
@@ -105,7 +105,7 @@ const Templates = () => {
     { 
       id: 5,
       title: 'MXapp',
-      description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade. ',
+      description: 'MXapp is a one page app landing page react template for your mobile app showcase website. React landing page is a creative way to present their own app or product. It is created with the popular latest responsive bootstrap 5 framework. Designed and developed keeping in mind the latest web design trade.',
       imageUrl: '/images/templates/mxapp.png',
       link: 'https://startling-palmier-5d995d.netlify.app/',
     },
@@ -169,7 +169,9 @@ const Templates = () => {
                   />
                   <Card.Body className="d-flex flex-column">
                     <Card.Title className="template-card__title">{template.title}</Card.Title>
-                    <Card.Text className="template-card__description">{template.description}</Card.Text>
+                    <Card.Text className="template-card__description">
+                      {template.description}
+                    </Card.Text>
                     <div className="mt-auto">
                       <Button
                         variant="primary"
@@ -201,9 +203,9 @@ const Templates = () => {
         </Container>
       </main>
 
-      {/* Technology Description Section as Footer */}
-      {/* Uncomment the footer section if you need it */}
-      {/* <footer
+      {/* Technology Description Section as Footer (Optional) */}
+      {/* 
+      <footer
         className="templates-page__footer mt-4"
         style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}
       >
@@ -236,7 +238,8 @@ const Templates = () => {
             </p>
           </div>
         </div>
-      </footer> */}
+      </footer>
+      */}
     </div>
   );
 };

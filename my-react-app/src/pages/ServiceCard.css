@@ -7,9 +7,30 @@
   box-sizing: border-box;
 }
 
+/* -----------------------------------------
+   Fade-Up Animation Keyframes
+   ----------------------------------------- */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Service Card Container */
 .service-card {
-  background-color: rgba(20, 20, 20, 0.8); /* Maintained color scheme */
+  /* Initial state to accommodate fadeUp animation */
+  opacity: 0;
+  transform: translateY(20px);
+
+  /* Animate in */
+  animation: fadeUp 0.5s ease-in-out forwards;
+
+  background-color: rgba(20, 20, 20, 0.8);
   border: 1px solid var(--primary-color);
   border-radius: 10px;
   padding: 1.5rem;
@@ -17,7 +38,10 @@
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Transitions for hover (lift & shadow) */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
   height: 100%;
   width: 100%;
   color: rgba(255, 255, 255, 0.87);
@@ -37,7 +61,7 @@
 }
 
 .service-card__title {
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   color: var(--primary-color);
   margin-bottom: 0.25rem;
   text-align: center;
@@ -71,7 +95,7 @@
 
 .service-card__features,
 .service-card__addons {
-  list-style: none; /* Remove bullet points for a cleaner look */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -88,7 +112,7 @@
 /* Add-On Item Layout */
 .addon-item {
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(0, 123, 255, 0.1); 
+  border-bottom: 1px solid rgba(0, 123, 255, 0.1);
 }
 
 /* First Row: Toggle and Label */
@@ -181,7 +205,7 @@ input:checked + .slider::before {
 }
 
 .quantity-button:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
 .addon-quantity {
@@ -194,14 +218,14 @@ input:checked + .slider::before {
 .clear-button {
   background: none;
   border: none;
-  color: #ff4d4f; 
+  color: #ff4d4f;
   font-size: 1.1rem;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .clear-button:hover {
-  color: #ff7875; 
+  color: #ff7875;
 }
 
 /* 'Show More' / 'Show Less' Button */
@@ -220,7 +244,7 @@ input:checked + .slider::before {
 }
 
 .toggle-button:focus {
-  outline: 2px solid #6c757d; 
+  outline: 2px solid #6c757d;
 }
 
 .toggle-button::after {
