@@ -96,7 +96,7 @@ const Services = () => {
       <main>
         <ErrorBoundary>
           <section className="services-page__section">
-            <h2>One-Time Services</h2>
+            {/* <h2>One-Time Services</h2> */}
             <div className="services-page__packages">
               {processedServices(services.filter((s) => !s.isMonthly)).map(
                 (pkg) => (
@@ -113,7 +113,7 @@ const Services = () => {
             </div>
           </section>
           <section className="services-page__section">
-            <h2>Monthly Services</h2>
+            {/* <h2>Monthly Services</h2> */}
             <div className="services-page__packages">
               {processedServices(services.filter((s) => s.isMonthly)).map(
                 (pkg) => (
