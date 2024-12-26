@@ -1,197 +1,66 @@
-/* Services.css */
+/* src/components/Services/Services.css */
+
+/* Global Box-Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* Container for the services page */
 .services-page {
-  padding: var(--section-padding);
+  padding: 2rem;
   margin-top: 60px;
   min-height: 100vh;
   display: flex;
   flex-direction: column; /* Ensure sections stack vertically */
   align-items: center; /* Center the content horizontally */
+  background-color: transparent; /* Transparent background */
 }
 
 /* Section Styling */
 .services-page__section {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px; /* Increased max-width to accommodate four cards */
   margin-bottom: 3rem;
 }
 
 /* Grid Layout for Packages */
 .services-page__packages {
   display: grid; /* Use grid layout */
-  grid-template-columns: repeat(3, 1fr); /* Three columns on desktop */
+  grid-template-columns: repeat(4, 1fr); /* Four columns on large screens */
   gap: 1.5rem; /* Space between grid items */
   width: 100%; /* Ensure the grid takes full width of the section */
+  align-items: stretch; /* Ensure all grid items stretch to fill the row */
 }
 
-@media (max-width: var(--breakpoint-md)) {
+/* Adjust grid columns based on screen size */
+@media (max-width: 1600px) {
+  /* Large desktop screens */
   .services-page__packages {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: var(--breakpoint-sm)) {
+@media (max-width: 1200px) {
+  /* Medium desktop screens */
+  .services-page__packages {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  /* Tablets and small desktops */
+  .services-page__packages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  /* Mobile screens */
   .services-page__packages {
     grid-template-columns: 1fr; /* Single column for small screens */
   }
-}
-
-/* Service Card Styling */
-.service-card {
-  background-color: var(--card-background-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
-  padding: var(--card-padding);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.service-card__content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.service-card__title {
-  font-size: var(--card-title-font-size);
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.service-card__price {
-  font-size: var(--card-price-font-size);
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.service-card__section {
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-size: 1rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.service-card__features,
-.service-card__addons {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin: 0;
-  font-size: var(--feature-font-size);
-  color: var(--text-color);
-}
-
-.service-card__addons li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.service-card__addons label {
-  flex: 1;
-  margin-right: 0.5rem;
-}
-
-.addon-quantity-input {
-  width: 60px;
-  padding: 0.3rem;
-  font-size: 0.9rem;
-  border: 1px solid var(--input-border);
-  border-radius: 4px;
-  background-color: var(--input-bg);
-  color: var(--text-color);
-}
-
-.toggle-button {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  cursor: pointer;
-  font-size: var(--button-font-size);
-  padding: 0.3rem 0;
-  text-align: left;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.toggle-button:focus {
-  outline: 2px solid var(--secondary-color);
-}
-
-.toggle-button::after {
-  content: '▼';
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
-}
-
-.toggle-button[aria-expanded="true"]::after {
-  transform: rotate(180deg);
-}
-
-.service-card__buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.service-card__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: var(--button-padding);
-  background-color: var(--secondary-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: var(--button-font-size);
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.service-card__button.btn-primary {
-  background-color: var(--primary-color);
-}
-
-.service-card__button.btn-primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.service-card__button.btn-success {
-  background-color: #28a745;
-}
-
-.service-card__button.btn-success:hover {
-  background-color: #218838;
-}
-
-.service-card__button.btn-dark {
-  background-color: #343a40;
-}
-
-.service-card__button.btn-dark:hover {
-  background-color: #23272b;
 }
 
 /* Additional Styles for Error Boundary */
@@ -199,29 +68,25 @@
   color: red;
   text-align: center;
   padding: 2rem;
+  font-size: 1.2rem;
 }
 
-/* Add some spacing between checkbox and quantity input */
-.service-card__addons input[type="number"] {
-  margin-left: 0.5rem;
-}
-
-/* Ensuring header is styled appropriately */
+/* Header Styling */
 .services-page > header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .services-page > header h1 {
-  font-size: 2.5rem;
-  color: var(--primary-color);
+  font-size: 3rem;
+  color: var(--primary-color); /* Using CSS variable for primary color */
   font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-/* Ensuring section headers are styled appropriately */
+/* Section Headers Styling */
 .services-page__section h2 {
-  font-size: 2rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  color: var(--primary-color); /* Using CSS variable for primary color */
+  margin-bottom: 1.5rem;
   text-align: center;
 }

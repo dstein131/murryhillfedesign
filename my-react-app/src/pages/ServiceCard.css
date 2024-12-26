@@ -1,0 +1,335 @@
+/* src/components/Services/ServiceCard.css */
+
+/* Global Box-Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Service Card Styling */
+.service-card {
+  background-color:  rgba(20, 20, 20, 0.8); /* Darker color with 80% opacity */
+  border: 1px solid var(--primary-color); /* Using CSS variable for primary color */
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* Ensure all cards have equal height */
+  width: 100%; /* Ensure the card takes full width of grid column */
+  color: rgba(255, 255, 255, 0.87); /* Light text color */
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.service-card__content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card__title {
+  font-size: 1.8rem; /* Hardcoded font size */
+  color: var(--primary-color); /* Using CSS variable for primary color */
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.service-card__price {
+  font-size: 1.2rem; /* Hardcoded font size */
+  color: var(--secondary-color); /* Using CSS variable for secondary color */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.service-card__section {
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 1.2rem; /* Hardcoded font size */
+  color: var(--primary-color); /* Using CSS variable for primary color */
+  margin-bottom: 0.5rem;
+}
+
+.service-card__features,
+.service-card__addons {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 0;
+  font-size: 1rem; /* Hardcoded font size */
+  color: rgba(255, 255, 255, 0.87)
+}
+
+.service-card__features li,
+.service-card__addons li {
+  margin-bottom: 0.5rem;
+}
+
+/* Add-On Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 0.5rem;
+  flex-shrink: 0; /* Prevent switch from shrinking */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color); /* Using CSS variable for primary color */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color); /* Using CSS variable for primary color */
+}
+
+input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* Add-On Item Layout */
+.addon-item {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 123, 255, 0.1); /* Light blue border */
+}
+
+/* First Row: Toggle and Label */
+.addon-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.addon-name {
+  font-size: 1rem; /* Hardcoded font size */
+  color: rgba(255, 255, 255, 0.87);
+  margin-left: 0.5rem;
+  flex: 1; /* Take up remaining space */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Allow text to wrap */
+}
+
+/* Second Row: Quantity Controls */
+.addon-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quantity-button {
+  background-color: var(--primary-color); /* Using CSS variable for primary color */
+  border: none;
+  color: #ffffff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem; /* Hardcoded font size */
+  transition: background-color 0.3s ease;
+}
+
+.quantity-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.addon-quantity {
+  min-width: 20px;
+  text-align: center;
+  font-size: 1rem; /* Hardcoded font size */
+  color: #343a40; /* Dark gray color */
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: #ff4d4f; /* Red color */
+  font-size: 1.2rem; /* Hardcoded font size */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.clear-button:hover {
+  color: #ff7875; /* Lighter red on hover */
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+  background: none;
+  border: none;
+  color: var(--primary-color); /* Using CSS variable for primary color */
+  cursor: pointer;
+  font-size: 1rem; /* Hardcoded font size */
+  padding: 0.3rem 0;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-button:focus {
+  outline: 2px solid #6c757d; /* Secondary gray color */
+}
+
+.toggle-button::after {
+  content: '▼';
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Service Card Buttons */
+.service-card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.service-card__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 1.5rem; /* Hardcoded padding */
+  background-color: var(--secondary-color); /* Using CSS variable for secondary color */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem; /* Hardcoded font size */
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.service-card__button.btn-primary {
+  background-color: var(--primary-color); /* Using CSS variable for primary color */
+}
+
+.service-card__button.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.service-card__button.btn-success {
+  background-color: #28a745; /* Success green color */
+}
+
+.service-card__button.btn-success:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.service-card__button.btn-dark {
+  background-color: #343a40; /* Dark color */
+}
+
+.service-card__button.btn-dark:hover {
+  background-color: #23272b; /* Darker color on hover */
+}
+
+/* Responsive Enhancements */
+@media (max-width: 992px) {
+  .service-card__title {
+    font-size: 1.5rem; /* Adjusted font size for medium screens */
+  }
+
+  .service-card__price {
+    font-size: 1.1rem; /* Adjusted font size for medium screens */
+  }
+
+  .section-title {
+    font-size: 1.1rem; /* Adjusted font size for medium screens */
+  }
+
+  .addon-name {
+    font-size: 0.95rem; /* Adjusted font size for medium screens */
+  }
+
+  .quantity-button {
+    padding: 0.25rem 0.5rem; /* Adjusted padding for medium screens */
+    font-size: 0.9rem; /* Adjusted font size for medium screens */
+  }
+
+  .clear-button {
+    font-size: 1rem; /* Adjusted font size for medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .service-card__title {
+    font-size: 1.3rem; /* Adjusted font size for small screens */
+  }
+
+  .service-card__price {
+    font-size: 1rem; /* Adjusted font size for small screens */
+  }
+
+  .section-title {
+    font-size: 1rem; /* Adjusted font size for small screens */
+  }
+
+  .addon-name {
+    font-size: 0.9rem; /* Adjusted font size for small screens */
+  }
+
+  .quantity-button {
+    padding: 0.2rem 0.4rem; /* Adjusted padding for small screens */
+    font-size: 0.8rem; /* Adjusted font size for small screens */
+  }
+
+  .clear-button {
+    font-size: 0.9rem; /* Adjusted font size for small screens */
+  }
+
+  .toggle-button {
+    font-size: 0.95rem; /* Adjusted font size for small screens */
+  }
+}
