@@ -78,7 +78,7 @@ const NavBar = () => {
           </Navbar.Brand>
 
           {/* Center Section: Back Button */}
-          <div className="navbar-back-button">
+          {/* <div className="navbar-back-button">
             {showBackButton && (
               <Button
               className="back-button"
@@ -102,7 +102,7 @@ const NavBar = () => {
             </Button>
             
             )}
-          </div>
+          </div> */}
 
           {/* Toggle and Right Section */}
           <Navbar.Toggle aria-controls="navbar-nav" className="navbar-toggler-custom">

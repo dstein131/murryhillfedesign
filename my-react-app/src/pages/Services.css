@@ -1,129 +1,53 @@
-/* src/pages/Services.css */
+/* Services.css */
 
-/* Root Variables for Consistent Theming */
-:root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Color Scheme */
-  --text-color: rgba(255, 255, 255, 0.87);
-  --background-color: rgba(36, 36, 36, 0.95); /* Slightly increased opacity for better contrast */
-  --card-background-color: #1a1a1a;
-  --primary-color: #646cff;
-  --primary-hover: #535bf2;
-  --secondary-color: #535bf2;
-  --secondary-hover: #4444e2;
-
-  /* Input Colors */
-  --input-bg: #242424;
-  --input-border: #646cff;
-
-  /* Spacing */
-  --section-padding: 2rem;
-  --card-padding: 1.5rem;
-  --button-padding: 0.8rem 1rem;
-
-  /* Font Sizes */
-  --title-font-size: 2.5rem;
-  --subtitle-font-size: 1.2rem;
-  --card-title-font-size: 1.5rem;
-  --card-price-font-size: 1.2rem;
-  --feature-font-size: 0.95rem;
-  --button-font-size: 1rem;
-
-  /* Breakpoints */
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-}
-
-/* Reset and Global Styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS Safari */
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-/* Main container */
+/* Container for the services page */
 .services-page {
   padding: var(--section-padding);
-  margin-top: 60px; /* Account for fixed navbar */
+  margin-top: 60px;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; /* Ensure sections stack vertically */
+  align-items: center; /* Center the content horizontally */
 }
 
-/* Header styling */
-.services-page__header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.services-page__title {
-  font-size: var(--title-font-size);
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.services-page__subtitle {
-  font-size: var(--subtitle-font-size);
-  max-width: 700px;
-  margin: 0 auto;
-  color: var(--text-color);
-  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-/* Main content area */
-.services-page__main {
+/* Section Styling */
+.services-page__section {
   width: 100%;
   max-width: 1200px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Section styling */
-.services-page__section {
   margin-bottom: 3rem;
 }
 
-/* Packages container */
+/* Grid Layout for Packages */
 .services-page__packages {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  align-items: stretch; /* Ensures all cards stretch to the same height */
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Three columns on desktop */
+  gap: 1.5rem; /* Space between grid items */
+  width: 100%; /* Ensure the grid takes full width of the section */
 }
 
-/* Individual package card */
+@media (max-width: var(--breakpoint-md)) {
+  .services-page__packages {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+  }
+}
+
+@media (max-width: var(--breakpoint-sm)) {
+  .services-page__packages {
+    grid-template-columns: 1fr; /* Single column for small screens */
+  }
+}
+
+/* Service Card Styling */
 .service-card {
   background-color: var(--card-background-color);
   border: 1px solid var(--primary-color);
   border-radius: 10px;
   padding: var(--card-padding);
-  width: 100%;
-  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1 1 300px; /* Allows cards to grow and shrink, maintaining uniformity */
 }
 
 .service-card:hover {
@@ -131,14 +55,12 @@ body {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Card content */
 .service-card__content {
-  flex-grow: 1; /* Ensures content area takes up available space */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Card title */
 .service-card__title {
   font-size: var(--card-title-font-size);
   color: var(--primary-color);
@@ -147,7 +69,6 @@ body {
   font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-/* Card price */
 .service-card__price {
   font-size: var(--card-price-font-size);
   color: var(--secondary-color);
@@ -155,19 +76,16 @@ body {
   text-align: center;
 }
 
-/* Features and Add-ons Sections */
 .service-card__section {
   margin-bottom: 1rem;
 }
 
-/* Section Titles */
 .section-title {
   font-size: 1rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
-/* Lists */
 .service-card__features,
 .service-card__addons {
   list-style-type: disc;
@@ -177,7 +95,28 @@ body {
   color: var(--text-color);
 }
 
-/* Toggle Buttons */
+.service-card__addons li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.service-card__addons label {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.addon-quantity-input {
+  width: 60px;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
 .toggle-button {
   background: none;
   border: none;
@@ -196,7 +135,6 @@ body {
   outline: 2px solid var(--secondary-color);
 }
 
-/* Toggle Button Icons */
 .toggle-button::after {
   content: '▼';
   font-size: 0.8rem;
@@ -207,7 +145,6 @@ body {
   transform: rotate(180deg);
 }
 
-/* Contact and Action Buttons */
 .service-card__buttons {
   display: flex;
   flex-direction: column;
@@ -231,16 +168,6 @@ body {
   transition: background-color 0.3s ease;
   text-decoration: none;
   font-family: "Bebas Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.service-card__button .bi {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.service-card__button .button-text {
-  flex: 1;
-  text-align: center;
 }
 
 .service-card__button.btn-primary {
@@ -267,50 +194,34 @@ body {
   background-color: #23272b;
 }
 
-/* Responsive Styles */
-
-/* Small Devices (Phones, 576px and down) */
-@media (max-width: var(--breakpoint-sm)) {
-  :root {
-    --title-font-size: 2rem;
-    --subtitle-font-size: 1rem;
-    --card-title-font-size: 1.3rem;
-    --card-price-font-size: 1rem;
-    --feature-font-size: 0.9rem;
-    --button-font-size: 0.9rem;
-    --button-padding: 0.6rem 0.8rem;
-  }
-
-  .services-page__packages {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .service-card {
-    max-width: 100%;
-    padding: 1rem;
-    flex: 1 1 100%; /* Ensure cards take full width on small screens */
-  }
-
-  .service-card__button .bi {
-    margin-right: 0.3rem;
-    font-size: 1rem;
-  }
-
-  .toggle-button::after {
-    font-size: 0.7rem;
-  }
+/* Additional Styles for Error Boundary */
+.error-boundary {
+  color: red;
+  text-align: center;
+  padding: 2rem;
 }
 
-/* Medium Devices (Tablets, 768px and down) */
-@media (max-width: var(--breakpoint-md)) {
-  :root {
-    --title-font-size: 2.2rem;
-    --subtitle-font-size: 1.1rem;
-    --card-title-font-size: 1.4rem;
-    --card-price-font-size: 1.1rem;
-    --feature-font-size: 1rem;
-    --button-font-size: 0.95rem;
-  }
+/* Add some spacing between checkbox and quantity input */
+.service-card__addons input[type="number"] {
+  margin-left: 0.5rem;
+}
+
+/* Ensuring header is styled appropriately */
+.services-page > header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.services-page > header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Ensuring section headers are styled appropriately */
+.services-page__section h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
 }
