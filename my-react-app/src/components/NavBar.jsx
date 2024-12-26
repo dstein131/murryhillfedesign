@@ -129,7 +129,7 @@ const NavBar = () => {
                       Admin Panel
                     </Nav.Link>
                   )}
-                  {applications.length > 0 && (
+                  {/* {applications.length > 0 && (
                     <Nav.Link as={Link} to="/applications" className="navbar-link-custom">
                       Applications ({applications.length})
                     </Nav.Link>
@@ -138,7 +138,7 @@ const NavBar = () => {
                     <Nav.Link as={Link} to="/roles" className="navbar-link-custom">
                       Roles ({roles.length})
                     </Nav.Link>
-                  )}
+                  )} */}
 
                   {/* Cart Icon with total item quantity */}
                   <Nav.Link as={Link} to="/cart" className="navbar-link-custom d-flex align-items-center">
