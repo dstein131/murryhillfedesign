@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken, performLogoutUser } from '../redux/userSlice';
 import { fetchCart } from '../redux/cartSlice';
 import Login from '../pages/Login';
-import './NavBar.css';
+import '../components/NavBar.css';
 
 const NavBar = () => {
   const navigate = useNavigate();
