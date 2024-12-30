@@ -50,6 +50,28 @@ const devProjects = [
     demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net',
   },
   {
+    title: 'Text-to-Speech Processing System',
+    description: 'A scalable text-to-speech (TTS) processing system integrated with ElevenLabs API and AWS S3.',
+    difficulties: [
+      'Integrating the ElevenLabs API to generate audio from text dynamically.',
+      'Storing audio files in AWS S3 with secure access.',
+      'Implementing a job queue using Bull.js for TTS request handling.',
+      'Handling Redis configuration securely with Azure Redis Cache.',
+      'Creating robust error handling for external API failures.',
+      'Ensuring database consistency for TTS request statuses.',
+    ],
+    solutions: [
+      'Used ElevenLabs API to generate high-quality text-to-speech audio streams.',
+      'Implemented AWS S3 integration using @aws-sdk/client-s3 to store audio files.',
+      'Designed a job queue with Bull.js for processing requests asynchronously.',
+      'Configured Azure Redis Cache with TLS for secure and reliable connections.',
+      'Built error-handling mechanisms to retry failed jobs and log errors systematically.',
+      'Developed database operations to update the status of requests (e.g., processed, failed).',
+    ],
+    github: 'https://github.com/dstein131/simpBack',
+    demo: 'https://simpfront.netlify.app/',
+  },
+  {
     title: 'CoffeHouse',
     description: 'A Google Firebase project to handle user authentication and storage that does not require a backend.',
     difficulties: [
