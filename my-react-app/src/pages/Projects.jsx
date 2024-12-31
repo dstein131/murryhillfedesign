@@ -69,7 +69,7 @@ const devProjects = [
         'Configured Azure Redis Cache with TLS for secure data transfer and optimized connection pooling for performance.',
         'Built robust error-handling mechanisms, including retry logic and systematic error logging, to handle external API failures.',
         'Implemented database operations to ensure consistent updates for TTS request statuses (e.g., pending, processing, completed).',
-        'Utilized Socket.IO for real-time communication, allowing users to receive live updates on the progress of their TTS requests.',
+        'Utilized Socket.IO for real-time communication, allowing users to receive live updates on the progress client user TTS requests.',
         'Designed WebSocket events to handle TTS request status changes (e.g., pending, processing, completed, failed) and broadcast updates to connected clients.',
     ],
     github: 'https://github.com/dstein131/simpBack',
