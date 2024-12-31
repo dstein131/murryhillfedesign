@@ -71,7 +71,7 @@ body {
 
 /* Header styling */
 .unique-projects-page__header {
-  text-align: center;
+  text-align: center; /* Center the text */
   margin-bottom: 2rem;
   font-family: 'Bebas Neue', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
@@ -85,14 +85,15 @@ body {
 .unique-projects-page__header-subtitle {
   font-size: var(--subtitle-font-size);
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto; /* Center the subtitle */
   color: var(--text-color);
 }
 
 /* Toggle buttons */
 .unique-projects-page__toggle {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center; /* Center the buttons vertically */
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -185,7 +186,7 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* Space between text and icon */
 }
 
 .unique-projects-page__toggle-icon {
@@ -355,16 +356,16 @@ body {
 
   .unique-projects-page__header-title {
     font-size: 2.5rem;
-    text-align: left;
+    text-align: center; /* Ensure centering */
   }
 
   .unique-projects-page__header-subtitle {
     font-size: 1.2rem;
-    text-align: left;
+    text-align: center; /* Ensure centering */
   }
 
   .unique-projects-page__toggle {
-    justify-content: flex-start;
+    justify-content: center; /* Ensure centering */
   }
 
   .unique-projects-page__toggle-button {

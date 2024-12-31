@@ -6,49 +6,49 @@ import { FaGithub, FaExternalLinkAlt, FaImages, FaChevronDown, FaChevronUp } fro
 
 const devProjects = [
   {
-    title: 'Murray Hill Web Design - Frontend',
-    description: 'A personal portfolio site to showcase my skills and projects.',
-    difficulties: [
-      'Integrating Google OAuth for user authentication.',
-      'Integrating dynamic routing with React Router.',
-      'Deploying the site with Netlify and handling CORS issues.',
-      'Setting up DNS records and configuring custom domains.',
-      'Creating a cart system to allow users to purchase services.',
-      'Integrating a payment gateway to allow users to pay for services.',
+    "title": "Murray Hill Web Design - Frontend Application",
+    "description": "A responsive React-based portfolio and e-commerce site designed to showcase services and facilitate user interactions, including purchasing and authentication features.",
+    "difficulties": [
+      "Integrating Google OAuth for secure and seamless user authentication.",
+      "Setting up dynamic routing for pages using React Router.",
+      "Deploying the site on Netlify while managing CORS and DNS configurations.",
+      "Implementing an interactive cart and checkout system for services.",
+      "Integrating a payment gateway to handle online transactions.",
+      "Designing and managing a Redux-based state management system for cart and services."
     ],
-    solutions: [
-      'Created a backend Google auth and callback to handle user authentication.',
-      'Implemented React Router and tested route-based navigation extensively.',
-      'Updated the CORS configuration to allow requests from multiple origins.',
-      'Configured DNS records with Netlify and added a custom domain.',
-      'Designed a cart system with React and Redux for state management.',
-      'Integrated Stripe to handle payments and subscriptions.',
+    "solutions": [
+      "Configured Google OAuth with backend support for authentication and callbacks.",
+      "Utilized React Router to enable intuitive and efficient navigation across pages.",
+      "Resolved CORS issues by updating server configurations and testing.",
+      "Configured DNS records on Netlify and integrated a custom domain.",
+      "Developed a React-Redux cart system to manage user service selections.",
+      "Implemented Stripe for secure and reliable payment processing."
     ],
-    github: 'https://github.com/dstein131/murryhillfedesign',
-    demo: 'https://murrayhillwebdesign.netlify.app/',
-  },
+    "github": "https://github.com/dstein131/murryhillfedesign",
+    "demo": "https://murrayhillwebdesign.netlify.app/"
+  },  
   {
-    title: 'Main Website - Backend',
-    description: 'A Node/Express backend for my personal site.',
-    difficulties: [
-      'Creating a CI/CD pipeline with GitHub Actions to Azure App Service.',
-      'Implementing a RESTful API for the frontend to consume.',
-      'Securing the API with JWT authentication and authorization.',
-      'Setting up a MySQL database and hosting it on AWS RDS.',
-      'Setting up cart, order, and payment systems.',
-      'Creating a method to allow users to purchase services.',
+    "title": "Main Backend - Service API",
+    "description": "A Node.js backend designed to support a personal web application with RESTful API services and comprehensive e-commerce functionality.",
+    "difficulties": [
+      "Integrating a CI/CD pipeline with GitHub Actions to automate deployment to Azure App Service.",
+      "Developing a scalable RESTful API to interface with the frontend.",
+      "Ensuring security of the API with JWT-based authentication and role-based authorization.",
+      "Designing a MySQL database hosted on AWS RDS for reliable and performant data storage.",
+      "Implementing robust cart, order, and payment systems to enable e-commerce capabilities.",
+      "Facilitating user subscriptions and service purchases seamlessly."
     ],
-    solutions: [
-      'Configured a GitHub Actions workflow to build and deploy the app on Azure.',
-      'Designed a RESTful API with Express and tested it with Postman.',
-      'Implemented JWT authentication middleware to protect routes.',
-      'Created a MySQL database schema and connected it to the app.',
-      'Designed a cart, order, and payment system with Node.js and Express.',
-      'Utilized Stripe to handle payments and subscriptions.',
+    "solutions": [
+      "Set up GitHub Actions for automated building, testing, and deployment to Azure.",
+      "Built a RESTful API using Node.js and Express, thoroughly tested with Postman.",
+      "Implemented middleware for JWT authentication, protecting sensitive endpoints.",
+      "Designed and managed a MySQL database schema, hosted on AWS RDS.",
+      "Created modular cart, order, and payment processing using Node.js and Express.",
+      "Integrated Stripe API for secure and efficient handling of payments and subscriptions."
     ],
-    github: 'https://github.com/dstein131/Main',
-    demo: 'https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net',
-  },
+    "github": "https://github.com/dstein131/Main",
+    "demo": "https://maindb-a2dugpdndze5d9br.canadacentral-01.azurewebsites.net"
+  },  
   {
     title: 'Scalable and Integrated Text-to-Speech (TTS) Processing System',
     description: 'A robust, scalable TTS processing system integrated with ElevenLabs API and AWS S3, designed for high performance, real-time updates, security, and error resilience.',
@@ -76,58 +76,64 @@ const devProjects = [
     demo: 'https://simpfront.netlify.app/',
   },
   {
-    title: 'CoffeHouse',
-    description: 'A Google Firebase project to handle user authentication and storage that does not require a backend.',
-    difficulties: [
-      'Creating a user-friendly interface for non-technical users.',
-      'Implementing a secure authentication system that does not require a backend.',
-      'Creating a method to store user data securely.',
-      'Creating a dashboard for logged-in users to interact with the site.',
+    "title": "CoffeeHouse",
+    "description": "A serverless web application using Google Firebase to handle user authentication and data storage, eliminating the need for a traditional backend.",
+    "difficulties": [
+      "Designing a user-friendly interface for non-technical users.",
+      "Implementing a secure, scalable authentication system without backend dependencies.",
+      "Storing user data securely using serverless solutions.",
+      "Building an interactive dashboard for logged-in users."
     ],
-    solutions: [
-      'Designed a user-friendly interface with React and Material-UI.',
-      'Utilized Firebase Authentication to handle user sign-in and sign-up.',
-      'Utilized Firebase Firestore to store user data securely.',
-      'Designed a dashboard with React and Redux for state management and protected routes.',
+    "solutions": [
+      "Designed an intuitive user interface with React and Material-UI for seamless usability.",
+      "Integrated Firebase Authentication for secure user sign-in and sign-up.",
+      "Utilized Firebase Firestore for efficient and secure data storage.",
+      "Developed a protected dashboard using React, Redux for state management, and route protection."
     ],
-    github: 'https://github.com/dstein131/firebase-netlify-app',
-    demo: 'https://mhwdfirebaseserverless.netlify.app/',
-  },
+    "github": "https://github.com/dstein131/firebase-netlify-app",
+    "demo": "https://mhwdfirebaseserverless.netlify.app/"
+  },  
   {
-    title: 'SRI, Inc - Frontend',
-    description: 'A React frontend to unify the SRI, Inc. web presence.',
-    difficulties: [
-      'Creating a SSO solution for the various SRI, Inc. web properties.',
-      'Implementing a responsive design that works across devices.',
-      'Designing a user-friendly interface for non-technical users.',
-      'Creating a dashboard to display for admin to easily manage and interact with the site and its users.',
+    "title": "SRI, Inc - Web Platform Frontend",
+    "description": "A React-based frontend for SRI, Inc., designed to unify the company's web presence and provide a seamless user experience across various services.",
+    "difficulties": [
+      "Implementing a Single Sign-On (SSO) solution for integration with multiple SRI web properties.",
+      "Creating a responsive design to ensure accessibility across all devices.",
+      "Designing an intuitive and user-friendly interface for non-technical users.",
+      "Building a comprehensive admin dashboard for site and user management."
     ],
-    solutions: [
-      'Implemented FusionAuth to handle SSO for the various SRI, Inc. web properties.',
-      'Utilized Bootstrap and custom CSS to create a responsive design.',
-      'Conducted user testing and feedback sessions to refine the interface.',
-      'Designed a dashboard with React and Redux for state management.',
+    "solutions": [
+      "Implemented FusionAuth to handle SSO and streamline user authentication across web properties.",
+      "Used Bootstrap and custom CSS modules to create a responsive and visually appealing design.",
+      "Incorporated user feedback to refine and enhance interface usability.",
+      "Developed an admin dashboard using React and Redux for efficient state management and user interaction."
     ],
-    github: 'https://github.com/dstein131/sri_services_web_node',
-    demo: 'https://sriserviceswebsiteimpl.azurewebsites.net/',
-  },
+    "github": "https://github.com/sriservices/sri_services_web_node",
+    "demo": "https://sriserviceswebsiteimpl.azurewebsites.net/"
+  },  
   {
-    title: 'SRI, Inc - Backend',
-    description: 'A Node.js backend for the SRI, Inc. web properties.',
-    difficulties: [
-      'Integrating FusionAuth with the backend for SSO.',
-      'Creating a RESTful API to interact with the frontend.',
-      'Creating a MySQL database to store user and site data.',
-      'Connecting to three different databases to retrieve, sort, normalize, and store data to be used by the frontend.',
+    "title": "SRI, Inc - Backend",
+    "description": "A Node.js backend for the SRI, Inc. web properties, focusing on user management, SSO, and integration with multiple databases.",
+    "difficulties": [
+        "Integrating FusionAuth for SSO and user authentication.",
+        "Creating a RESTful API to interact with the frontend.",
+        "Designing and managing a MySQL database schema for user and site data.",
+        "Connecting to and normalizing data across multiple databases.",
+        "Managing file operations through Azure Blob Storage.",
+        "Handling email notifications and alerts via SendGrid.",
+        "Scheduling automated tasks like alerts using cron jobs."
     ],
-    solutions: [
-      'Configured FusionAuth to handle SSO and user authentication.',
-      'Designed a RESTful API with Express to interact with the frontend.',
-      'Created a MySQL database schema and connected it to the app.',
-      'Utilized multiple database connections to retrieve, sort, normalize, and store data.',
+    "solutions": [
+        "Configured FusionAuth for seamless SSO and authentication.",
+        "Developed a RESTful API with Express to handle frontend requests.",
+        "Created robust MySQL database schemas to manage user, role, and application data.",
+        "Implemented multi-database queries and normalization for cohesive data handling.",
+        "Integrated Azure Blob Storage for file uploads, downloads, and metadata management.",
+        "Utilized SendGrid for email notifications with styled templates.",
+        "Scheduled tasks like weekly alerts using Node.js cron jobs."
     ],
-    github: 'https://github.com/dstein131/UserMgmt',
-    demo: 'https://usermgmtwebappimpl.azurewebsites.net/',
+    "github": "https://github.com/sriservices/UserMgmt",
+    "demo": "https://usermgmtwebappimpl.azurewebsites.net/"
   },
   {
     title: 'Discord Bot',
