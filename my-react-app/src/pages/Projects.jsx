@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import './Projects.css';
-import { FaGithub, FaExternalLinkAlt, FaImages } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaImages, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const devProjects = [
   {
@@ -53,24 +53,24 @@ const devProjects = [
     title: 'Scalable and Integrated Text-to-Speech (TTS) Processing System',
     description: 'A robust, scalable TTS processing system integrated with ElevenLabs API and AWS S3, designed for high performance, real-time updates, security, and error resilience.',
     difficulties: [
-        'Integrating the ElevenLabs API for dynamic and high-quality audio generation.',
-        'Securely storing generated audio files in AWS S3 while enabling efficient retrieval.',
-        'Designing an asynchronous job queue using Bull.js to handle high volumes of TTS requests.',
-        'Configuring Azure Redis Cache with TLS for secure and low-latency communication.',
-        'Implementing error-handling mechanisms to manage external API failures and retry logic.',
-        'Ensuring database consistency for updating TTS request statuses accurately.',
-        'Providing real-time updates to users about the status of their TTS requests.',
-        'Establishing reliable WebSocket communication using Socket.IO for live status updates.',
+      'Integrating the ElevenLabs API for dynamic and high-quality audio generation.',
+      'Securely storing generated audio files in AWS S3 while enabling efficient retrieval.',
+      'Designing an asynchronous job queue using Bull.js to handle high volumes of TTS requests.',
+      'Configuring Azure Redis Cache with TLS for secure and low-latency communication.',
+      'Implementing error-handling mechanisms to manage external API failures and retry logic.',
+      'Ensuring database consistency for updating TTS request statuses accurately.',
+      'Providing real-time updates to users about the status of their TTS requests.',
+      'Establishing reliable WebSocket communication using Socket.IO for live status updates.',
     ],
     solutions: [
-        'Integrated ElevenLabs API to generate high-quality text-to-speech audio streams with customizable voice options.',
-        'Used @aws-sdk/client-s3 to upload, retrieve, and manage audio files securely in AWS S3 with strict access policies.',
-        'Developed a job queue using Bull.js to process requests asynchronously, supporting scalability and rate-limiting.',
-        'Configured Azure Redis Cache with TLS for secure data transfer and optimized connection pooling for performance.',
-        'Built robust error-handling mechanisms, including retry logic and systematic error logging, to handle external API failures.',
-        'Implemented database operations to ensure consistent updates for TTS request statuses (e.g., pending, processing, completed).',
-        'Utilized Socket.IO for real-time communication, allowing users to receive live updates on the progress client user TTS requests.',
-        'Designed WebSocket events to handle TTS request status changes (e.g., pending, processing, completed, failed) and broadcast updates to connected clients.',
+      'Integrated ElevenLabs API to generate high-quality text-to-speech audio streams with customizable voice options.',
+      'Used @aws-sdk/client-s3 to upload, retrieve, and manage audio files securely in AWS S3 with strict access policies.',
+      'Developed a job queue using Bull.js to process requests asynchronously, supporting scalability and rate-limiting.',
+      'Configured Azure Redis Cache with TLS for secure data transfer and optimized connection pooling for performance.',
+      'Built robust error-handling mechanisms, including retry logic and systematic error logging, to handle external API failures.',
+      'Implemented database operations to ensure consistent updates for TTS request statuses (e.g., pending, processing, completed).',
+      'Utilized Socket.IO for real-time communication, allowing users to receive live updates on the progress of their TTS requests.',
+      'Designed WebSocket events to handle TTS request status changes (e.g., pending, processing, completed, failed) and broadcast updates to connected clients.',
     ],
     github: 'https://github.com/dstein131/simpBack',
     demo: 'https://simpfront.netlify.app/',
@@ -129,7 +129,6 @@ const devProjects = [
     github: 'https://github.com/dstein131/UserMgmt',
     demo: 'https://usermgmtwebappimpl.azurewebsites.net/',
   },
-  
   {
     title: 'Discord Bot',
     description: 'A Discord bot to manage and moderate a server.',
@@ -179,56 +178,80 @@ const uxProjects = [
 
 const ProjectCard = ({ project, section, openModal }) => {
   const { title, description, difficulties, solutions, github, demo, screenshots } = project;
+  const [isChallengesOpen, setIsChallengesOpen] = useState(false);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+
+  const toggleChallenges = () => {
+    setIsChallengesOpen(!isChallengesOpen);
+  };
+
+  const toggleSolutions = () => {
+    setIsSolutionsOpen(!isSolutionsOpen);
+  };
 
   return (
-    <div className="project-card">
-      <h2 className="project-card__title">{title}</h2>
-      <p className="project-card__description">{description}</p>
+    <div className="unique-projects-page__project-card">
+      <h2 className="unique-projects-page__project-title">{title}</h2>
+      <p className="unique-projects-page__project-description">{description}</p>
 
-      <div className="project-card__section">
-        <h3 className="project-card__subtitle">Challenges:</h3>
-        <ul className="project-card__list">
+      {/* Challenges Section */}
+      <div className="unique-projects-page__project-section">
+        <h3 className="unique-projects-page__project-subtitle" onClick={toggleChallenges}>
+          Challenges:
+          <span className="unique-projects-page__toggle-icon">
+            {isChallengesOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </span>
+        </h3>
+        <ul className={`unique-projects-page__project-list ${isChallengesOpen ? 'unique-projects-page__project-list--open' : 'unique-projects-page__project-list--collapsed'}`}>
           {difficulties.map((difficulty, idx) => (
-            <li key={`diff-${idx}`} className="project-card__list-item">
+            <li key={`diff-${idx}`} className="unique-projects-page__project-list-item">
               {difficulty}
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="project-card__section">
-        <h3 className="project-card__subtitle">Solutions:</h3>
-        <ul className="project-card__list">
+      {/* Solutions Section */}
+      <div className="unique-projects-page__project-section">
+        <h3 className="unique-projects-page__project-subtitle" onClick={toggleSolutions}>
+          Solutions:
+          <span className="unique-projects-page__toggle-icon">
+            {isSolutionsOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </span>
+        </h3>
+        <ul className={`unique-projects-page__project-list ${isSolutionsOpen ? 'unique-projects-page__project-list--open' : 'unique-projects-page__project-list--collapsed'}`}>
           {solutions.map((solution, idx) => (
-            <li key={`sol-${idx}`} className="project-card__list-item">
+            <li key={`sol-${idx}`} className="unique-projects-page__project-list-item">
               {solution}
             </li>
           ))}
         </ul>
       </div>
 
+      {/* Conditional Buttons for UX Projects */}
       {section === 'ux' && screenshots && screenshots.length > 0 && (
         <button
-          className="project-card__button"
+          className="unique-projects-page__project-button"
           onClick={() => openModal(screenshots, title)}
           aria-label={`View screenshots of ${title}`}
         >
-          <FaImages className="project-card__icon" />
+          <FaImages className="unique-projects-page__project-icon" />
           View Screenshots
         </button>
       )}
 
+      {/* Conditional Links for Development Projects */}
       {section === 'development' && (github || demo) && (
-        <div className="project-card__links">
+        <div className="unique-projects-page__project-links">
           {github && (
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card__link"
+              className="unique-projects-page__project-link"
               aria-label={`View ${title} on GitHub`}
             >
-              <FaGithub className="project-card__icon" />
+              <FaGithub className="unique-projects-page__project-icon" />
               GitHub
             </a>
           )}
@@ -237,10 +260,10 @@ const ProjectCard = ({ project, section, openModal }) => {
               href={demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card__link"
+              className="unique-projects-page__project-link"
               aria-label={`View live demo of ${title}`}
             >
-              <FaExternalLinkAlt className="project-card__icon" />
+              <FaExternalLinkAlt className="unique-projects-page__project-icon" />
               Live Demo
             </a>
           )}
@@ -265,19 +288,19 @@ const Projects = () => {
   const projectsToDisplay = currentSection === 'development' ? devProjects : uxProjects;
 
   return (
-    <div className="projects-page">
-      <header className="projects-page__header">
-        <h1 className="projects-page__title">
+    <div className="unique-projects-page__container">
+      <header className="unique-projects-page__header">
+        <h1 className="unique-projects-page__header-title">
           {currentSection === 'development' ? 'Development Projects' : 'UX/UI Projects'}
         </h1>
-        <p className="projects-page__subtitle">
+        <p className="unique-projects-page__header-subtitle">
           Here’s a list of projects I’ve worked on, the challenges I faced, and how I solved them.
         </p>
-        <div className="projects-page__toggle">
+        <div className="unique-projects-page__toggle">
           <button
             onClick={() => setCurrentSection('development')}
-            className={`projects-page__toggle-button ${
-              currentSection === 'development' ? 'projects-page__toggle-button--active' : ''
+            className={`unique-projects-page__toggle-button ${
+              currentSection === 'development' ? 'unique-projects-page__toggle-button--active' : ''
             }`}
             aria-pressed={currentSection === 'development'}
           >
@@ -285,8 +308,8 @@ const Projects = () => {
           </button>
           <button
             onClick={() => setCurrentSection('ux')}
-            className={`projects-page__toggle-button ${
-              currentSection === 'ux' ? 'projects-page__toggle-button--active' : ''
+            className={`unique-projects-page__toggle-button ${
+              currentSection === 'ux' ? 'unique-projects-page__toggle-button--active' : ''
             }`}
             aria-pressed={currentSection === 'ux'}
           >
@@ -295,8 +318,8 @@ const Projects = () => {
         </div>
       </header>
 
-      <main className="projects-page__main">
-        <div className="projects-page__grid">
+      <main className="unique-projects-page__main">
+        <div className="unique-projects-page__grid">
           {projectsToDisplay.map((project, index) => (
             <ProjectCard
               key={`project-${index}`}
@@ -310,30 +333,36 @@ const Projects = () => {
 
       {modalData.title && modalData.screenshots.length > 0 && (
         <div
-          className={`modal ${modalData.screenshots.length > 0 ? 'modal--visible' : ''}`}
+          className={`unique-projects-page__modal ${
+            modalData.screenshots.length > 0 ? 'unique-projects-page__modal--visible' : ''
+          }`}
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          <div className="modal__overlay" onClick={closeModal} aria-hidden="true"></div>
-          <div className="modal__content">
+          <div
+            className="unique-projects-page__modal-overlay"
+            onClick={closeModal}
+            aria-hidden="true"
+          ></div>
+          <div className="unique-projects-page__modal-content">
             <button
-              className="modal__close"
+              className="unique-projects-page__modal-close"
               onClick={closeModal}
               aria-label="Close modal"
             >
               &times;
             </button>
-            <h3 className="modal__title" id="modal-title">
+            <h3 className="unique-projects-page__modal-title" id="modal-title">
               {modalData.title} Screenshots
             </h3>
-            <div className="modal__carousel">
+            <div className="unique-projects-page__modal-carousel">
               {modalData.screenshots.map((screenshot, idx) => (
                 <img
                   key={`modal-screenshot-${idx}`}
                   src={screenshot}
                   alt={`Screenshot ${idx + 1} of ${modalData.title}`}
-                  className="modal__image"
+                  className="unique-projects-page__modal-image"
                 />
               ))}
             </div>
